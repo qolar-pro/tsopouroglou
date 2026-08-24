@@ -84,67 +84,12 @@ export const wordmark = {
 } as const;
 
 /* ------------------------------------------------------------------ */
-/* Services — the eight he actually does. No more.                     */
-/* Depth beats breadth: one competitor lists ~90 and it reads as noise. */
+/* Services — full records live in services.ts, re-exported here so every  */
+/* component keeps one import path for content.                           */
 /* ------------------------------------------------------------------ */
 
-export type Service = {
-  slug: string;
-  title: string;
-  navTitle: string;
-  card: string;
-};
-
-export const services: Service[] = [
-  {
-    slug: "ekskafes",
-    title: "Εκσκαφές",
-    navTitle: "Εκσκαφές",
-    card: "Θεμέλια, υπόγεια, τάφροι. Τρεις τσάπες — μεγάλη για το εργοτάξιο, μικρή για τα στενά.",
-  },
-  {
-    slug: "katharismos-oikopedon",
-    title: "Καθαρισμός οικοπέδων",
-    navTitle: "Καθαρισμός οικοπέδων",
-    card: "Ξερόχορτα, βάτα, μπάζα. Καθαρό οικόπεδο, έτοιμο για δουλειά ή για πώληση.",
-  },
-  {
-    slug: "vothroi",
-    title: "Κατασκευές βόθρων",
-    navTitle: "Βόθροι",
-    card: "Κατασκευή βόθρου από την εκσκαφή μέχρι το κάλυμμα.",
-  },
-  {
-    slug: "ekvrachismoi",
-    title: "Εκβραχισμοί",
-    navTitle: "Εκβραχισμοί",
-    card: "Βράχος μέσα στο οικόπεδο; Τον σπάμε και τον απομακρύνουμε.",
-  },
-  {
-    slug: "katharismos-paralias",
-    title: "Καθαρισμοί παραλίας",
-    navTitle: "Καθαρισμοί παραλίας",
-    card: "Φύκια, ξύλα, πέτρες. Καθαρή ακτή πριν και μέσα στη σεζόν.",
-  },
-  {
-    slug: "metafores-chomaton",
-    title: "Μεταφορές χωμάτων",
-    navTitle: "Μεταφορές χωμάτων",
-    card: "Φορτηγά για χώμα, μπάζα και αμμοχάλικο. Φόρτωση και μεταφορά.",
-  },
-  {
-    slug: "choma-kipou",
-    title: "Στρώσιμο χώματος κήπου",
-    navTitle: "Χώμα κήπου",
-    card: "Φυτόχωμα στρωμένο και ισοπεδωμένο, έτοιμο για γκαζόν ή δέντρα.",
-  },
-  {
-    slug: "syndeseis-nerou-apocheteusi",
-    title: "Συνδέσεις νερού και αποχετεύσεις",
-    navTitle: "Νερό & αποχέτευση",
-    card: "Σκάψιμο, σύνδεση, κλείσιμο. Ύδρευση και αποχέτευση.",
-  },
-];
+export { services, serviceBySlug, servicesPage } from "./services";
+export type { Service } from "./services";
 
 export const servicesSection = {
   eyebrow: "ΤΙ ΚΑΝΟΥΜΕ",

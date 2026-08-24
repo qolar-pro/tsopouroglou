@@ -467,3 +467,54 @@ silently kill it. This has now bitten `.nav-trigger`, the `.section-lede`
 measure, and `.grid-3` — each time invisible in review and each time caught by
 a probe rather than a screenshot. `layout-probe.mjs` exists for exactly this
 and should be run at every breakpoint after any layout change.
+
+---
+
+## 12. Gate 4 — the eight service pages
+
+`/ypiresies` plus `/ypiresies/[slug]` × 8, all prerendered as static HTML.
+
+**Not a template loop.** Each page has its own copy: what the job involves,
+which machine does it and why that matters, and a numbered «Τι να μας πείτε
+όταν τηλεφωνήσετε» list. That last block is the conversion lever — the phone
+is the goal, and a caller who already knows the four things worth saying has a
+better call than one who doesn't.
+
+Page shape: head (breadcrumb, h1, lede, call) → includes + machines →
+what-to-say + where → related → call band. Four alternating surfaces, level
+line on each boundary.
+
+**Honest boundaries where they exist.** `/ypiresies/vothroi` says plainly that
+he builds βόθρους and does not empty or unblock them — the client confirmed
+building only, and the line stops wrong calls before they cost anyone time.
+
+**Claims removed rather than guessed.** A drafted line saying site visits are
+free was cut: he never said it. The εκβραχισμοί page describes the outcome
+without naming a technique, because the technique was never confirmed. Both
+are now questions 5 and 8 in PLACEHOLDERS.md.
+
+**Refactor:** header, footer, sticky bar and scroll state moved from
+`page.tsx` into `layout.tsx` — 14 more routes are coming and they should not
+each re-assemble the furniture.
+
+**New guard:** `services.ts` asserts at build time that every `related` slug
+exists and that nothing lists itself. Mutation-tested — a deliberate bad slug
+fails the build with a named error, which is the only way to know a guard
+works.
+
+### Verified
+
+- 10 routes: all 200, exactly one h1 each, distinct title tags carrying the
+  service keyword + Χαλκιδική.
+- A bogus slug returns 404.
+- All 8 internal service links resolve 200.
+- Overflow clean at 320 / 390 / 768 / 1280 on a service page.
+- Layout probe correct at both breakpoints on a service page.
+- Nav 11/11 on a service page.
+- Greek guard clean across 21 files.
+
+### Deliverable added
+
+`PLACEHOLDERS.md` — every unconfirmed item as a checklist, split into blocking
+launch / needed before copy is final / nice to have. Gate 4 surfaced five new
+questions, all recorded rather than answered.

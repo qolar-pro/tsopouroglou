@@ -1123,3 +1123,121 @@ a.contact-row:hover .contact-value {
   font-family: var(--font-display);
   font-weight: 900;
 }
+
+/* ===========================================================================
+   INNER PAGES — service and area detail
+=========================================================================== */
+.page-head {
+  padding-block: var(--s-8) var(--section-y);
+}
+
+.breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-line);
+}
+.breadcrumb a:hover {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-ink);
+}
+
+/* Two columns of detail on wide screens, stacked on a phone. */
+.detail-cols {
+  display: grid;
+  gap: var(--s-8);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 860px) {
+  .detail-cols {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-9);
+  }
+}
+
+.detail-body {
+  margin-top: var(--s-4);
+  max-width: 52ch;
+}
+
+/* A checked item is a claim about scope, so the mark is drawn in the accent
+   rather than being a bullet. Same line system as everything else. */
+.check-list {
+  list-style: none;
+  margin: var(--s-5) 0 0;
+  padding: 0;
+}
+.check-list li {
+  position: relative;
+  padding-left: var(--s-6);
+  padding-block: var(--s-3);
+  border-top: var(--rule-hair);
+}
+.check-list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: calc(var(--s-3) + 0.62em);
+  width: 14px;
+  height: 2px;
+  background-color: var(--color-accent);
+}
+
+/* Numbered because the caller reads them in order while on the phone. */
+.ask-list {
+  list-style: none;
+  counter-reset: ask;
+  margin: var(--s-5) 0 0;
+  padding: 0;
+}
+.ask-list li {
+  counter-increment: ask;
+  position: relative;
+  padding-left: var(--s-7);
+  padding-block: var(--s-3);
+  border-top: var(--rule-hair);
+}
+.ask-list li::before {
+  content: counter(ask);
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: var(--s-3);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-small);
+  color: var(--color-accent);
+}
+
+/* A caveat or an honest boundary. Marked by a rule, not a coloured box. */
+.note {
+  margin-top: var(--s-5);
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+  max-width: 52ch;
+}
+
+.band-cta {
+  display: grid;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+@media (min-width: 520px) {
+  .band-cta {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.inline-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent);
+}
+.inline-link:hover {
+  color: var(--color-accent-hover);
+}
