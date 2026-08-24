@@ -12,14 +12,16 @@ import ContactBlock from "@/components/ContactBlock";
  * Surfaces alternate field / raised so rhythm comes from two light tones
  * rather than from a dark band. Only the footer is dark.
  *
- * Έργα is absent while HAS_REAL_PHOTOS is false. A missing gallery is fine;
- * a gallery of stock excavators presented as his work is not.
+ * ErgaStrip renders itself null unless there is something honest to show,
+ * so the Έργα section is simply absent when there are no photos. A missing
+ * gallery is fine; a gallery of stock presented as his work is not.
  */
 export default function Home() {
   return (
     <main>
       <Hero />
       <Services />
+      <ErgaStrip />
       <Areas />
       <WhyUs />
       <ContactBlock />

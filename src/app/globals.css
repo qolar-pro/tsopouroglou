@@ -1484,3 +1484,17 @@ a.contact-row:hover .contact-value {
   font-weight: 700;
   padding: var(--s-3) var(--gutter);
 }
+
+/* Ποιοι είμαστε — portrait beside the prose on wide screens. */
+.about-cols {
+  display: grid;
+  gap: var(--s-7);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 860px) {
+  .about-cols {
+    grid-template-columns: 20rem 1fr;
+    gap: var(--s-9);
+    align-items: start;
+  }
+}

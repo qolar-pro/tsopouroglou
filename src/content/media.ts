@@ -123,6 +123,22 @@ export const stolos: { name: string; note: string; img: Img }[] = [
   { name: "Τρακτέρ", note: "Δουλειά στην άμμο και σε χωράφια", img: ph("stolos-trakter", "Το τρακτέρ μας") },
 ];
 
+/**
+ * One photo per service page. A service page should show THAT work — a
+ * generic site photo on all eight would be the visual equivalent of the
+ * templated copy we avoided.
+ */
+export const servicePhoto: Record<string, Img> = {
+  "ekskafes": ph("ypiresia-ekskafes", "Εκσκαφέας ανοίγει θεμέλια σε οικόπεδο"),
+  "katharismos-oikopedon": ph("ypiresia-katharismos-oikopedon", "Καθαρισμός οικοπέδου από ξερά χόρτα και βάτα"),
+  "vothroi": ph("ypiresia-vothroi", "Εκσκαφή και κατασκευή βόθρου σε αυλή"),
+  "ekvrachismoi": ph("ypiresia-ekvrachismoi", "Σπάσιμο βράχου μέσα σε οικόπεδο"),
+  "katharismos-paralias": ph("ypiresia-katharismos-paralias", "Καθαρισμός παραλίας από φύκια και ξύλα"),
+  "metafores-chomaton": ph("ypiresia-metafores-chomaton", "Φόρτωση χωμάτων σε φορτηγό"),
+  "choma-kipou": ph("ypiresia-choma-kipou", "Στρώσιμο φυτοχώματος σε αυλή"),
+  "syndeseis-nerou-apocheteusi": ph("ypiresia-syndeseis-nerou-apocheteusi", "Τάφρος για σύνδεση νερού"),
+};
+
 /** Ποιοι είμαστε — one portrait. 3:4, because phones shoot people portrait. */
 export const etaireiaPhoto: Img = ph(
   "etaireia-adelfia",
@@ -135,6 +151,7 @@ export const etaireiaPhoto: Img = ph(
   const all: Img[] = [
     ...erga.flatMap((e) => [e.before, e.after]),
     ...stolos.map((s) => s.img),
+    ...Object.values(servicePhoto),
     etaireiaPhoto,
   ];
   for (const img of all) {

@@ -115,6 +115,22 @@ for (const [slug, label] of MACHINES) {
   made.push(make(`stolos-${slug}`, 4, 3, label, "Φωτογραφία μηχανήματος"));
 }
 
+// --- One per service. A service page should show that work, not a generic
+//     site photo — design plan §7.
+const SERVICES = [
+  ["ekskafes", "Εκσκαφή σε εξέλιξη"],
+  ["katharismos-oikopedon", "Καθαρισμός οικοπέδου"],
+  ["vothroi", "Κατασκευή βόθρου"],
+  ["ekvrachismoi", "Σπάσιμο βράχου"],
+  ["katharismos-paralias", "Καθαρισμός παραλίας"],
+  ["metafores-chomaton", "Φόρτωση και μεταφορά"],
+  ["choma-kipou", "Στρώσιμο χώματος κήπου"],
+  ["syndeseis-nerou-apocheteusi", "Τάφρος για σύνδεση"],
+];
+for (const [slug, label] of SERVICES) {
+  made.push(make(`ypiresia-${slug}`, 4, 3, label, "Φωτογραφία από τη δουλειά"));
+}
+
 // --- One portrait slot for the company page. Phone photos are often 3:4.
 made.push(
   make("etaireia-adelfia", 3, 4, "Γρηγόρης και Νικόλαος", "Στο εργοτάξιο")

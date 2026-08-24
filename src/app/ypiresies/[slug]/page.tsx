@@ -6,6 +6,9 @@ import LevelLine from "@/components/LevelLine";
 import ArrowIcon from "@/components/ArrowIcon";
 import CallBand from "@/components/CallBand";
 import { JsonLd, serviceSchema, breadcrumbSchema } from "@/lib/schema";
+import Photo from "@/components/Photo";
+import { servicePhoto, SHOW_PLACEHOLDER_MEDIA } from "@/content/media";
+import { HAS_REAL_PHOTOS } from "@/content/site";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -93,6 +96,15 @@ export default async function ServicePage({
             <h2 className="h3">{service.machinesHeading}</h2>
             <p className="detail-body">{service.machines}</p>
             {service.note && <p className="note">{service.note}</p>}
+            {(HAS_REAL_PHOTOS || SHOW_PLACEHOLDER_MEDIA) &&
+              servicePhoto[service.slug] && (
+                <div style={{ marginTop: "var(--s-6)" }}>
+                  <Photo
+                    img={servicePhoto[service.slug]}
+                    sizes="(min-width: 860px) 50vw, 100vw"
+                  />
+                </div>
+              )}
           </div>
         </div>
       </section>
