@@ -102,46 +102,8 @@ export const servicesSection = {
 /* Areas — priority response is his real edge over anyone driving in.   */
 /* ------------------------------------------------------------------ */
 
-export type Area = {
-  slug: string;
-  name: string;
-  /** Home ground: where he is based and gets there fastest. */
-  priority: boolean;
-  card: string;
-};
-
-export const areas: Area[] = [
-  {
-    slug: "metamorfosi",
-    name: "Μεταμόρφωση",
-    priority: true,
-    card: "Η βάση μας. Εδώ δουλεύουμε από το 1987 και ξέρουμε τα οικόπεδα ένα προς ένα.",
-  },
-  {
-    slug: "oikismos-daskalon",
-    name: "Οικισμός Δασκάλων",
-    priority: true,
-    card: "Δίπλα μας. Ερχόμαστε πρώτα εδώ, μαζί με τη Μεταμόρφωση.",
-  },
-  {
-    slug: "nikiti",
-    name: "Νικήτη",
-    priority: false,
-    card: "Εκσκαφές, καθαρισμοί οικοπέδων και βόθροι στη Νικήτη και γύρω από αυτήν.",
-  },
-  {
-    slug: "vatopedi",
-    name: "Βατοπέδι",
-    priority: false,
-    card: "Παραθαλάσσια οικόπεδα και καθαρισμοί ακτής, πριν ανοίξει η σεζόν.",
-  },
-  {
-    slug: "psakoudia",
-    name: "Ψακούδια",
-    priority: false,
-    card: "Εξοχικά, αυλές και παραλία — δουλειές που θέλουν και μικρό μηχάνημα.",
-  },
-];
+export { areaLinks, areaPages, areaBySlug, publishedAreas, areasPage } from "./areas";
+export type { AreaPage } from "./areas";
 
 export const areasSection = {
   eyebrow: "ΠΟΥ ΔΟΥΛΕΥΟΥΜΕ",

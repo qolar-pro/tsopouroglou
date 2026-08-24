@@ -1,4 +1,5 @@
-import { areas, areasSection } from "@/content/site";
+import { areaLinks } from "@/content/areas";
+import { areasSection } from "@/content/site";
 import LevelLine from "./LevelLine";
 
 /**
@@ -8,8 +9,8 @@ import LevelLine from "./LevelLine";
  * place at the top of the list.
  */
 export default function Areas() {
-  const priority = areas.filter((a) => a.priority);
-  const rest = areas.filter((a) => !a.priority);
+  const priority = areaLinks.filter((a) => a.priority);
+  const rest = areaLinks.filter((a) => !a.priority);
 
   return (
     <section className="section surface-field" id="perioxes">
@@ -26,8 +27,8 @@ export default function Areas() {
       <div className="wrap">
         <ul className="grid grid-2">
           {priority.map((a) => (
-            <li key={a.slug}>
-              <a className="card" href={`/perioxes/${a.slug}`}>
+            <li key={a.name}>
+              <a className="card" href={a.href}>
                 <span className="area-flag">{areasSection.priorityLabel}</span>
                 <h3 className="area-name">{a.name}</h3>
                 <p className="area-body">{a.card}</p>
@@ -38,8 +39,8 @@ export default function Areas() {
 
         <ul className="grid grid-3" style={{ marginTop: "var(--s-3)" }}>
           {rest.map((a) => (
-            <li key={a.slug}>
-              <a className="card" href={`/perioxes/${a.slug}`}>
+            <li key={a.name}>
+              <a className="card" href={a.href}>
                 <h3 className="area-name area-name-sm">{a.name}</h3>
                 <p className="area-body">{a.card}</p>
               </a>

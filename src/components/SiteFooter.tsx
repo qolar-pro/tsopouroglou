@@ -1,10 +1,5 @@
-import {
-  business,
-  services,
-  areas,
-  footer,
-  visibleNav,
-} from "@/content/site";
+import { business, services, footer, visibleNav } from "@/content/site";
+import { areaLinks } from "@/content/areas";
 
 export default function SiteFooter() {
   return (
@@ -30,9 +25,9 @@ export default function SiteFooter() {
           <nav className="footer-col" aria-label={footer.areasHeading}>
             <h2 className="footer-heading">{footer.areasHeading}</h2>
             <ul>
-              {areas.map((a) => (
-                <li key={a.slug}>
-                  <a href={`/perioxes/${a.slug}`}>{a.name}</a>
+              {areaLinks.map((a) => (
+                <li key={a.name}>
+                  <a href={a.href}>{a.name}</a>
                 </li>
               ))}
             </ul>

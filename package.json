@@ -8,12 +8,13 @@
     "start": "next start",
     "check": "node scripts/check-greek.mjs",
     "check:test": "node scripts/check-greek.test.mjs",
-    "prebuild": "npm run check:test && npm run check",
+    "prebuild": "npm run check:test && npm run check && npm run contrast",
     "shot": "node scripts/shot.mjs",
     "overflow": "node scripts/overflow-audit.mjs",
     "nav-test": "node scripts/nav-test.mjs",
     "probe": "node scripts/layout-probe.mjs",
-    "btn-states": "node scripts/button-states.mjs"
+    "btn-states": "node scripts/button-states.mjs",
+    "contrast": "node scripts/contrast-audit.mjs"
   },
   "dependencies": {
     "next": "16.3.2",
