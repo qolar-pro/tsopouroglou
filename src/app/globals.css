@@ -1,26 +1,1125 @@
 @import "tailwindcss";
 
+/* ===========================================================================
+   ΣΤΑΘΜΗ · LEVEL
+   ---------------------------------------------------------------------------
+   Built from the green line a laser level throws across a plot — the
+   instrument that separates a licensed operator from a man with a digger.
+
+   Three light surfaces, not two: field (white), raised (gravel), stone.
+   Rhythm comes from alternating light tones. Only the footer is dark.
+
+   Every ratio below is computed, not eyeballed. Body text is 14–18:1;
+   AAA needs 7. The audience is 40–70, often outdoors in Chalkidiki sun on a
+   phone, so muted text is held to AAA as well — stricter than the spec, and
+   the token most likely to fail in daylight.
+=========================================================================== */
+@theme {
+  /* --- Surfaces: three light, one dark ------------------------------- */
+  --color-field: #ffffff; /* page ground                                */
+  --color-raised: #f1f3f1; /* gravel — alternating sections, cards      */
+  --color-stone: #e4e8e6; /* deepest light band — the cut strata        */
+  --color-deep: #111716; /* footer only                                 */
+
+  /* --- Ink ----------------------------------------------------------- */
+  --color-ink: #15191a; /* 17.71 / 15.88 / 14.32 on the three surfaces  */
+  --color-ink-muted: #434b4c; /*  8.94 /  8.01 /  7.23 — AAA on all     */
+
+  /* --- Lines: elevation is drawn, never lit -------------------------- */
+  --color-line: #7c8583; /* functional boundary  3.79 / 3.40 / 3.07     */
+  --color-line-hair: #dce0de; /* decorative separator only (1.33)       */
+
+  /* --- Accent: instrument green -------------------------------------- */
+  --color-accent: #0a6136; /*  7.56 on field, white label 7.56          */
+  --color-accent-hover: #08512d; /* white label  9.44                   */
+  --color-accent-press: #064124; /* white label 11.74                   */
+
+  --font-sans: var(--font-alegreya), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-alegreya-display), ui-sans-serif, system-ui,
+    sans-serif;
+}
+
+/* ===========================================================================
+   SPACING — 4px base. White space is the brief.
+=========================================================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --s-1: 0.25rem; /*   4 */
+  --s-2: 0.5rem; /*    8 */
+  --s-3: 0.75rem; /*  12 */
+  --s-4: 1rem; /*      16 */
+  --s-5: 1.5rem; /*    24 */
+  --s-6: 2rem; /*      32 */
+  --s-7: 3rem; /*      48 */
+  --s-8: 4rem; /*      64 */
+  --s-9: 6rem; /*      96 */
+  --s-10: 8rem; /*    128 */
+  --s-11: 12rem; /*   192 */
+
+  /* Section rhythm — roughly double the previous build. */
+  --section-y: clamp(4.5rem, 9vw, 8rem);
+
+  --container: 68rem;
+  --gutter: 1.25rem;
+
+  --callbar: 60px;
+
+  /* Elevation is a drawn line. One system, two weights, no shadows. */
+  --rule: 1px solid var(--color-line);
+  --rule-hair: 1px solid var(--color-line-hair);
+
+  /* Motion — three moments, nothing else. */
+  --t-fast: 120ms;
+  --t-panel: 160ms;
+  --ease: cubic-bezier(0.2, 0, 0.2, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@media (min-width: 768px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --gutter: 2.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  :root {
+    --gutter: 4rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ===========================================================================
+   TYPE SCALE — ratio 1.22 mobile / 1.28 desktop. Every step carries its own
+   line-height, tracking and measure. Greek keeps the looser leading: its
+   lowercase has more accent traffic above the x-height than Latin.
+=========================================================================== */
+:root {
+  --t-display: clamp(4.5rem, 26vw, 13rem); /*    72 → 208  the year only */
+  --t-h1: clamp(1.9375rem, 6.6vw, 3rem); /*       31 →  48             */
+  --t-h2: clamp(1.5625rem, 4.4vw, 2.3125rem); /*  25 →  37             */
+  --t-h3: clamp(1.3125rem, 2.4vw, 1.4375rem); /*  21 →  23             */
+  --t-lede: clamp(1.3125rem, 2.4vw, 1.4375rem); /* 21 → 23             */
+  --t-body: 1.0625rem; /*                          17 →  18            */
+  --t-small: 0.9375rem; /*                         15 → 15.5           */
+  --t-label: 0.8125rem; /*                         13                  */
+}
+@media (min-width: 768px) {
+  :root {
+    --t-body: 1.125rem;
+    --t-small: 0.96875rem;
+  }
+}
+
+/* ===========================================================================
+   BASE
+=========================================================================== */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    /* Net, not a fix — overflow causes are corrected at source. */
+    overflow-x: clip;
+    background-color: var(--color-field);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--t-body);
+    line-height: 1.65;
+    padding-bottom: calc(var(--callbar) + env(safe-area-inset-bottom, 0px));
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-ink); /* 17.71 on field */
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+  /* On the dark footer the ink ring would vanish; the field ring is 18.14. */
+  .surface-deep :focus-visible {
+    outline-color: var(--color-field);
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #fff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ===========================================================================
+   LAYOUT PRIMITIVES
+=========================================================================== */
+
+/* Applied per-element rather than to a wrapper, so full-bleed bands can
+   escape without negative-margin tricks.
+   NEVER put max-width on the same box as .wrap — margin-inline:auto would
+   then centre that box in the viewport instead of aligning it. This bug has
+   shipped twice; .measure exists so it cannot happen a third time. */
+.wrap {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.measure {
+  display: block;
+}
+@media (min-width: 768px) {
+  .measure {
+    max-width: 46ch; /* ledes */
+  }
+}
+.measure-prose {
+  display: block;
+  max-width: 66ch;
+}
+
+/* Vertical rhythm inside a section: children space themselves. */
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.stack-3 > * + * {
+  margin-top: var(--s-3);
+}
+.stack-4 > * + * {
+  margin-top: var(--s-4);
+}
+.stack-6 > * + * {
+  margin-top: var(--s-6);
+}
+
+/* ===========================================================================
+   TYPE ROLES
+=========================================================================== */
+.label {
+  font-size: var(--t-label);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+}
+.surface-deep .label {
+  color: var(--color-raised);
+}
+
+.h1 {
+  font-size: var(--t-h1);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+.h2 {
+  font-size: var(--t-h2);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+.h3 {
+  font-size: var(--t-h3);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  font-weight: 700;
+}
+.lede {
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+}
+.small {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+}
+
+/* ===========================================================================
+   SURFACES
+=========================================================================== */
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+.surface-field {
+  background-color: var(--color-field);
+}
+.surface-raised {
+  background-color: var(--color-raised);
+}
+.surface-deep {
+  background-color: var(--color-deep);
+  color: var(--color-raised);
+}
+.surface-deep h1,
+.surface-deep h2,
+.surface-deep h3 {
+  color: var(--color-field);
+}
+
+/* A band change is tonal and subtle by design (1.12–1.24). The level line
+   is what actually marks the boundary — see «Η στάθμη» below. */
+
+/* ===========================================================================
+   «Η ΣΤΑΘΜΗ» — the level line.
+   The cut survives, but in this palette it is drawn rather than dug: a fine
+   ink rule with a short accent segment at its left, the way a laser level
+   marks a grade across a plot. It sits on every section boundary.
+=========================================================================== */
+.level {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 2px;
+  background-color: var(--color-line-hair);
+}
+.level::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: clamp(3rem, 12vw, 7rem);
+  background-color: var(--color-accent);
+}
+.surface-deep .level {
+  background-color: #2b3331;
+}
+
+/* ===========================================================================
+   BUTTONS — real states. The press is physical, not a colour swap: each
+   button carries a 2px darker shelf at rest that collapses as the button
+   moves down 1px, so it reads as a solid object being pushed.
+=========================================================================== */
+.btn {
+  --shelf: var(--color-accent-press);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 56px;
+  padding-inline: var(--s-5);
+  border: 0;
+  border-radius: 2px;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 0 0 var(--shelf);
+  transition: background-color var(--t-fast) var(--ease),
+    box-shadow var(--t-fast) var(--ease), transform var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 0 var(--shelf);
+}
+
+.btn[aria-disabled="true"],
+.btn:disabled {
+  background-color: var(--color-line-hair);
+  color: var(--color-ink-muted);
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary — the call. One colour on every surface. */
+.btn-call {
+  background-color: var(--color-accent);
+  color: #fff; /* 7.56 AA */
+  letter-spacing: 0.03em;
+}
+.btn-call:hover {
+  background-color: var(--color-accent-hover);
+}
+.btn-call:active {
+  background-color: var(--color-accent-press);
+}
+/* On a dark surface the fill alone is only 2.4 against the ground, so the
+   button gains a ring rather than a second colour. Fill and label never
+   change anywhere on the site. */
+.surface-deep .btn-call {
+  box-shadow: 0 2px 0 0 var(--shelf), inset 0 0 0 1px var(--color-field);
+}
+.surface-deep .btn-call:active {
+  box-shadow: inset 0 0 0 1px var(--color-field);
+}
+
+/* Secondary — outlined, drawn with the same rule system. */
+.btn-secondary {
+  --shelf: var(--color-line);
+  background-color: transparent;
+  color: var(--color-ink);
+  box-shadow: 0 2px 0 0 var(--shelf), inset 0 0 0 1px var(--color-ink-muted);
+  font-weight: 400;
+}
+.btn-secondary:hover {
+  background-color: var(--color-raised);
+  box-shadow: 0 2px 0 0 var(--color-ink), inset 0 0 0 1px var(--color-ink);
+}
+.btn-secondary:active {
+  background-color: var(--color-stone);
+  box-shadow: inset 0 0 0 1px var(--color-ink);
+}
+.surface-deep .btn-secondary {
+  color: var(--color-field);
+  box-shadow: 0 2px 0 0 var(--color-line), inset 0 0 0 1px var(--color-line);
+}
+.surface-deep .btn-secondary:hover {
+  background-color: #1b2322;
+  box-shadow: 0 2px 0 0 var(--color-field), inset 0 0 0 1px var(--color-field);
+}
+.surface-deep .btn-secondary:active {
+  background-color: #1b2322;
+  box-shadow: inset 0 0 0 1px var(--color-field);
+}
+
+/* Quiet — a text action with a rule under it. */
+.btn-quiet {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 48px;
+  color: var(--color-accent);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid var(--color-accent);
+}
+.btn-quiet:hover {
+  color: var(--color-accent-hover);
+  border-bottom-color: var(--color-accent-hover);
+}
+.btn-quiet:active {
+  transform: translateY(1px);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ===========================================================================
+   CARDS — elevation is the drawn line. No shadows, ever, on static content.
+=========================================================================== */
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--s-5);
+  background-color: var(--color-field);
+  border: var(--rule);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+.surface-raised .card {
+  background-color: var(--color-field);
+}
+.surface-field .card {
+  background-color: var(--color-raised);
+}
+.card:hover {
+  border-color: var(--color-ink);
+}
+.card:active {
+  transform: translateY(1px);
+}
+@media (min-width: 768px) {
+  .card {
+    padding: var(--s-6);
+  }
+}
+
+.card-title {
+  font-size: var(--t-h3);
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.card-body {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+  margin-top: var(--s-2);
+  flex: 1 1 auto;
+}
+.card-more {
+  display: inline-flex;
+  color: var(--color-accent);
+  margin-top: var(--s-4);
+}
+
+.grid {
+  display: grid;
+  gap: var(--s-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.grid-2 {
+  grid-template-columns: 1fr;
+}
+.grid-4 {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 560px) {
+  .grid-2,
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 960px) {
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+/* Base BEFORE the media query. An equal-specificity rule declared after a
+   media block wins on source order and silently kills it — this is the
+   third time that ordering has bitten in this file. */
+.grid-3 {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===========================================================================
+   SECTION HEADER BLOCK
+=========================================================================== */
+.section-head {
+  margin-bottom: var(--s-7);
+}
+.section-head .label + .h2 {
+  margin-top: var(--s-3);
+}
+.section-head .h2 + .lede {
+  margin-top: var(--s-4);
+}
+
+/* ===========================================================================
+   HERO — the year is still the thesis, but this palette draws the cut
+   instead of digging it. The strata are pale bands; the year sits on stone
+   in ink at 14.32:1.
+=========================================================================== */
+.hero {
+  background-color: var(--color-field);
+  padding-top: var(--s-8);
+}
+@media (min-width: 768px) {
+  .hero {
+    padding-top: var(--s-9);
+  }
+}
+
+.hero-h1 {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.hero-h1-lead {
+  display: block;
+  font-size: var(--t-h1);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  padding-bottom: var(--s-6);
+}
+
+.hero-strata {
+  display: block;
+  position: relative;
+  /* Field, not stone: a tall flat tone block reads as weight. The strata
+     graphic and the level line carry the motif; the ground stays white. */
+  background-color: var(--color-field);
+  padding-top: calc(var(--profile) + var(--s-6));
+  padding-bottom: var(--s-2);
+  --profile: 26px;
+}
+@media (min-width: 768px) {
+  .hero-strata {
+    --profile: 38px;
+  }
+}
+
+.hero-profile {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  width: 100%;
+  height: var(--profile);
+  display: block;
+}
+
+.hero-year {
+  display: block;
+  /* Display instance: the only place latin is preloaded, because these are
+     the LCP glyphs and ASCII digits live in the latin subset. */
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  font-size: var(--t-display);
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  font-variant-numeric: lining-nums;
+}
+
+.hero-bottom {
+  background-color: var(--color-field);
+  padding-bottom: var(--s-8);
+}
+.hero-licence {
+  color: var(--color-ink-muted); /* 7.23 AAA on stone */
+  padding-top: var(--s-3);
+}
+.hero-lede {
+  color: var(--color-ink);
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  padding-top: var(--s-5);
+}
+.hero-cta {
+  display: grid;
+  gap: var(--s-3);
+  padding-top: var(--s-6);
+}
+@media (min-width: 520px) {
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .hero-cta .btn {
+    width: auto;
+  }
+}
+.hero-hours {
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+  padding-top: var(--s-4);
+}
+
+/* ===========================================================================
+   HEADER — designed, not assembled. One rule that appears only after the
+   page has scrolled past the hero. Motion moment 1 of 3.
+=========================================================================== */
+.site-header {
+  background-color: var(--color-field);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--t-fast) var(--ease);
+}
+.site-header[data-scrolled="true"] {
+  border-bottom-color: var(--color-line-hair);
+}
+@media (min-width: 940px) {
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 40;
+  }
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-height: 64px;
+  padding-block: var(--s-3);
+}
+@media (min-width: 940px) {
+  .site-header-inner {
+    min-height: 80px;
+  }
+}
+
+.wordmark {
+  text-decoration: none;
+  min-width: 0;
+}
+.wordmark-name {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1rem, 4.6vw, 1.25rem);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--color-ink);
+}
+.wordmark-tagline {
+  display: block;
+  white-space: nowrap;
+  font-size: 10.5px;
+  letter-spacing: 0.09em;
+  line-height: 1.3;
+  color: var(--color-accent);
+  padding-top: 3px;
+}
+@media (min-width: 400px) {
+  .wordmark-tagline {
+    font-size: 11.5px;
+  }
+}
+
+.site-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex: 0 0 auto;
+}
+
+.header-call {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 48px;
+  padding-inline: var(--s-3);
+  border-radius: 2px;
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: var(--t-small);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px var(--color-line);
+  transition: background-color var(--t-fast) var(--ease),
+    box-shadow var(--t-fast) var(--ease);
+}
+.header-call:hover {
+  background-color: var(--color-raised);
+  box-shadow: inset 0 0 0 1px var(--color-ink);
+}
+
+/* ===========================================================================
+   NAV
+=========================================================================== */
+.desk-nav {
+  display: none;
+}
+@media (min-width: 940px) {
+  .desk-nav {
+    display: block;
+  }
+  .desk-nav ul {
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .desk-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding-inline: var(--s-3);
+    color: var(--color-ink-muted);
+    font-size: var(--t-small);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: color var(--t-fast) var(--ease),
+      border-color var(--t-fast) var(--ease);
+  }
+  .desk-nav a:hover {
+    color: var(--color-ink);
+    border-bottom-color: var(--color-accent);
+  }
+}
+
+.nav-trigger {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 48px;
+  min-width: 48px;
+  padding-inline: var(--s-2);
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--color-ink);
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--color-line);
+  transition: background-color var(--t-fast) var(--ease);
+}
+.nav-trigger:hover {
+  background-color: var(--color-raised);
+}
+.nav-trigger-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 18px;
+}
+.nav-trigger-bars span {
+  display: block;
+  height: 2px;
+  background-color: currentColor;
+}
+.nav-trigger-text {
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+}
+
+/* This block must come AFTER .nav-trigger's own rules — an equal-specificity
+   rule earlier in the file loses on source order regardless of media query. */
+@media (min-width: 940px) {
+  .nav-trigger {
+    display: none;
+  }
+  .sticky-call {
+    display: none;
+  }
+  body {
+    padding-bottom: 0;
+  }
+}
+
+/* The panel genuinely floats, so it is the one place a shadow is allowed.
+   Motion moment 2 of 3. */
+.nav-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background-color: var(--color-field);
+  overflow-y: auto;
+  padding-bottom: calc(var(--callbar) + var(--s-6));
+  box-shadow: 0 0 60px rgba(17, 23, 22, 0.18);
+  animation: panel-in var(--t-panel) var(--ease) both;
+}
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.nav-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding-block: var(--s-3);
+  border-bottom: var(--rule-hair);
+}
+.nav-panel-title {
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  color: var(--color-ink-muted);
+}
+.nav-close {
+  min-height: 48px;
+  padding-inline: var(--s-3);
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--color-ink);
+  font: inherit;
+  font-size: var(--t-label);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--color-line);
+}
+.nav-close:hover {
+  background-color: var(--color-raised);
+}
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--s-2) 0 0;
+}
+.nav-list li + li {
+  border-top: var(--rule-hair);
+}
+.nav-list a {
+  display: block;
+  padding-block: var(--s-4);
+  min-height: 56px;
+  color: var(--color-ink);
+  font-size: var(--t-h3);
+  font-weight: 700;
+  text-decoration: none;
+}
+.nav-list a:hover {
+  color: var(--color-accent);
+}
+.nav-panel-foot {
+  padding-top: var(--s-6);
+}
+
+/* ===========================================================================
+   AREAS — home ground is promoted, not merely listed first.
+=========================================================================== */
+.area-flag {
+  display: inline-block;
+  padding: var(--s-1) var(--s-2);
+  margin-bottom: var(--s-3);
+  background-color: var(--color-accent);
+  color: #fff; /* 7.56 */
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  border-radius: 2px;
+}
+.area-name {
+  font-size: var(--t-h2);
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.area-name-sm {
+  font-size: var(--t-h3);
+}
+.area-body {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+  margin-top: var(--s-2);
+}
+
+/* ===========================================================================
+   ΓΙΑΤΙ ΕΜΑΣ — four flat statements, separated by rules.
+=========================================================================== */
+.why-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .why-list {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--s-8);
+  }
+}
+.why-item {
+  padding-block: var(--s-5);
+  border-top: var(--rule-hair);
+}
+.why-title {
+  font-size: var(--t-h3);
+  line-height: 1.3;
+  font-weight: 700;
+}
+.why-body {
+  color: var(--color-ink-muted);
+  margin-top: var(--s-2);
+}
+
+/* ===========================================================================
+   CONTACT
+=========================================================================== */
+.contact-grid {
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .contact-grid {
+    grid-template-columns: auto 1fr;
+    gap: var(--s-9);
+    align-items: start;
+  }
+}
+.contact-primary {
+  display: block;
+  text-decoration: none;
+  min-height: 56px;
+}
+.contact-label {
+  display: block;
+  font-size: var(--t-label);
+  letter-spacing: 0.08em;
+  color: var(--color-ink-muted);
+}
+.contact-number {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 9vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  padding-top: var(--s-1);
+}
+.contact-primary:hover .contact-number {
+  color: var(--color-accent);
+}
+.contact-row {
+  display: block;
+  padding-block: var(--s-3);
+  min-height: 56px;
+  border-top: var(--rule-hair);
+  text-decoration: none;
+}
+.contact-value {
+  display: block;
+  color: var(--color-ink);
+  font-size: var(--t-h3);
+  font-weight: 700;
+  padding-top: 2px;
+}
+.contact-value-email {
+  font-size: var(--t-body);
+  overflow-wrap: anywhere;
+}
+a.contact-row:hover .contact-value {
+  color: var(--color-accent);
+}
+.contact-quote {
+  padding-top: var(--s-7);
+}
+.contact-quote-note {
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+  padding-top: var(--s-3);
+}
+
+/* ===========================================================================
+   FOOTER — the one dark zone.
+=========================================================================== */
+.site-footer {
+  background-color: var(--color-deep);
+  color: var(--color-raised);
+  padding-block: var(--s-8) var(--s-8);
+  border-top: 2px solid var(--color-accent);
+}
+.footer-name {
+  color: var(--color-field);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-h3);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+.footer-rights {
+  font-size: var(--t-small);
+  color: var(--color-raised);
+  margin-top: var(--s-2);
+  max-width: 46ch;
+}
+.footer-cols {
+  display: grid;
+  gap: var(--s-6);
+  margin-top: var(--s-8);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 560px) {
+  .footer-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 960px) {
+  .footer-cols {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-7);
+  }
+}
+.footer-heading {
+  font-size: var(--t-label);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-field);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid #2b3331;
+}
+.footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: var(--s-3) 0 0;
+}
+.footer-col li {
+  padding-block: var(--s-1);
+}
+.footer-col a {
+  color: var(--color-raised); /* 16.26 on deep */
+  font-size: var(--t-small);
+  text-decoration: none;
+  display: inline-block;
+  min-height: 32px;
+  line-height: 1.6;
+}
+.footer-col a:hover {
+  color: var(--color-field);
+  text-decoration: underline;
+}
+.footer-email {
+  overflow-wrap: anywhere;
+}
+.footer-static {
+  font-size: var(--t-small);
+  line-height: 1.6;
+}
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-5);
+  align-items: center;
+  margin-top: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid #2b3331;
+  font-size: var(--t-small);
+}
+.footer-legal a {
+  color: var(--color-field);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ===========================================================================
+   STICKY CALL BAR
+=========================================================================== */
+.sticky-call {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: 50;
+  background-color: var(--color-accent);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.sticky-call-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  min-height: var(--callbar);
+  color: #fff;
+  text-decoration: none;
+  transition: background-color var(--t-fast) var(--ease);
+}
+.sticky-call-link:active {
+  background-color: var(--color-accent-press);
+}
+.sticky-call-label {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+}
+.sticky-call-number {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.3125rem;
+  line-height: 1.15;
+}
+
+/* Any prominent number reuses the preloaded latin-900 file. */
+.num {
+  font-family: var(--font-display);
+  font-weight: 900;
 }

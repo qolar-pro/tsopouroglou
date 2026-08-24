@@ -1,11 +1,19 @@
 {
-  "name": "scaffold-tmp",
+  "name": "tsopouroglou-gr",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "check": "node scripts/check-greek.mjs",
+    "check:test": "node scripts/check-greek.test.mjs",
+    "prebuild": "npm run check:test && npm run check",
+    "shot": "node scripts/shot.mjs",
+    "overflow": "node scripts/overflow-audit.mjs",
+    "nav-test": "node scripts/nav-test.mjs",
+    "probe": "node scripts/layout-probe.mjs",
+    "btn-states": "node scripts/button-states.mjs"
   },
   "dependencies": {
     "next": "16.3.2",
@@ -13,11 +21,11 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "20.19.43",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
   }
 }
