@@ -8,13 +8,15 @@
     "start": "next start",
     "check": "node scripts/check-greek.mjs",
     "check:test": "node scripts/check-greek.test.mjs",
-    "prebuild": "npm run check:test && npm run check && npm run contrast",
+    "prebuild": "npm run check:test && npm run check && npm run contrast && npm run check:media",
     "shot": "node scripts/shot.mjs",
     "overflow": "node scripts/overflow-audit.mjs",
     "nav-test": "node scripts/nav-test.mjs",
     "probe": "node scripts/layout-probe.mjs",
     "btn-states": "node scripts/button-states.mjs",
-    "contrast": "node scripts/contrast-audit.mjs"
+    "contrast": "node scripts/contrast-audit.mjs",
+    "check:media": "node scripts/check-media.mjs",
+    "placeholders": "node scripts/make-placeholders.mjs"
   },
   "dependencies": {
     "next": "16.3.2",

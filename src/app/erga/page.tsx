@@ -3,6 +3,8 @@ import { HAS_REAL_PHOTOS } from "@/content/site";
 import { gated } from "@/content/pages";
 import CallBand from "@/components/CallBand";
 import LevelLine from "@/components/LevelLine";
+import BeforeAfter from "@/components/BeforeAfter";
+import { erga, SHOW_PLACEHOLDER_MEDIA } from "@/content/media";
 
 const page = gated.erga;
 
@@ -33,10 +35,19 @@ export default function Page() {
       <section className="section surface-raised">
         <LevelLine />
         <div className="wrap">
-          {HAS_REAL_PHOTOS ? (
-            <p className="detail-body">{/* Gallery lands with the photos. */}</p>
-          ) : (
-            <p className="note measure-prose">{gated.placeholderNotice}</p>
+          {(HAS_REAL_PHOTOS || SHOW_PLACEHOLDER_MEDIA) && (
+            <ul className="erga-grid">
+              {erga.map((pair) => (
+                <li key={pair.id}>
+                  <BeforeAfter pair={pair} />
+                </li>
+              ))}
+            </ul>
+          )}
+          {!HAS_REAL_PHOTOS && (
+            <p className="note measure-prose" style={{ marginTop: "var(--s-7)" }}>
+              {gated.placeholderNotice}
+            </p>
           )}
         </div>
       </section>

@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
+import ErgaStrip from "@/components/ErgaStrip";
 import Areas from "@/components/Areas";
 import WhyUs from "@/components/WhyUs";
 import ContactBlock from "@/components/ContactBlock";

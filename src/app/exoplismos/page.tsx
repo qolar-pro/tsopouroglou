@@ -3,6 +3,8 @@ import { HAS_REAL_PHOTOS } from "@/content/site";
 import { gated } from "@/content/pages";
 import CallBand from "@/components/CallBand";
 import LevelLine from "@/components/LevelLine";
+import Photo from "@/components/Photo";
+import { stolos, SHOW_PLACEHOLDER_MEDIA } from "@/content/media";
 
 const page = gated.exoplismos;
 
@@ -35,11 +37,23 @@ export default function Page() {
         <div className="wrap">
           {/* The machine list is text, so it is honest without photos.
               Only the photographs are gated. */}
-          <ul className="check-list">
-            {gated.exoplismos.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+          {HAS_REAL_PHOTOS || SHOW_PLACEHOLDER_MEDIA ? (
+            <ul className="fleet">
+              {stolos.map((m) => (
+                <li key={m.name}>
+                  <Photo img={m.img} sizes="(min-width: 960px) 25vw, 50vw" />
+                  <p className="fleet-name">{m.name}</p>
+                  <p className="fleet-note">{m.note}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <ul className="check-list">
+              {gated.exoplismos.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          )}
           {!HAS_REAL_PHOTOS && (
             <p className="note measure-prose" style={{ marginTop: "var(--s-6)" }}>
               {gated.placeholderNotice}

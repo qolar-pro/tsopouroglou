@@ -1362,3 +1362,125 @@ a.contact-row:hover .contact-value {
   padding-top: var(--s-7);
   border-top: var(--rule-hair);
 }
+
+/* ===========================================================================
+   PHOTOS — fixed frames matching what a phone produces. Hard edges, no
+   rounding, no filters: consistent framing plus a factual caption is what
+   makes amateur photos read as a record rather than as bad photography.
+=========================================================================== */
+.photo {
+  position: relative;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--color-stone);
+}
+.photo-landscape {
+  aspect-ratio: 4 / 3;
+}
+.photo-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+/* Applied by the component, not baked into the file, so a real photo sitting
+   in a placeholder slot is still flagged. */
+.photo-ribbon {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  background-color: var(--color-accent-press);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding-block: 5px;
+}
+
+/* --- Before / after --------------------------------------------------- */
+.ba {
+  margin: 0;
+}
+.ba-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* One hard seam, not a gap. */
+  gap: 2px;
+  background-color: var(--color-ink);
+  border: 1px solid var(--color-line);
+}
+.ba-side {
+  position: relative;
+}
+.ba-label {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: 2;
+  background-color: var(--color-ink);
+  color: var(--color-field);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 5px 9px;
+}
+.ba-caption {
+  font-size: var(--t-label);
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  padding-top: var(--s-3);
+}
+
+/* --- Fleet ------------------------------------------------------------- */
+.fleet {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 560px) {
+  .fleet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 960px) {
+  .fleet {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.fleet-name {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  padding-top: var(--s-3);
+}
+.fleet-note {
+  font-size: var(--t-small);
+  color: var(--color-ink-muted);
+  padding-top: var(--s-1);
+}
+
+.erga-grid {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-7);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .erga-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* A banner the reviewer cannot miss while previews are on. */
+.preview-banner {
+  background-color: var(--color-accent-press);
+  color: #fff;
+  text-align: center;
+  font-size: var(--t-small);
+  font-weight: 700;
+  padding: var(--s-3) var(--gutter);
+}

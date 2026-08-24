@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="ΜΕΤΑ — Εκσκαφή θεμελίων">
+  <defs>
+    <pattern id="h" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="24" stroke="#7c8583" stroke-width="1.5" opacity="0.28"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="300" fill="#e4e8e6"/>
+  <rect width="400" height="300" fill="url(#h)"/>
+  <rect x="10" y="10" width="380" height="280" fill="none" stroke="#7c8583" stroke-width="3" stroke-dasharray="14 10"/>
+  <rect x="280" y="0" width="120" height="35" fill="#0a6136"/>
+  <text x="340" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" letter-spacing="2" fill="#ffffff">ΔΕΙΓΜΑ</text>
+  <text x="50%" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="23" font-weight="700" fill="#15191a">ΜΕΤΑ — Εκσκαφή θεμελίων</text>
+  <text x="50%" y="263" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#15191a" opacity="0.75">Οικισμός Δασκάλων</text>
+  <text x="50%" y="286" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#15191a" opacity="0.55">4:3 · ΘΕΣΗ ΓΙΑ ΠΡΑΓΜΑΤΙΚΗ ΦΩΤΟΓΡΑΦΙΑ</text>
+</svg>
