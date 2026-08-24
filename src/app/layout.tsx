@@ -5,6 +5,8 @@ import HeaderScrollState from "@/components/HeaderScrollState";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCallBar from "@/components/StickyCallBar";
+import { SITE_URL } from "@/content/site-config";
+import { JsonLd, localBusinessSchema } from "@/lib/schema";
 import "./globals.css";
 
 /**
@@ -39,7 +41,7 @@ const alegreyaSans = Alegreya_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://xomatourgika-tsopouroglou.gr"),
+  metadataBase: new URL(SITE_URL),
   title: seo.title,
   description: seo.description,
   openGraph: {
@@ -64,6 +66,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         {/* Furniture lives here, not per page — 14 more routes are coming. */}
+        {/* LocalBusiness, site-wide. No aggregateRating — gate 1 ruling. */}
+        <JsonLd data={localBusinessSchema()} />
         <HeaderScrollState />
         <SiteHeader />
         {children}

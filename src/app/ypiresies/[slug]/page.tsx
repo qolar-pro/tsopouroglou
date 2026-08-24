@@ -5,6 +5,7 @@ import { business } from "@/content/site";
 import LevelLine from "@/components/LevelLine";
 import ArrowIcon from "@/components/ArrowIcon";
 import CallBand from "@/components/CallBand";
+import { JsonLd, serviceSchema, breadcrumbSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -42,6 +43,14 @@ export default async function ServicePage({
 
   return (
     <main>
+      <JsonLd data={serviceSchema(service)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Αρχική", path: "/" },
+          { name: "Υπηρεσίες", path: "/ypiresies" },
+          { name: service.title, path: `/ypiresies/${service.slug}` },
+        ])}
+      />
       {/* ---- Head ---- */}
       <section className="section surface-field page-head">
         <div className="wrap">

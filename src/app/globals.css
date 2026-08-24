@@ -1241,3 +1241,124 @@ a.contact-row:hover .contact-value {
 .inline-link:hover {
   color: var(--color-accent-hover);
 }
+
+/* ===========================================================================
+   FORM — four fields. Controls are drawn with the same line system.
+=========================================================================== */
+.quote-form {
+  display: grid;
+  gap: var(--s-5);
+  max-width: 34rem;
+}
+
+.field {
+  display: grid;
+  gap: var(--s-2);
+}
+.field label {
+  font-size: var(--t-small);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.req {
+  color: var(--color-accent);
+}
+
+.field input,
+.field textarea {
+  font: inherit;
+  font-size: var(--t-body);
+  color: var(--color-ink);
+  background-color: var(--color-field);
+  /* --border clears 3:1 — a control's boundary must be perceivable. */
+  border: 1px solid var(--color-line);
+  border-radius: 2px;
+  padding: var(--s-3);
+  min-height: 52px;
+  width: 100%;
+}
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.field input:hover,
+.field textarea:hover {
+  border-color: var(--color-ink-muted);
+}
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--color-ink);
+}
+
+/* Honeypot. Off-screen rather than display:none — some bots skip hidden
+   fields, and off-screen still reads as fillable to them. */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-3);
+  align-items: start;
+}
+.consent input {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  accent-color: var(--color-accent);
+}
+.consent label {
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}
+.consent a {
+  color: var(--color-accent);
+}
+
+.form-status:empty {
+  display: none;
+}
+.form-status {
+  color: var(--color-accent-press);
+  font-size: var(--t-small);
+  padding: var(--s-3);
+  border-left: 2px solid var(--color-accent-press);
+}
+
+.form-done {
+  padding: var(--s-6);
+  background-color: var(--color-field);
+  border: 1px solid var(--color-line);
+  border-radius: 2px;
+  max-width: 34rem;
+}
+
+/* ===========================================================================
+   LEGAL / PROSE
+=========================================================================== */
+.legal h2 {
+  margin-top: var(--s-7);
+  margin-bottom: var(--s-3);
+}
+.legal h2:first-child {
+  margin-top: 0;
+}
+.legal p {
+  max-width: 66ch;
+  color: var(--color-ink-muted);
+}
+.legal a {
+  color: var(--color-accent);
+}
+
+.prose-block + .prose-block {
+  margin-top: var(--s-7);
+  padding-top: var(--s-7);
+  border-top: var(--rule-hair);
+}
