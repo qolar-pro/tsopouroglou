@@ -72,6 +72,12 @@ export const hero = {
   quoteLabel: "Ζητήστε προσφορά",
   // Register is his, not ours. Γρηγόρης signs this off before launch.
   hours: "Σηκώνουμε τηλέφωνο όλο το 24ωρο, κάθε μέρα.",
+  /** Three checkable facts, in the hero where they do the most work. */
+  credentials: [
+    { key: "Πτυχίο χειριστή", value: "από το 1990" },
+    { key: "Τηλέφωνο", value: "όλο το 24ωρο" },
+    { key: "Τρεις τσάπες", value: "μεγάλη, μεσαία, μικρή" },
+  ],
 } as const;
 
 export const wordmark = {
@@ -122,21 +128,25 @@ export const whySection = {
   items: [
     {
       key: "1987",
+      figure: "1987",
       title: "Από το 1987 στα ίδια χώματα",
       body: "Ίδια οικογένεια, ίδιο χωριό, δύο αδέρφια. Ρωτήστε στη Μεταμόρφωση.",
     },
     {
       key: "licence",
+      figure: "1990",
       title: "Πτυχίο χειριστή από το 1990",
       body: "Αδειούχος χειριστής μηχανημάτων έργου. Νόμιμα, με χαρτιά.",
     },
     {
       key: "hours",
+      figure: "24",
       title: "Τηλέφωνο όλο το 24ωρο",
       body: "Ένας σπασμένος σωλήνας δεν περιμένει ωράριο. Ούτε εμείς.",
     },
     {
       key: "machines",
+      figure: "3",
       title: "Τρεις τσάπες — μεγάλη, μεσαία, μικρή",
       body: "Μπαίνουμε και σε μεγάλο εργοτάξιο και σε στενή αυλή, με το μηχάνημα που χρειάζεται.",
     },

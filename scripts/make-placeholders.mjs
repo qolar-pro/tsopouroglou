@@ -131,6 +131,11 @@ for (const [slug, label] of SERVICES) {
   made.push(make(`ypiresia-${slug}`, 4, 3, label, "Φωτογραφία από τη δουλειά"));
 }
 
+// --- Hero. Portrait so it sits as a column beside the headline.
+made.push(
+  make("hero-ergotaxio", 3, 4, "Τσάπα σε δουλειά", "Η κύρια φωτογραφία της αρχικής")
+);
+
 // --- One portrait slot for the company page. Phone photos are often 3:4.
 made.push(
   make("etaireia-adelfia", 3, 4, "Γρηγόρης και Νικόλαος", "Στο εργοτάξιο")

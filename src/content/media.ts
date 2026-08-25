@@ -42,6 +42,11 @@ export type BeforeAfter = {
   place: string;
   work: string;
   year: string;
+  /** Short title for the project card. */
+  title: string;
+  /** What the job actually was. Replaces a caption nobody reads with a
+      sentence that sells the work. */
+  description: string;
   before: Img;
   after: Img;
 };
@@ -60,6 +65,8 @@ const ph = (src: string, alt: string, aspect: Img["aspect"] = "4:3"): Img => ({
 export const erga: BeforeAfter[] = [
   {
     id: "oikopedo",
+    title: "Οικόπεδο που είχε μείνει χρόνια",
+    description: "Ξερά χόρτα, βάτα και μπάζα από παλιά. Καθαρίσαμε, μαζέψαμε και ισοπεδώσαμε, ώστε ο ιδιοκτήτης να μπορεί να το δείξει σε αγοραστή.",
     place: "ΜΕΤΑΜΟΡΦΩΣΗ",
     work: "ΚΑΘΑΡΙΣΜΟΣ ΟΙΚΟΠΕΔΟΥ",
     year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
@@ -68,6 +75,8 @@ export const erga: BeforeAfter[] = [
   },
   {
     id: "themelia",
+    title: "Θεμέλια για μονοκατοικία",
+    description: "Εκσκαφή θεμελίων σε οικόπεδο με κλίση. Βγήκαν τα χώματα με δικά μας φορτηγά και το σημείο παραδόθηκε έτοιμο για μπετόν.",
     place: "ΟΙΚΙΣΜΟΣ ΔΑΣΚΑΛΩΝ",
     work: "ΕΚΣΚΑΦΗ ΘΕΜΕΛΙΩΝ",
     year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
@@ -76,6 +85,8 @@ export const erga: BeforeAfter[] = [
   },
   {
     id: "avli",
+    title: "Αυλή εξοχικού",
+    description: "Πέτρες και ανώμαλο έδαφος. Ήρθε φυτόχωμα, στρώθηκε και ισοπεδώθηκε με κλίση ώστε να φεύγει το νερό από το σπίτι.",
     place: "ΨΑΚΟΥΔΙΑ",
     work: "ΣΤΡΩΣΙΜΟ ΧΩΜΑΤΟΣ",
     year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
@@ -84,6 +95,8 @@ export const erga: BeforeAfter[] = [
   },
   {
     id: "vothros",
+    title: "Βόθρος σε σπίτι εκτός δικτύου",
+    description: "Σκάψιμο, κατασκευή, σύνδεση με την αποχέτευση του σπιτιού και κλείσιμο. Η αυλή επανήλθε όπως ήταν.",
     place: "ΝΙΚΗΤΗ",
     work: "ΚΑΤΑΣΚΕΥΗ ΒΟΘΡΟΥ",
     year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
@@ -92,6 +105,8 @@ export const erga: BeforeAfter[] = [
   },
   {
     id: "paralia",
+    title: "Ακτή πριν τη σεζόν",
+    description: "Φύκια, ξύλα και πέτρες που άφησε ο χειμώνας. Δουλέψαμε με τρακτέρ και φορτωτή για να μη βουλιάξει το μηχάνημα στην άμμο.",
     place: "ΒΑΤΟΠΕΔΙ",
     work: "ΚΑΘΑΡΙΣΜΟΣ ΠΑΡΑΛΙΑΣ",
     year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
@@ -100,6 +115,8 @@ export const erga: BeforeAfter[] = [
   },
   {
     id: "vrachos",
+    title: "Βράχος στη μέση του οικοπέδου",
+    description: "Είχε σταματήσει η εκσκαφή. Σπάσαμε τον βράχο, απομακρύναμε τα μπάζα και η δουλειά συνέχισε.",
     place: "ΜΕΤΑΜΟΡΦΩΣΗ",
     work: "ΕΚΒΡΑΧΙΣΜΟΣ",
     year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
@@ -139,6 +156,13 @@ export const servicePhoto: Record<string, Img> = {
   "syndeseis-nerou-apocheteusi": ph("ypiresia-syndeseis-nerou-apocheteusi", "Τάφρος για σύνδεση νερού"),
 };
 
+/** The hero photograph. Portrait, so it sits as a column beside the copy. */
+export const heroPhoto: Img = ph(
+  "hero-ergotaxio",
+  "Τσάπα εν ώρα εργασίας σε οικόπεδο στη Μεταμόρφωση Χαλκιδικής",
+  "3:4"
+);
+
 /** Ποιοι είμαστε — one portrait. 3:4, because phones shoot people portrait. */
 export const etaireiaPhoto: Img = ph(
   "etaireia-adelfia",
@@ -153,6 +177,7 @@ export const etaireiaPhoto: Img = ph(
     ...stolos.map((s) => s.img),
     ...Object.values(servicePhoto),
     etaireiaPhoto,
+    heroPhoto,
   ];
   for (const img of all) {
     if (!img.alt || img.alt.trim().length < 10) {

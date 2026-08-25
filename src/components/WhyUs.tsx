@@ -2,10 +2,12 @@ import { whySection } from "@/content/site";
 import LevelLine from "./LevelLine";
 
 /**
- * Four flat statements, not a badge row and not a counter strip. Each one is
- * a fact the reader could go and check — which is what the heading claims.
- * 1987 and the 1990 licence come from the client, the 24-hour availability
- * from his verified Google profile, the three excavators from his own list.
+ * Four facts, each of which happens to be a number — so each is set as one.
+ *
+ * These are not invented counters ("500+ έργα"), which the brief bans and
+ * which every competitor uses. 1987, 1990, 24 and 3 are all checkable: the
+ * founding year, the licence year, the hours on his Google profile, and the
+ * machines he owns. That is what makes setting them large honest.
  */
 export default function WhyUs() {
   return (
@@ -18,11 +20,16 @@ export default function WhyUs() {
       </div>
 
       <div className="wrap">
-        <ul className="why-list">
+        <ul className="why-grid">
           {whySection.items.map((item) => (
-            <li key={item.key} className="why-item">
-              <h3 className="why-title">{item.title}</h3>
-              <p className="why-body">{item.body}</p>
+            <li key={item.key} className="why-card">
+              <span className="why-figure" aria-hidden="true">
+                {item.figure}
+              </span>
+              <div>
+                <h3 className="why-title">{item.title}</h3>
+                <p className="why-body">{item.body}</p>
+              </div>
             </li>
           ))}
         </ul>

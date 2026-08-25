@@ -65,9 +65,24 @@ async function targetWs() {
 const EXPR = `(() => {
   const vw = document.documentElement.clientWidth;
   const out = [];
+
+  // A horizontal scroll container (a project rail, a wide table) is SUPPOSED
+  // to have children past the viewport — that is what makes it swipeable.
+  // Counting them reports hundreds of false offenders and buries a real bug.
+  // What actually matters is whether the DOCUMENT scrolls sideways, which is
+  // reported separately below.
+  const inScroller = (el) => {
+    for (let n = el.parentElement; n; n = n.parentElement) {
+      const ox = getComputedStyle(n).overflowX;
+      if (ox === 'auto' || ox === 'scroll') return true;
+    }
+    return false;
+  };
+
   for (const el of document.querySelectorAll('*')) {
     const r = el.getBoundingClientRect();
     if (r.width === 0 && r.height === 0) continue;
+    if (inScroller(el)) continue;
     const overflowRight = Math.round(r.right - vw);
     if (r.width > vw + 0.5 || overflowRight > 0.5) {
       out.push({
