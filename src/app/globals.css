@@ -1652,3 +1652,66 @@ a.contact-row:hover .contact-value {
   line-height: 1.55;
   padding-top: var(--s-2);
 }
+
+/* ===========================================================================
+   ΚΡΙΤΙΚΕΣ — no quote cards. The themes are paraphrased; the reviews
+   themselves live on Google, which is the point being made.
+=========================================================================== */
+.rating {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  margin-top: var(--s-4);
+}
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--color-accent);
+  transform: translateY(3px);
+}
+.rating-score {
+  font-size: var(--t-h2);
+  line-height: 1;
+  color: var(--color-ink);
+}
+.rating-count {
+  font-size: var(--t-small);
+  color: var(--color-ink-muted);
+}
+
+.themes {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px) {
+  .themes {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--s-8);
+  }
+}
+@media (min-width: 1040px) {
+  .themes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.theme {
+  padding-block: var(--s-5);
+  border-top: 2px solid var(--color-accent);
+}
+.theme-title {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  line-height: 1.25;
+}
+.theme-body {
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+  line-height: 1.55;
+  margin-top: var(--s-2);
+  max-width: 40ch;
+}

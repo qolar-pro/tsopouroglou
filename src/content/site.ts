@@ -157,6 +157,67 @@ export const whySection = {
 /* Contact                                                             */
 /* ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ */
+/* Κριτικές                                                            */
+/*                                                                     */
+/* CLAUDE.md §2 is explicit: paraphrase the review THEMES, never        */
+/* reproduce a review verbatim, never invent a testimonial. So there    */
+/* are no quote cards here and no names — quote marks around Greek we   */
+/* wrote would be fabrication however true the underlying theme is.     */
+/*                                                                     */
+/* This is also the competitor gap the research found: none of the four */
+/* ranking sites shows its Google reviews at all.                       */
+/*                                                                     */
+/* NOTE: the schema still carries NO aggregateRating (gate 1 ruling —   */
+/* Google prohibits self-serving review markup for LocalBusiness).      */
+/* Displaying the rating as ordinary text is a different thing and is   */
+/* fine. Do not "fix" the inconsistency by adding it to the JSON-LD.    */
+/* ------------------------------------------------------------------ */
+
+export const reviewsSection = {
+  eyebrow: "ΚΡΙΤΙΚΕΣ",
+  /** Point-in-time snapshot. Re-check before launch — see PLACEHOLDERS.md. */
+  rating: "5,0",
+  count: 10,
+  heading: "Δέκα κριτικές στο Google, όλες πεντάστερες",
+  /* Turning the constraint into the trust signal: the reason not to copy
+     them here is the reason to believe them there. */
+  lede: "Δεν τις αντιγράφουμε εδώ. Διαβάστε τις στο Google, εκεί που δεν μπορούμε να τις πειράξουμε. Αυτά είναι που επαναλαμβάνονται:",
+  themes: [
+    {
+      key: "empeiria",
+      title: "Χρόνια στη δουλειά",
+      body: "Επαναλαμβάνεται ότι η δουλειά γίνεται από ανθρώπους που την ξέρουν χρόνια.",
+    },
+    {
+      key: "dyskoles",
+      title: "Δύσκολες δουλειές",
+      body: "Μία κριτική περιγράφει δύσκολη δουλειά σε κήπο, που έγινε με τρία διαφορετικά μηχανήματα και τελείωσε γρήγορα.",
+    },
+    {
+      key: "times",
+      title: "Λογικές τιμές",
+      body: "Στις κριτικές επανέρχεται ότι οι τιμές είναι λογικές.",
+    },
+    {
+      key: "ora",
+      title: "Στην ώρα τους",
+      body: "Γρήγορη ανταπόκριση και τήρηση του χρόνου που συμφωνήθηκε.",
+    },
+    {
+      key: "idees",
+      title: "Ιδέες για τον χώρο",
+      body: "Γράφουν επίσης ότι πήραν και συμβουλή για το πώς να διαμορφώσουν την αυλή ή το οικόπεδο.",
+    },
+    {
+      key: "xana",
+      title: "Ξαναπαίρνουν",
+      body: "Αρκετές κριτικές είναι από πελάτες που είχαν ξανασυνεργαστεί μαζί μας.",
+    },
+  ],
+  cta: "Δείτε τις κριτικές στο Google",
+} as const;
+
 export const contactSection = {
   eyebrow: "ΕΠΙΚΟΙΝΩΝΙΑ",
   heading: "Πάρτε μας τηλέφωνο",
