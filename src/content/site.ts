@@ -237,14 +237,53 @@ export const contactSection = {
 
 export type NavItem = { href: string; label: string; gated?: boolean };
 
+/**
+ * Every route AND every homepage section a reader might want to reach.
+ *
+ * The homepage sections carry ids but nothing linked to them, so Κριτικές
+ * and Περιοχές could only be found by scrolling or by typing a URL. An
+ * anchor works from any page because it is absolute.
+ *
+ * Κριτικές stays a homepage section rather than becoming /kritikes: with no
+ * review text to publish — only paraphrased themes and a link out — a page
+ * of its own would be thin, which is the same trap Δασκάλων was folded to
+ * avoid.
+ */
 export const nav: NavItem[] = [
   { href: "/", label: "Αρχική" },
   { href: "/ypiresies", label: "Υπηρεσίες" },
+  { href: "/perioxes", label: "Περιοχές" },
   { href: "/exoplismos", label: "Στόλος & εξοπλισμός", gated: true },
   { href: "/erga", label: "Έργα", gated: true },
+  { href: "/#kritikes", label: "Κριτικές" },
   { href: "/etaireia", label: "Ποιοι είμαστε" },
   { href: "/epikoinonia", label: "Επικοινωνία" },
 ];
+
+/**
+ * Build-time integrity: every in-page anchor in the nav must correspond to a
+ * section id that is actually rendered. A nav item pointing at an id nobody
+ * renders is a dead link that no route check would catch, because the page
+ * itself returns 200.
+ */
+{
+  const RENDERED_HOME_IDS = new Set([
+    "ypiresies",
+    "erga",
+    "perioxes",
+    "giati-emas",
+    "kritikes",
+    "epikoinonia",
+  ]);
+  for (const item of nav) {
+    const hash = item.href.split("#")[1];
+    if (hash && !RENDERED_HOME_IDS.has(hash)) {
+      throw new Error(
+        `site.ts: nav item "${item.label}" points at #${hash}, which no homepage section renders.`
+      );
+    }
+  }
+}
 
 /** Nav minus anything gated behind real photography. */
 export const visibleNav = nav.filter((n) => !n.gated || HAS_REAL_PHOTOS);
