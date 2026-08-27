@@ -3,6 +3,7 @@ import { business } from "@/content/site";
 import { services } from "@/content/services";
 import { areaLinks } from "@/content/areas";
 import Band from "@/components/Band";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Η σελίδα δεν βρέθηκε | ΤΣΟΠΟΥΡΟΓΛΟΥ",
@@ -23,24 +24,11 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <main>
-      <Band label="404" head>
-        <h1 className="h1">Η σελίδα δεν βρέθηκε</h1>
-        <p className="lede">
-          <span className="measure-prose">
-            Ίσως αλλάξαμε τη διεύθυνση ή έγινε λάθος στην πληκτρολόγηση. Πάρτε
-            μας τηλέφωνο και σας λέμε αμέσως ό,τι χρειάζεστε.
-          </span>
-        </p>
-
-        <div className="band-cta">
-          <a className="btn btn-call" href={business.phone.href}>
-            ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
-          </a>
-          <a className="btn btn-secondary" href="/">
-            Αρχική σελίδα
-          </a>
-        </div>
-      </Band>
+      <PageHero
+        label="404"
+        title={<h1 className="h1">Η σελίδα δεν βρέθηκε</h1>}
+        lede="Ίσως αλλάξαμε τη διεύθυνση ή έγινε λάθος στην πληκτρολόγηση. Πάρτε μας τηλέφωνο και σας λέμε αμέσως ό,τι χρειάζεστε."
+      />
 
       <Band label="ΥΠΗΡΕΣΙΕΣ" tone="tone">
         <h2 className="h2">Μήπως ψάχνατε κάτι από αυτά;</h2>

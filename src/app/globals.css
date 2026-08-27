@@ -154,59 +154,182 @@
 }
 
 /* ===========================================================================
-   THE BAND — one section, one rail.
-   Sections are separated by a hairline on a continuous white ground instead
-   of alternating background colours. Stripes made the page read as a stack of
-   unrelated blocks; one ground with rules reads as a single document.
+   THE BAND — two frames, one grid.
+
+   The editorial rail is gone. It parked a label column on the left, so every
+   section started 224px in and still ended flush at the container's right
+   edge: content that read as having slid sideways rather than as composed.
+
+   Two frames replace it, and both are symmetric:
+
+     RULE   the section label sits INSET INTO a full-width hairline, heading
+            and lede centred beneath it. The divider does the design work, so
+            the label no longer has to float above the heading as an eyebrow.
+
+     PANEL  a bordered sheet with a title block across its top — label at one
+            edge, sheet number at the other — and the head centred inside. The
+            left/right relationship becomes part of a frame instead of a
+            margin, which is what makes it read as deliberate.
+
+   Panel is for the anchors: every page's hero, and the closing call. Rule is
+   for everything else, because eight framed sheets stacked would be heavy.
 =========================================================================== */
 .band {
   padding-block: var(--band-y);
-  border-top: var(--rule-hair);
 }
-.band-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--s-4);
+.band + .band {
+  padding-top: 0;
 }
-/**
- * Grid items default to min-width:auto, which means they refuse to shrink
- * below their content's intrinsic width. Anything that scrolls inside a band
- * — the project rail, a wide table — then pushes the whole document wider
- * than the viewport instead of scrolling within its own box. The rail did
- * exactly this the moment it moved inside a band: 1052px of document on a
- * 320px phone.
- */
-.band-grid > * {
+
+/* Grid items default to min-width:auto and refuse to shrink below their
+   content's intrinsic width, so anything that scrolls inside a band pushes
+   the whole document wider than the viewport. The project rail did exactly
+   this: 1052px of document on a 320px phone. */
+.band-body,
+.panel-body {
   min-width: 0;
 }
-@media (min-width: 1000px) {
-  .band-grid {
-    grid-template-columns: var(--rail) 1fr;
-    gap: var(--s-8);
-  }
-}
+
 .band-label {
   font-size: var(--t-label);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   line-height: 1.4;
   color: var(--color-ink-muted);
+  white-space: nowrap;
 }
-@media (min-width: 1000px) {
-  /* Sits on the heading's first baseline rather than floating above it. */
+
+/* ---------- RULE ---------- */
+.band-rule {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  margin: 0 0 var(--s-7);
+}
+.band-rule::before,
+.band-rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-line);
+}
+
+/* ---------- PANEL ---------- */
+.band--panel {
+  padding-block: var(--s-6);
+}
+.panel {
+  border: 1px solid var(--color-line);
+  background-color: var(--color-field);
+}
+.panel-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-6);
+  border-bottom: 1px solid var(--color-line);
+  background-color: var(--color-raised);
+}
+.panel-index {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-label);
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+/**
+ * On a phone the title block has room for one thing. The label is content —
+ * it names the section — and the sheet number is a flourish, so the number
+ * goes and the label is allowed to wrap.
+ *
+ * Without this, a long label held at nowrap squeezed "ΑΠΟ ΤΟ 1987" into a
+ * three-line column against the right edge.
+ */
+@media (max-width: 559px) {
+  .panel-index {
+    display: none;
+  }
   .band-label {
-    padding-top: 0.5em;
+    white-space: normal;
+  }
+  .panel-title {
+    padding-inline: var(--s-5);
+  }
+}
+.panel-body {
+  padding: var(--s-8) var(--s-5);
+}
+@media (min-width: 768px) {
+  .panel-body {
+    padding-inline: var(--s-7);
   }
 }
 
-/* Tone and ink appear twice each on the whole site, not alternately. */
+/* ---------- SYMMETRY ----------
+   The head is centred; everything structural underneath is not. text-align
+   inherits, so each container that holds real content has to say so — a
+   centred paragraph stops being readable after about two lines, and a centred
+   list of services is worse than useless. */
+.band-body {
+  text-align: center;
+}
+.band-body > .h1,
+.band-body > .h2,
+.band-body > .h3,
+.band-body > .lede,
+.band-body > .small {
+  margin-inline: auto;
+}
+.band-body > .lede {
+  max-width: 56ch;
+}
+.items,
+.places,
+.facts,
+.reviews,
+.fleet,
+.erga-grid,
+.rail,
+.detail-cols,
+.contact-grid,
+.legal,
+.check-list,
+.ask-list,
+.quote-form,
+.form-done,
+.note,
+.breadcrumb,
+.about-cols {
+  text-align: left;
+}
+.band-cta,
+.rating {
+  justify-content: center;
+}
+.rating-line {
+  justify-content: center;
+}
+
+/* Tone and ink stay rare — twice each on the whole site, never alternating. */
 .band--tone {
   background-color: var(--color-raised);
-  border-top-color: transparent;
+}
+.band--tone .panel {
+  background-color: var(--color-field);
 }
 .band--ink {
   background-color: var(--color-deep);
   color: var(--color-raised);
-  border-top-color: transparent;
+}
+.band--ink .panel {
+  background-color: var(--color-deep);
+  border-color: #2b3331;
+}
+.band--ink .panel-title {
+  background-color: #1b2322;
+  border-bottom-color: #2b3331;
 }
 .band--ink h1,
 .band--ink h2,
@@ -214,8 +337,13 @@
   color: var(--color-field);
 }
 .band--ink .band-label,
+.band--ink .panel-index,
 .band--ink .lede {
   color: var(--color-stone);
+}
+.band--ink .band-rule::before,
+.band--ink .band-rule::after {
+  background-color: #2b3331;
 }
 
 /* ===========================================================================
@@ -1582,4 +1710,85 @@ a.contact-row:hover .contact-value {
   .band--head {
     padding-top: var(--s-8);
   }
+}
+
+/* ===========================================================================
+   PAGE HERO + WORDMARK MARK
+=========================================================================== */
+.page-hero {
+  padding-top: var(--s-6);
+}
+.page-hero .breadcrumb {
+  display: block;
+  margin-bottom: var(--s-5);
+}
+.page-hero .hero-media {
+  margin-top: var(--s-7);
+}
+.hero-h1 {
+  font-weight: 700;
+}
+.hero-h1-lead {
+  display: block;
+  font-size: var(--t-h1);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+  margin-inline: auto;
+}
+.hero-year {
+  display: block;
+  /* The display instance: the only place latin is preloaded, because these
+     are the LCP glyphs and ASCII digits live in the latin subset. */
+  font-family: var(--font-display);
+  font-size: var(--t-display);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  font-variant-numeric: lining-nums;
+  margin-top: var(--s-3);
+}
+.hero-hours {
+  font-size: var(--t-small);
+  color: var(--color-stone);
+  margin-top: var(--s-4);
+}
+/* The hero photo is the one image that changes shape with the viewport: a
+   phone gets 4:3, a desktop gets a wide band. Photo must be given frame="css"
+   for these to apply — an inline aspect-ratio wins over a media query. */
+.hero-media .photo {
+  aspect-ratio: 4 / 3;
+}
+@media (min-width: 700px) {
+  .hero-media .photo {
+    aspect-ratio: 2 / 1;
+  }
+}
+@media (min-width: 1100px) {
+  .hero-media .photo {
+    aspect-ratio: 21 / 9;
+  }
+}
+.creds {
+  margin-top: var(--s-7);
+  border-top: 1px solid #2b3331;
+  text-align: left;
+}
+.creds li + li {
+  border-color: #2b3331;
+}
+
+/* The mark sits beside the wordmark, so the anchor becomes a row — but the
+   name and tagline stay a stacked column inside it. */
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+.wordmark-text {
+  min-width: 0;
+}
+.mark {
+  flex: 0 0 auto;
+  border-radius: 6px;
 }

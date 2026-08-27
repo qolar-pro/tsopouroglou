@@ -1,5 +1,6 @@
 import { business, wordmark, visibleNav } from "@/content/site";
 import MobileNav from "./MobileNav";
+import Mark from "./Mark";
 import PhoneIcon from "./PhoneIcon";
 
 export default function SiteHeader() {
@@ -8,6 +9,11 @@ export default function SiteHeader() {
       <div className="wrap site-header-inner">
         {/* Wordmark — PROPOSAL, not final. They have no logo. */}
         <a className="wordmark" href="/">
+          <Mark size={34} />
+          {/* The name and tagline stay stacked; only the mark sits beside
+              them. Without this wrapper the flex row lays all three out
+              horizontally and the name wraps onto two lines. */}
+          <span className="wordmark-text">
           <span className="wordmark-name">
             {/* The initials plus the surname stop fitting below 360px. */}
             <span className="hidden min-[360px]:inline">{wordmark.full}</span>
@@ -16,6 +22,7 @@ export default function SiteHeader() {
           <span className="wordmark-tagline">
             <span className="hidden min-[560px]:inline">{wordmark.tagline}</span>
             <span className="min-[560px]:hidden">{wordmark.taglineShort}</span>
+          </span>
           </span>
         </a>
 

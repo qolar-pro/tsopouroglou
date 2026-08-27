@@ -10,7 +10,7 @@ import Band from "./Band";
  */
 export default function CallBand() {
   return (
-    <Band label="ΤΗΛΕΦΩΝΟ" tone="ink">
+    <Band label="ΤΗΛΕΦΩΝΟ" frame="panel" tone="ink" index="ΤΕΛΟΣ">
       <h2 className="h2">{servicesPage.ctaHeading}</h2>
       <p className="lede">
         <span className="measure-prose">{servicesPage.ctaBody}</span>

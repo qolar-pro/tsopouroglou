@@ -5,6 +5,7 @@ import { services } from "@/content/services";
 import { business } from "@/content/site";
 import { pageOpenGraph } from "@/content/site-config";
 import Band from "@/components/Band";
+import PageHero from "@/components/PageHero";
 import ArrowIcon from "@/components/ArrowIcon";
 import CallBand from "@/components/CallBand";
 
@@ -40,24 +41,15 @@ export default async function AreaPage({
 
   return (
     <main>
-      <Band label={areasPage.eyebrow} head>
+      <PageHero
+        label={areasPage.eyebrow}
+        title={<h1 className="h1">{area.h1}</h1>}
+        lede={area.lede}
+      >
         <nav className="breadcrumb" aria-label="Διαδρομή">
           <a href="/perioxes">{areasPage.backToAll}</a>
         </nav>
-
-        <h1 className="h1" style={{ marginTop: "var(--s-4)" }}>
-          {area.h1}
-        </h1>
-        <p className="lede">
-          <span className="measure-prose">{area.lede}</span>
-        </p>
-
-        <div className="band-cta">
-          <a className="btn btn-call" href={business.phone.href}>
-            ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
-          </a>
-        </div>
-      </Band>
+      </PageHero>
 
       {/* The spine: home ground argues from presence, outer areas from
           capability. Same component, genuinely different content. */}

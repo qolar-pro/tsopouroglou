@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { areaLinks, areasPage } from "@/content/areas";
 import Band from "@/components/Band";
+import PageHero from "@/components/PageHero";
 import CallBand from "@/components/CallBand";
 
 export const metadata: Metadata = {
@@ -21,11 +22,14 @@ export const metadata: Metadata = {
 export default function AreasIndex() {
   return (
     <main>
-      <Band label={areasPage.eyebrow} head>
-        <h1 className="h1">{areasPage.h1}</h1>
-        <p className="lede">
-          <span className="measure-prose">{areasPage.lede}</span>
-        </p>
+      <PageHero
+        label={areasPage.eyebrow}
+        title={<h1 className="h1">{areasPage.h1}</h1>}
+        lede={areasPage.lede}
+      />
+
+      <Band label="ΟΙ ΠΕΡΙΟΧΕΣ">
+        <h2 className="h2">Πού ερχόμαστε</h2>
 
         <ul className="places">
           {areaLinks.map((a) => (

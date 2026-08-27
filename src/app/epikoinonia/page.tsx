@@ -3,6 +3,7 @@ import { business } from "@/content/site";
 import { epikoinonia } from "@/content/pages";
 import QuoteForm from "@/components/QuoteForm";
 import Band from "@/components/Band";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: epikoinonia.metaTitle,
@@ -16,11 +17,14 @@ export default function Epikoinonia() {
       {/* Phone first and at display scale, on the dark ground — the same
           closing treatment every other page ends on, moved to the top here
           because on this page it is the whole point. The form is secondary. */}
-      <Band label={epikoinonia.eyebrow} head tone="ink">
-        <h1 className="h1">{epikoinonia.h1}</h1>
-        <p className="lede">
-          <span className="measure-prose">{epikoinonia.lede}</span>
-        </p>
+      <PageHero
+        label={epikoinonia.eyebrow}
+        title={<h1 className="h1">{epikoinonia.h1}</h1>}
+        lede={epikoinonia.lede}
+      />
+
+      <Band label="ΣΤΟΙΧΕΙΑ" frame="panel" index="02">
+        <h2 className="h2">Πώς θα μας βρείτε</h2>
 
         <div className="contact-grid">
           <a className="contact-primary" href={business.phone.href}>

@@ -14,7 +14,13 @@ import Band from "./Band";
  */
 export default function ContactBlock() {
   return (
-    <Band label={contactSection.eyebrow} id="epikoinonia" tone="ink">
+    <Band
+      label={contactSection.eyebrow}
+      id="epikoinonia"
+      frame="panel"
+      tone="ink"
+      index="06"
+    >
       <h2 className="h2">{contactSection.heading}</h2>
       <p className="lede">
         <span className="measure-prose">{contactSection.lede}</span>

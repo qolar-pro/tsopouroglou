@@ -4,6 +4,7 @@ import { services, serviceBySlug, servicesPage } from "@/content/services";
 import { business } from "@/content/site";
 import { pageOpenGraph } from "@/content/site-config";
 import Band from "@/components/Band";
+import PageHero from "@/components/PageHero";
 import ArrowIcon from "@/components/ArrowIcon";
 import CallBand from "@/components/CallBand";
 import { JsonLd, serviceSchema, breadcrumbSchema } from "@/lib/schema";
@@ -55,30 +56,17 @@ export default async function ServicePage({
       />
 
       {/* ---- Head ---- */}
-      <Band label={servicesPage.eyebrow} head>
+      <PageHero
+        label={servicesPage.eyebrow}
+        title={<h1 className="h1">{service.h1}</h1>}
+        lede={service.lede}
+        photo={showPhoto ? photo : undefined}
+        priority
+      >
         <nav className="breadcrumb" aria-label="Διαδρομή">
           <a href="/ypiresies">{servicesPage.backToAll}</a>
         </nav>
-
-        <h1 className="h1" style={{ marginTop: "var(--s-4)" }}>
-          {service.h1}
-        </h1>
-        <p className="lede">
-          <span className="measure-prose">{service.lede}</span>
-        </p>
-
-        <div className="band-cta">
-          <a className="btn btn-call" href={business.phone.href}>
-            ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
-          </a>
-        </div>
-
-        {showPhoto && (
-          <div className="hero-media">
-            <Photo img={photo} sizes="100vw" frame="css" priority />
-          </div>
-        )}
-      </Band>
+      </PageHero>
 
       {/* ---- What it involves + which machine ---- */}
       <Band label="Η ΔΟΥΛΕΙΑ">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { etaireia } from "@/content/pages";
 import Band from "@/components/Band";
+import PageHero from "@/components/PageHero";
 import CallBand from "@/components/CallBand";
 import Reviews from "@/components/Reviews";
 import Photo from "@/components/Photo";
@@ -15,16 +16,13 @@ export const metadata: Metadata = {
 export default function Etaireia() {
   return (
     <main>
-      <Band label={etaireia.eyebrow} head>
-        <h1 className="h1">{etaireia.h1}</h1>
-        <p className="lede">
-          <span className="measure-prose">{etaireia.lede}</span>
-        </p>
-
-        <div className="hero-media">
-          <Photo img={etaireiaPhoto} sizes="100vw" frame="css" priority />
-        </div>
-      </Band>
+      <PageHero
+        label={etaireia.eyebrow}
+        title={<h1 className="h1">{etaireia.h1}</h1>}
+        lede={etaireia.lede}
+        photo={etaireiaPhoto}
+        priority
+      />
 
       <Band label="Η ΙΣΤΟΡΙΑ">
         <div className="detail-cols">

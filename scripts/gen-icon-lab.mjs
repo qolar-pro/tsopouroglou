@@ -13,32 +13,26 @@ const GREEN = "#0a6136";
 
 const MARKS = [
   {
-    id: "s1",
-    name: "ΤΟΜΗ — a cut in the ground",
-    note: "A soft green tile with a smooth U bitten out of its top edge: a trench opened in the ground. Carries the trade and stays a clean shape at 16px.",
+    id: "x1",
+    name: "ΜΙΞΗ 1 — heap cut out of the tile",
+    note: "s2's rounded tile with s3's heap and level line cut clean out of it. Negative shapes, so whatever is behind shows through and it works on any ground.",
     solid: true,
-    path: `<path fill-rule="evenodd" d="M14 2h36a12 12 0 0 1 12 12v36a12 12 0 0 1-12 12H14A12 12 0 0 1 2 50V14A12 12 0 0 1 14 2zm10 0h16v22a8 8 0 0 1-16 0z"/>`,
+    path: `<path fill-rule="evenodd" d="M14 2h36a12 12 0 0 1 12 12v36a12 12 0 0 1-12 12H14A12 12 0 0 1 2 50V14A12 12 0 0 1 14 2zM15 38C15 38 21 15 32 15s17 23 17 23a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2zM15 44h34a3 3 0 0 1 0 6H15a3 3 0 0 1 0-6z"/>`,
   },
   {
-    id: "s2",
-    name: "ΠΛΑΚΙΔΙΟ — rounded tile with Τ",
-    note: "The same tile with his initial cut clean out of it. The most app-like, and the only one that carries the name.",
+    id: "x2",
+    name: "ΜΙΞΗ 2 — heap sitting on the tile",
+    note: "The same two shapes drawn in white ON the tile instead of cut out of it. Slightly heavier, and it holds its edges better when the icon gets very small.",
     solid: true,
-    path: `<path fill-rule="evenodd" d="M14 2h36a12 12 0 0 1 12 12v36a12 12 0 0 1-12 12H14A12 12 0 0 1 2 50V14A12 12 0 0 1 14 2zm3 16a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h11v20a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V28h11a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2z"/>`,
+    path: `<path fill="GREENFILL" d="M14 2h36a12 12 0 0 1 12 12v36a12 12 0 0 1-12 12H14A12 12 0 0 1 2 50V14A12 12 0 0 1 14 2z"/><path fill="#ffffff" d="M15 38C15 38 21 15 32 15s17 23 17 23a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2z"/><path fill="#ffffff" d="M15 44h34a3 3 0 0 1 0 6H15a3 3 0 0 1 0-6z"/>`,
+    prebuilt: true,
   },
   {
-    id: "s3",
-    name: "ΣΩΡΟΣ — heap on a level line",
-    note: "A smooth heap of earth resting on the level line the design system is already named after. The quietest of the four.",
-    ink: `<path class="ink" d="M4 42C4 42 16 10 32 10s28 32 28 32a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/>`,
-    accent: `<rect x="2" y="51" width="60" height="11" rx="5.5" fill="ACCENT"/>`,
-  },
-  {
-    id: "s4",
-    name: "ΚΟΥΒΑΣ — the scoop, smoothed",
-    note: "One continuous curve, no teeth. Reads as a scoop rather than as machinery. Green throughout, so nothing competes inside it.",
+    id: "x3",
+    name: "ΜΙΞΗ 3 — heap only, no line",
+    note: "The level line dropped entirely. One shape inside the tile is the safest thing at 16px; the question is whether losing the line loses the point.",
     solid: true,
-    path: `<path d="M12 10h40a4 4 0 0 1 4 4v14a24 24 0 0 1-48 0V14a4 4 0 0 1 4-4z"/>`,
+    path: `<path fill-rule="evenodd" d="M14 2h36a12 12 0 0 1 12 12v36a12 12 0 0 1-12 12H14A12 12 0 0 1 2 50V14A12 12 0 0 1 14 2zM15 42C15 42 21 15 32 15s17 27 17 27a3 3 0 0 1-3 3H18a3 3 0 0 1-3-3z"/>`,
   },
 ];
 
@@ -54,14 +48,18 @@ const MARKS = [
  */
 const body = (m, inkFill) =>
   m.solid
-    ? m.path.replace("<path", `<path fill="${GREEN}"`)
+    ? m.prebuilt
+      ? m.path.replace("GREENFILL", GREEN)
+      : m.path.replace("<path", `<path fill="${GREEN}"`)
     : m.ink.replace('class="ink"', `fill="${inkFill}"`) +
       m.accent.replace("ACCENT", GREEN);
 
 /** Favicon: explicit fills, plus a rule so it survives a dark tab strip. */
 for (const m of MARKS) {
   const inner = m.solid
-    ? m.path.replace("<path", `<path fill="${GREEN}"`)
+    ? m.prebuilt
+      ? m.path.replace("GREENFILL", GREEN)
+      : m.path.replace("<path", `<path fill="${GREEN}"`)
     : `<style>.ink{fill:${INK}}@media (prefers-color-scheme:dark){.ink{fill:#fff}}</style>` +
       m.ink +
       m.accent.replace("ACCENT", GREEN);

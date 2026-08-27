@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { business } from "@/content/site";
 import { SITE_URL } from "@/content/site-config";
 import Band from "@/components/Band";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Πολιτική απορρήτου | ΤΣΟΠΟΥΡΟΓΛΟΥ",
@@ -19,14 +20,11 @@ export const metadata: Metadata = {
 export default function Privacy() {
   return (
     <main>
-      <Band label="ΝΟΜΙΚΑ" head>
-        <h1 className="h1">Πολιτική απορρήτου</h1>
-        <p className="lede">
-          <span className="measure-prose">
-            Σύντομη, γιατί συλλέγουμε ελάχιστα.
-          </span>
-        </p>
-      </Band>
+      <PageHero
+        label="ΝΟΜΙΚΑ"
+        title={<h1 className="h1">Πολιτική απορρήτου</h1>}
+        lede="Σύντομη, γιατί συλλέγουμε ελάχιστα."
+      />
 
       <Band label="ΑΠΟΡΡΗΤΟ">
         <div className="legal">

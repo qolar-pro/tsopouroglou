@@ -1,56 +1,75 @@
 import type { ReactNode } from "react";
 
 /**
- * A section, in the editorial-rail system.
+ * A section, in one of two frames.
  *
- * Every section is a two-column grid: a narrow label column on the left and
- * the content beside it. Running that rail down the whole page gives the site
- * one continuous vertical structure instead of a stack of separately-styled
- * blocks, and it puts the section name where the eye already is when
- * scanning — the left edge.
+ * The editorial rail this replaces parked a label column on the left, so
+ * every section started 224px in and still ended flush at the container's
+ * right edge — content that read as having slid sideways rather than as
+ * composed. Both frames here are symmetric.
  *
- * The label used to be an eyebrow stacked above every heading, which read as
- * repetition. In the rail it does structural work instead.
+ *   "rule"   the label sits INSET INTO a full-width hairline, heading and
+ *            lede centred beneath it. The divider does the design work, so
+ *            the label stops being an eyebrow repeated above every heading.
  *
- * Sections are divided by a hairline on one continuous white ground rather
- * than by alternating background colours. Stripes made the page read as a
- * pile of unrelated blocks; one ground with rules reads as a document. `tone`
- * and `ink` therefore exist to be used twice each on the whole site, not
- * alternately — see ContactBlock for what the dark one is for.
+ *   "panel"  a bordered sheet with a title block across the top — label at
+ *            one edge, sheet number at the other — and the head centred
+ *            inside. The left/right becomes part of a frame instead of a
+ *            margin, which is what makes it read as deliberate.
  *
- * Below 1000px the rail folds and the label sits above the content, which is
- * the same reading order without the horizontal room.
+ * Panel is for the anchors: the page hero and the closing call. Rule is for
+ * everything else, because eight framed sheets stacked read as heavy.
  */
 export default function Band({
   label,
+  index,
+  frame = "rule",
   tone,
-  head = false,
   id,
   children,
 }: {
   label?: string;
-  /** "tone" = gravel ground, "ink" = dark. Used sparingly, not alternating. */
+  /** Sheet number in the panel's title block, e.g. "02". Panel frame only. */
+  index?: string;
+  frame?: "rule" | "panel";
+  /** "tone" = gravel ground, "ink" = dark. Used sparingly, never alternating. */
   tone?: "tone" | "ink";
-  /** The first band on an inner page: no dividing rule above it. */
-  head?: boolean;
   id?: string;
   children: ReactNode;
 }) {
   const cls = [
     "band",
+    frame === "panel" ? "band--panel" : "",
     tone ? `band--${tone}` : "",
-    head ? "band--head" : "",
   ]
     .filter(Boolean)
     .join(" ");
 
+  if (frame === "panel") {
+    return (
+      <section className={cls} id={id}>
+        <div className="wrap">
+          <div className="panel">
+            {(label || index) && (
+              <div className="panel-title">
+                <span className="band-label">{label}</span>
+                {index && <span className="panel-index">{index}</span>}
+              </div>
+            )}
+            <div className="panel-body band-body">{children}</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className={cls} id={id}>
-      <div className="wrap band-grid">
-        {label ? (
-          <p className="band-label">{label}</p>
-        ) : (
-          <span aria-hidden="true" />
+      <div className="wrap">
+        {label && (
+          <p className="band-rule">
+            <span className="band-label">{label}</span>
+          </p>
         )}
         <div className="band-body">{children}</div>
       </div>

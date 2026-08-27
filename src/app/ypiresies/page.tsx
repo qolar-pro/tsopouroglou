@@ -4,6 +4,7 @@ import { erga, servicePhoto } from "@/content/media";
 import Photo from "@/components/Photo";
 import ArrowIcon from "@/components/ArrowIcon";
 import Band from "@/components/Band";
+import PageHero from "@/components/PageHero";
 import CallBand from "@/components/CallBand";
 
 /**
@@ -27,14 +28,16 @@ export const metadata: Metadata = {
 export default function ServicesAndWork() {
   return (
     <main>
-      <Band label={servicesPage.eyebrow} head>
-        <h1 className="h1">Τι κάνουμε, και τι έχουμε κάνει</h1>
-        <p className="lede">
-          <span className="measure-prose">
-            Οκτώ δουλειές. Πιο κάτω, φωτογραφίες από δικά μας εργοτάξια — η
-            ίδια δουλειά, όχι σε λόγια.
-          </span>
-        </p>
+      <PageHero
+        label={servicesPage.eyebrow}
+        title={<h1 className="h1">Τι κάνουμε, και τι έχουμε κάνει</h1>}
+        lede="Οκτώ δουλειές. Πιο κάτω, φωτογραφίες από δικά μας εργοτάξια — η ίδια δουλειά, όχι σε λόγια."
+        photo={erga[0].img}
+        priority
+      />
+
+      <Band label={servicesPage.eyebrow} id="ypiresies">
+        <h2 className="h2">Οι οκτώ δουλειές</h2>
 
         <ul className="items items-3">
           {services.map((s) => (

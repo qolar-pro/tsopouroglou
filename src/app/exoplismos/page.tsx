@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { HAS_REAL_PHOTOS } from "@/content/site";
 import { gated } from "@/content/pages";
 import Band from "@/components/Band";
+import PageHero from "@/components/PageHero";
 import CallBand from "@/components/CallBand";
 import Photo from "@/components/Photo";
 import { stolos } from "@/content/media";
@@ -20,11 +21,16 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main>
-      <Band label={page.eyebrow} head>
-        <h1 className="h1">{page.h1}</h1>
-        <p className="lede">
-          <span className="measure-prose">{page.lede}</span>
-        </p>
+      <PageHero
+        label={page.eyebrow}
+        title={<h1 className="h1">{page.h1}</h1>}
+        lede={page.lede}
+        photo={stolos[0].img}
+        priority
+      />
+
+      <Band label="ΜΗΧΑΝΗΜΑΤΑ">
+        <h2 className="h2">Με τι δουλεύουμε</h2>
 
         {/* The machine list is text, so it is honest without photos.
             Only the photographs are gated. */}
