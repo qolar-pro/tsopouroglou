@@ -5,6 +5,35 @@ const nextConfig: NextConfig = {
   // infers the parent as the workspace root and warns on every build.
   turbopack: { root: __dirname },
 
+  /**
+   * Hosts allowed to request dev-only assets.
+   *
+   * `next dev` blocks cross-origin requests to /_next/* by default. Opening
+   * the site on a phone over the LAN therefore serves the HTML perfectly —
+   * it is server-rendered — while every client chunk is refused, React never
+   * hydrates, and the page looks finished but is completely dead to touch.
+   * The nav panel is the only interactive component, so that is where it
+   * shows up.
+   *
+   * DEVELOPMENT ONLY. Next ignores this in a production build, so it grants
+   * nothing to the deployed site.
+   *
+   * Wildcards cover the private ranges a home router hands out, so this does
+   * not need editing every time DHCP moves the machine.
+   */
+  allowedDevOrigins: [
+    "192.168.*.*",
+    "10.*.*.*",
+    "172.16.*.*",
+    "172.17.*.*",
+    "172.18.*.*",
+    "172.19.*.*",
+    "172.2*.*.*",
+    "172.30.*.*",
+    "172.31.*.*",
+    "*.local",
+  ],
+
   // NOTE: deliberately NOT `output: "export"`.
   // A static export cannot host the Resend route handler, and the API key
   // must stay server-side. Every content page is still prerendered at build,
