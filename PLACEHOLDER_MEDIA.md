@@ -27,6 +27,68 @@ Originals live in the chat; working copies are in `/public/erga/`.
 | Στόλος | 6 machines |
 | Service pages | 5 of 8 |
 
+## Which pages are text-only right now
+
+Counted off the rendered HTML, not off the manifest:
+
+| Route | Images |
+|---|---|
+| `/ypiresies` | 12 |
+| `/` | 8 |
+| `/exoplismos` | 6 |
+| `/etaireia` | 1 |
+| `/ypiresies/vothroi` | **0** |
+| `/ypiresies/ekvrachismoi` | **0** |
+| `/ypiresies/katharismos-paralias` | **0** |
+| `/perioxes` | **0** |
+| `/perioxes/metamorfosi` | **0** |
+| `/perioxes/nikiti` | **0** |
+| `/perioxes/vatopedi` | **0** |
+| `/perioxes/psakoudia` | **0** |
+| `/epikoinonia` | **0** |
+
+Nine of fourteen routes carry no photograph. The redesign made every one of
+them read as a deliberate list rather than as an empty box, so none of it
+looks broken — but the pages that are supposed to prove he does the work are
+the ones with nothing to look at.
+
+`/epikoinonia` is fine as it is: it is a phone number and a form, and a photo
+there would be decoration.
+
+## 📷 The shot list, in priority order
+
+Everything below is one phone photo per line. No equipment, no planning — the
+next few jobs would produce all of it.
+
+**1. The three service pages with nothing on them.** Highest value per photo,
+because each one is a page that currently argues in words only.
+  - a finished **βόθρος** — the excavation, or the chamber before it is covered
+  - an **εκβραχισμός** — the hammer on rock, or broken rock loaded out
+  - a **καθαρισμός παραλίας** — the machine on sand. This is the one that
+    matters most commercially: uncontested keyword, real seasonal demand,
+    no competitor covers it, and right now it has no picture.
+
+**2. One photo per area — five photos.** Each area page has genuinely
+distinct copy and nothing to look at. A recognisable frame of the place
+(a plot, a yard, the coast at Ψακούδια or Βατοπέδι) makes the page about
+somewhere real rather than about a keyword. It also guards against the thin
+-content filter these pages exist to avoid.
+  - Μεταμόρφωση / Δασκάλων (home ground — the shared page)
+  - Νικήτη
+  - Βατοπέδι
+  - Ψακούδια
+
+**3. Before/after pairs** — see below. Still the one format nobody in this
+market has.
+
+**4. The two brothers together** — one frame, the strongest image the site
+could have.
+
+**5. The rest of the fleet.** Six machines are shown; the confirmed list has
+more, and two of the six reuse a job photo that is really about something
+else. Missing outright: the **τρακτέρ**, and the three τσάπες as three
+distinct machines rather than one.
+
 ## 🔴 Still worth asking for
 
 ### 1. Before/after pairs — the one real gap
