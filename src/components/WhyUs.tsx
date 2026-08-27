@@ -16,7 +16,6 @@ export default function WhyUs() {
       <LevelLine />
 
       <div className="wrap section-head">
-        <p className="label">{whySection.eyebrow}</p>
         <h2 className="h2">{whySection.heading}</h2>
       </div>
 

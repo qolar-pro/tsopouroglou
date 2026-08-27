@@ -106,6 +106,14 @@ if (FULL) {
         await new Promise(r => setTimeout(r, 120));
       }
       window.scrollTo(0, 0);
+      // Scrolling the page can nudge scroll-snap rails off their first item,
+      // which then photographs as a mis-aligned layout that is not one.
+      for (const el of document.querySelectorAll('*')) {
+        const ox = getComputedStyle(el).overflowX;
+        if ((ox === 'auto' || ox === 'scroll') && el.scrollLeft !== 0) {
+          el.scrollLeft = 0;
+        }
+      }
       await new Promise(r => setTimeout(r, 300));
     })()`,
     awaitPromise: true,

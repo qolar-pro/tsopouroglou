@@ -18,7 +18,6 @@ export default function Services() {
       <LevelLine />
 
       <div className="wrap section-head">
-        <p className="label">{servicesSection.eyebrow}</p>
         <h2 className="h2">{servicesSection.heading}</h2>
         <p className="lede">
           <span className="measure">{servicesSection.lede}</span>

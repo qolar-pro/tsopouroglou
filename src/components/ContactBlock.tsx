@@ -13,7 +13,6 @@ export default function ContactBlock() {
       <LevelLine />
 
       <div className="wrap section-head">
-        <p className="label">{contactSection.eyebrow}</p>
         <h2 className="h2">{contactSection.heading}</h2>
         <p className="lede">
           <span className="measure">{contactSection.lede}</span>

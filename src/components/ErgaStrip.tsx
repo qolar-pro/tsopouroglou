@@ -19,7 +19,6 @@ export default function ErgaStrip() {
     <section className="section surface-field" id="erga">
       <LevelLine />
       <div className="wrap section-head">
-        <p className="label">ΕΡΓΑ</p>
         <h2 className="h2">Δουλειές μας</h2>
         <p className="lede">
           <span className="measure">

@@ -93,6 +93,8 @@ const PROBES = [
   [".grid-3", "gridTemplateColumns"],
   [".why-grid", "gridTemplateColumns"],
   [".rail", "gridAutoColumns"],
+  [".rail", "paddingLeft"],
+  [".wrap", "paddingLeft"],
   [".hero-grid", "gridTemplateColumns"],
   [".contact-grid", "gridTemplateColumns"],
   [".footer-cols", "gridTemplateColumns"],

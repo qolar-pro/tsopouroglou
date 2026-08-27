@@ -17,7 +17,6 @@ export default function Areas() {
       <LevelLine />
 
       <div className="wrap section-head">
-        <p className="label">{areasSection.eyebrow}</p>
         <h2 className="h2">{areasSection.heading}</h2>
         <p className="lede">
           <span className="measure">{areasSection.lede}</span>
