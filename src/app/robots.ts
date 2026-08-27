@@ -8,7 +8,14 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
       // Belt and braces: these routes also carry noindex in their metadata.
-      disallow: HAS_REAL_PHOTOS ? [] : ["/exoplismos"],
+      // /_iconlab and /preview are throwaway design comparisons. They live
+      // in the app for now so they can be opened on a phone; neither should
+      // ever be crawlable. Both get deleted once a direction is chosen.
+      disallow: [
+        "/preview",
+        "/_iconlab",
+        ...(HAS_REAL_PHOTOS ? [] : ["/exoplismos"]),
+      ],
     },
     sitemap: abs("/sitemap.xml"),
     host: abs("/"),

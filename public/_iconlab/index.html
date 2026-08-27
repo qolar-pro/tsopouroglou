@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><title>icons</title>
+<style>
+ body{font:16px system-ui;margin:0;padding:28px;background:#fff;color:#15191a}
+ h2{font-size:15px;letter-spacing:.06em;margin:30px 0 10px}
+ .row{display:flex;align-items:flex-end;gap:26px;padding:16px 20px;border:1px solid #dce0de}
+ .row.dark{background:#111716;color:#fff;border-color:#111716}
+ .cap{font-size:11px;color:#434b4c;text-align:center;margin-top:6px}
+ .dark .cap{color:#e4e8e6}
+ .u{display:flex;flex-direction:column;align-items:center}
+ .nav{display:flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid #dce0de;margin-top:8px}
+ .wm{font:900 19px system-ui}
+ .tag{font-size:11px;letter-spacing:.1em;color:#434b4c}
+ svg{display:block}
+</style></head><body>
+<script>
+// Inline, so `currentColor` actually inherits. An <img src="*.svg"> is an
+// isolated document and resolves currentColor to its own initial black —
+// which is why the first pass rendered black-on-black on the dark row.
+const MARKS = {
+ m1: {name:'ΤΟΜΗ — trench section', svg:`
+  <path fill="currentColor" d="M2 22h20l5 24h10l5-24h20v38H2z"/>
+  <path fill="#0a6136" d="M2 22h20v6H2zM42 22h20v6H42z"/>`},
+ m2: {name:'ΚΟΥΒΑΣ — excavator bucket', svg:`
+  <path fill="currentColor" d="M8 12h48l-7 32H15z"/>
+  <path fill="#0a6136" d="M16 44h8l-1 12h-6zM28 44h8l0 12h-8zM40 44h8l-1 12h-6z"/>`},
+ // The counter must be a real hole, not a white shape: filling it #fff made
+ // the whole mark disappear on the dark navbar. evenodd lets whatever is
+ // behind show through, so it works on any ground.
+ m3: {name:'Τ — monogram cut into ground', svg:`
+  <path fill="currentColor" fill-rule="evenodd" d="M2 16h60v44H2zM14 26h36v8H36v20h-8V34H14z"/>
+  <path fill="#0a6136" d="M2 16h60v5H2z"/>`},
+};
+const S=[96,48,32,16];
+const icon=(k,px,col)=>`<svg viewBox="0 0 64 64" width="${px}" height="${px}" style="color:${col}">${MARKS[k].svg}</svg>`;
+document.write(Object.keys(MARKS).map(k=>`
+ <h2>${MARKS[k].name}</h2>
+ <div class="row">${S.map(s=>`<div class="u">${icon(k,s,'#15191a')}<div class="cap">${s}px</div></div>`).join('')}</div>
+ <div class="row dark">${S.map(s=>`<div class="u">${icon(k,s,'#ffffff')}<div class="cap">${s}px</div></div>`).join('')}</div>
+ <div class="nav">${icon(k,34,'#15191a')}<div><div class="wm">Γ. &amp; Ν. ΤΣΟΠΟΥΡΟΓΛΟΥ</div><div class="tag">ΧΩΜΑΤΟΥΡΓΙΚΑ · ΜΕΤΑΜΟΡΦΩΣΗ ΧΑΛΚΙΔΙΚΗΣ</div></div></div>
+`).join(''));
+</script>
+</body></html>

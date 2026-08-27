@@ -1,0 +1,366 @@
+/**
+ * THROWAWAY, round two. Three richer variants after A (centred) and B
+ * (framed panel) were both liked. Delete src/app/preview once a direction is
+ * chosen.
+ *
+ *   D  panel + centred head — literally A inside B
+ *   E  chapter rule — symmetric, but the divider does the design work
+ *   F  drafting sheet — the most technical reading of the same idea
+ */
+
+.pv2-marker {
+  background-color: var(--color-deep);
+  color: var(--color-field);
+  padding: var(--s-5) 0;
+}
+.pv2-marker h2 {
+  color: var(--color-field);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.pv2-marker p {
+  color: var(--color-stone);
+  font-size: var(--t-small);
+  margin-top: var(--s-2);
+  max-width: 74ch;
+}
+
+/* ==========================================================================
+   D — PANEL + CENTRED HEAD
+   B's frame, A's symmetry inside it. The title block keeps the label and the
+   sheet number at the edges, where they read as part of the frame; the
+   heading and lede are centred in the panel, where they read as content.
+   ========================================================================== */
+.vd .pv2-band {
+  padding-block: var(--s-6);
+}
+.vd .pv2-panel {
+  border: 1px solid var(--color-line);
+  background-color: var(--color-field);
+}
+.vd .pv2-titleblock {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-6);
+  border-bottom: 1px solid var(--color-line);
+  background-color: var(--color-raised);
+}
+.vd .pv2-label,
+.vd .pv2-index {
+  font-size: var(--t-label);
+  letter-spacing: 0.1em;
+  color: var(--color-ink-muted);
+}
+.vd .pv2-index {
+  font-family: var(--font-display);
+  font-weight: 900;
+}
+.vd .pv2-inner {
+  padding: var(--s-8) var(--s-6);
+}
+.vd .pv2-head {
+  text-align: center;
+  max-width: 56ch;
+  margin-inline: auto;
+}
+.vd .pv2-h2 {
+  font-size: var(--t-h2);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+.vd .pv2-lede {
+  font-size: var(--t-lede);
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+  margin-top: var(--s-4);
+}
+.vd .pv2-hero .pv2-panel {
+  background-color: var(--color-deep);
+  border-color: var(--color-deep);
+}
+.vd .pv2-hero .pv2-titleblock {
+  background-color: #1b2322;
+  border-bottom-color: #2b3331;
+}
+.vd .pv2-hero .pv2-label,
+.vd .pv2-hero .pv2-index {
+  color: var(--color-stone);
+}
+.vd .pv2-hero .pv2-head {
+  max-width: none;
+}
+.vd .pv2-hero-lead,
+.vd .pv2-hero-year {
+  color: var(--color-field);
+}
+
+/* ==========================================================================
+   E — CHAPTER RULE
+   Fully symmetric like A, but the section label is inset INTO a full-width
+   hairline instead of floating above the heading as an eyebrow. The divider
+   stops being a border and becomes the piece of design — which is what A was
+   missing, and it costs no asymmetry at all.
+   ========================================================================== */
+.ve .pv2-band {
+  padding-block: var(--band-y);
+  text-align: center;
+}
+.ve .pv2-rule {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  margin-bottom: var(--s-7);
+}
+.ve .pv2-rule::before,
+.ve .pv2-rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-line);
+}
+.ve .pv2-label {
+  font-size: var(--t-label);
+  letter-spacing: 0.14em;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+.ve .pv2-h2 {
+  font-size: var(--t-h2);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+.ve .pv2-lede {
+  font-size: var(--t-lede);
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+  margin: var(--s-4) auto 0;
+  max-width: 54ch;
+}
+.ve .pv2-hero {
+  text-align: center;
+  padding-top: var(--s-8);
+}
+.ve .pv2-hero-lead {
+  margin-inline: auto;
+  max-width: 20ch;
+}
+
+/* ==========================================================================
+   F — DRAFTING SHEET
+   B taken all the way: corner ticks, a double frame, and a title block with
+   real cells rather than a single strip. Closest to the language the trade
+   actually reads — a stamped drawing — and the most distinctive of the five.
+   Also the most it can afford to be wrong, so it is worth seeing at size.
+   ========================================================================== */
+.vf .pv2-band {
+  padding-block: var(--s-6);
+}
+.vf .pv2-sheet {
+  position: relative;
+  border: 1px solid var(--color-line);
+  padding: 10px;
+  background-color: var(--color-field);
+}
+.vf .pv2-frame {
+  border: 1px solid var(--color-line-hair);
+}
+/* Corner ticks, drafting-style. Decorative only. */
+.vf .pv2-sheet::before,
+.vf .pv2-sheet::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--color-ink);
+}
+.vf .pv2-sheet::before {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.vf .pv2-sheet::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: 0;
+  border-top: 0;
+}
+.vf .pv2-titleblock {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--s-4);
+  border-bottom: 1px solid var(--color-line-hair);
+}
+.vf .pv2-cell {
+  padding: var(--s-3) var(--s-5);
+  font-size: var(--t-label);
+  letter-spacing: 0.1em;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+.vf .pv2-cell + .pv2-cell {
+  border-inline-start: 1px solid var(--color-line-hair);
+}
+.vf .pv2-cell-num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: var(--color-ink);
+}
+.vf .pv2-inner {
+  padding: var(--s-8) var(--s-5);
+}
+.vf .pv2-head {
+  text-align: center;
+  max-width: 56ch;
+  margin-inline: auto;
+}
+.vf .pv2-h2 {
+  font-size: var(--t-h2);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+.vf .pv2-lede {
+  font-size: var(--t-lede);
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+  margin-top: var(--s-4);
+}
+.vf .pv2-hero .pv2-sheet {
+  background-color: var(--color-deep);
+  border-color: var(--color-deep);
+}
+.vf .pv2-hero .pv2-frame {
+  border-color: #2b3331;
+}
+.vf .pv2-hero .pv2-sheet::before,
+.vf .pv2-hero .pv2-sheet::after {
+  border-color: var(--color-field);
+}
+.vf .pv2-hero .pv2-titleblock {
+  border-bottom-color: #2b3331;
+}
+.vf .pv2-hero .pv2-cell {
+  color: var(--color-stone);
+}
+.vf .pv2-hero .pv2-cell + .pv2-cell {
+  border-inline-start-color: #2b3331;
+}
+.vf .pv2-hero .pv2-cell-num {
+  color: var(--color-field);
+}
+.vf .pv2-hero-lead,
+.vf .pv2-hero-year {
+  color: var(--color-field);
+}
+
+/* ---------- shared, so only composition differs ---------- */
+.pv2-hero-lead {
+  display: block;
+  font-size: var(--t-h1);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.pv2-hero-year {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--t-display);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  margin-top: var(--s-3);
+}
+.pv2-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+.pv2-centre .pv2-cta {
+  justify-content: center;
+}
+/* On the dark sheets the ghost button needs the same inverted treatment the
+   live dark band already has, or it is invisible — which is exactly what the
+   first preview round got wrong. */
+.vd .pv2-hero .btn-secondary,
+.vf .pv2-hero .btn-secondary {
+  color: var(--color-field);
+  box-shadow: 0 2px 0 0 var(--color-line), inset 0 0 0 1px var(--color-line);
+}
+.vd .pv2-hero .btn-call,
+.vf .pv2-hero .btn-call {
+  box-shadow: 0 2px 0 0 var(--color-accent-press),
+    inset 0 0 0 1px var(--color-field);
+}
+
+.pv2-items {
+  list-style: none;
+  margin: var(--s-7) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-6) var(--s-5);
+  grid-template-columns: 1fr;
+  text-align: left;
+}
+@media (min-width: 560px) {
+  .pv2-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  .pv2-items {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.pv2-item-title {
+  display: block;
+  font-size: var(--t-h3);
+  font-weight: 700;
+  line-height: 1.2;
+  padding-top: var(--s-3);
+  border-top: 2px solid var(--color-ink);
+}
+.pv2-item-body {
+  display: block;
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+  margin-top: var(--s-2);
+}
+.pv2-photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  margin: 0 0 var(--s-4);
+}
+/* Blank, not a grey box: a photoless item reserves the row height and shows
+   nothing, so it never reads as a missing image. */
+.pv2-spacer {
+  display: none;
+}
+@media (min-width: 560px) {
+  .pv2-spacer {
+    display: block;
+    aspect-ratio: 4 / 3;
+    margin-bottom: var(--s-4);
+  }
+}
+.pv2-heroshot {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  margin: var(--s-6) 0 0;
+}
+@media (min-width: 700px) {
+  .pv2-heroshot {
+    aspect-ratio: 21 / 9;
+  }
+}
