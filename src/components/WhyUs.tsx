@@ -25,14 +25,14 @@ export default function WhyUs() {
         <p className="rating-line">
           <span className="rating-score num">{reviewsSection.rating}</span>
           <span>
-            στο Google, από {reviewsSection.count} κριτικές.{" "}
+            στο Google.{" "}
             <a
               className="inline-link"
               href={business.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Δείτε τις
+              Δείτε τις κριτικές
               <ArrowIcon />
             </a>
           </span>

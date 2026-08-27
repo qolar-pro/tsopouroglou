@@ -1698,40 +1698,49 @@ a.contact-row:hover .contact-value {
   color: var(--color-ink-muted);
 }
 
-.themes {
+/* Real reviews, as written. A masonry-ish column flow so short and long
+   quotes sit together without stretching each other. */
+.reviews {
   list-style: none;
   margin: var(--s-6) 0 0;
   padding: 0;
-  display: grid;
-  gap: 0;
-  grid-template-columns: 1fr;
+  columns: 1;
+  column-gap: var(--s-5);
 }
 @media (min-width: 700px) {
-  .themes {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: var(--s-8);
+  .reviews {
+    columns: 2;
   }
 }
 @media (min-width: 1040px) {
-  .themes {
-    grid-template-columns: repeat(3, 1fr);
+  .reviews {
+    columns: 3;
   }
 }
-.theme {
-  padding-block: var(--s-5);
-  border-top: var(--rule-hair);
+.reviews li {
+  break-inside: avoid;
+  margin-bottom: var(--s-5);
 }
-.theme-title {
-  font-size: var(--t-h3);
-  font-weight: 700;
-  line-height: 1.25;
+.review {
+  margin: 0;
+  padding: var(--s-5);
+  background-color: var(--color-raised);
+  border: var(--rule-hair);
+  border-radius: 2px;
 }
-.theme-body {
-  color: var(--color-ink-muted);
+.review blockquote {
+  margin: 0;
+}
+.review blockquote p {
   font-size: var(--t-small);
-  line-height: 1.55;
-  margin-top: var(--s-2);
-  max-width: 40ch;
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+.review figcaption {
+  margin-top: var(--s-3);
+  font-size: var(--t-label);
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
 }
 
 /* Compact trust line on the homepage — the full Κριτικές section is on

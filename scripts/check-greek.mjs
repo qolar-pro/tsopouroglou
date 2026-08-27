@@ -50,8 +50,12 @@ const RULES = [
   },
   {
     id: "year-count",
-    test: /\b\d{2}\s*(χρόνια|χρόνων|ΧΡΟΝΙΑ|ετών)\b/,
-    msg: 'Never state a number of years — it goes stale. Use "από το 1987".',
+    // No word-boundary anchor here. JS word boundaries are ASCII-only and
+    // never match after a Greek letter, so the original pattern silently
+    // passed "30 χρόνια" — this rule did nothing from gate 2 until a quoted
+    // review exposed it.
+    test: /\d{1,3}\s*(χρόνια|χρόνων|χρονια|ΧΡΟΝΙΑ|ετών|έτη|ετη)/,
+    msg: 'Never state a number of years — it goes stale. Use "από το 1987". If this is inside a quoted review, add greek-guard-ok to the line.',
   },
 ];
 

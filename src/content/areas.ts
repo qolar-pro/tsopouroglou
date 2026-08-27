@@ -161,7 +161,14 @@ export const areaPages: AreaPage[] = [
 export const areaBySlug = (slug: string) =>
   areaPages.find((a) => a.slug === slug);
 
-/** Pages that may be indexed and listed. */
+/**
+ * ROUTING ONLY — generateStaticParams, the sitemap, "other areas" links.
+ *
+ * NOT for rendering a list of places to a reader. It excludes Δασκάλων,
+ * which has no page of its own but is still somewhere he works, so using it
+ * for display drops a real area off the page. Use `areaLinks` for anything a
+ * reader sees.
+ */
 export const publishedAreas = areaPages.filter((a) => !a.needsInput);
 
 /**
@@ -206,6 +213,7 @@ export const areasPage = {
     "Χωματουργικές εργασίες σε Μεταμόρφωση, οικισμό Δασκάλων, Νικήτη, Βατοπέδι και Ψακούδια Χαλκιδικής. Από το 1987. Τηλ. 697 355 7903.",
   servicesHeading: "Τι κάνουμε εδώ",
   servicesBody: "Και τις οκτώ δουλειές μας, χωρίς εξαίρεση.",
+  priorityLabel: "ΒΑΣΗ ΜΑΣ",
   otherAreasHeading: "Άλλες περιοχές",
   backToAll: "Όλες οι περιοχές",
 } as const;
@@ -225,5 +233,16 @@ export const areasPage = {
   }
   if (!areaPages.some((a) => a.homeGround)) {
     throw new Error("areas.ts: no home-ground area — the spine needs one.");
+  }
+  // Every place the client says he serves must appear in the reader-facing
+  // list. Δασκάλων has no page, so a display list built from areaPages
+  // silently drops it — which is exactly what happened on /perioxes.
+  const shown = new Set(areaLinks.map((l) => l.name));
+  for (const required of ["Μεταμόρφωση", "Οικισμός Δασκάλων", "Νικήτη", "Βατοπέδι", "Ψακούδια"]) {
+    if (!shown.has(required)) {
+      throw new Error(
+        `areas.ts: "${required}" is served but missing from areaLinks, so no reader-facing list shows it.`
+      );
+    }
   }
 }

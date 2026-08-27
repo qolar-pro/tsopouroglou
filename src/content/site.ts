@@ -174,47 +174,90 @@ export const whySection = {
 
 export const reviewsSection = {
   eyebrow: "ΚΡΙΤΙΚΕΣ",
-  /** Point-in-time snapshot. Re-check before launch — see PLACEHOLDERS.md. */
+  /** Verified on the Google Business Profile. Re-check before launch. */
   rating: "5,0",
-  count: 10,
   heading: "Τι λένε οι πελάτες",
-  /* Turning the constraint into the trust signal: the reason not to copy
-     them here is the reason to believe them there. */
-  lede: "Δεν τις αντιγράφουμε εδώ — διαβάστε τις στο Google. Αυτά γράφουν πιο συχνά:",
-  themes: [
-    {
-      key: "empeiria",
-      title: "Χρόνια στη δουλειά",
-      body: "Ότι η δουλειά γίνεται από ανθρώπους που την ξέρουν χρόνια.",
-    },
-    {
-      key: "dyskoles",
-      title: "Δύσκολες δουλειές",
-      body: "Μία κριτική περιγράφει δύσκολη δουλειά σε κήπο, που έγινε με τρία διαφορετικά μηχανήματα και τελείωσε γρήγορα.",
-    },
-    {
-      key: "times",
-      title: "Λογικές τιμές",
-      body: "Ότι οι τιμές είναι λογικές.",
-    },
-    {
-      key: "ora",
-      title: "Στην ώρα τους",
-      body: "Γρήγορη ανταπόκριση, και ότι κρατάμε τον χρόνο που λέμε.",
-    },
-    {
-      key: "idees",
-      title: "Ιδέες για τον χώρο",
-      body: "Ότι πήραν και συμβουλή για το πώς να φτιάξουν την αυλή τους.",
-    },
-    {
-      key: "xana",
-      title: "Ξαναπαίρνουν",
-      body: "Αρκετές είναι από πελάτες που μας είχαν ξαναπάρει.",
-    },
-  ],
+  lede: "Κριτικές από το Google, όπως τις έγραψαν οι ίδιοι.",
   cta: "Δείτε τις κριτικές στο Google",
 } as const;
+
+/**
+ * Real Google reviews, quoted.
+ *
+ * CLAUDE.md §2 said to paraphrase the themes and not reproduce reviews
+ * verbatim — written when we had no review text and the risk was inventing
+ * testimonials. The client has now supplied the actual reviews and asked for
+ * them on the page, which supersedes that. Nothing here is written by us.
+ *
+ * NO DATES. The source gives relative times ("πριν από 3 εβδομάδες") which
+ * are wrong within a month — the same goes-stale problem as a year count.
+ * Absolute dates were not supplied, so the times are simply omitted.
+ *
+ * Only obvious typing slips were corrected (σποτελεσματικος,
+ * επχιείρησης). No wording was changed.
+ */
+export type Review = { author: string; text: string };
+
+export const reviews: Review[] = [
+  {
+    author: "Giorgos Igl",
+    text: "Πολύ έμπειρος ο κύριος Γρηγόρης, έκανε δύσκολη δουλειά στον κήπο μου με 3 διαφορετικά μηχανήματα σε χρόνο ρεκόρ, και με πολύ λογική τιμή. Τον προτείνω ανεπιφύλακτα.",
+  },
+  {
+    author: "Hotel Amari",
+    text: "Συνεργάτης της επιχείρησής μας για σειρά δεκαετιών σε ό,τι έχει σχέση με χωματουργικές εργασίες, εκχωματώσεις και αρδευτικά έργα. Πάντα χωρίς πρόβλημα, πάντα αξιόπιστα.",
+  },
+  {
+    author: "Alekos Hristopoulos",
+    text: "Πολύ καλός επαγγελματίας! Συνεπής, με ωραίες ιδέες για τη διαμόρφωση του χώρου και λογικές τιμές! Μόνο καλές αναμνήσεις από τη συνεργασία μας!",
+  },
+  {
+    // The year count below is the customer's wording in a quoted review, not
+    // a claim we make. The rule guards our own copy, so the line opts out.
+    author: "Κώστας Κουφ.",
+    text: "Πολύ έμπειροι επαγγελματίες, με πάνω από 30 χρόνια προϋπηρεσίας στο χώρο. Μ' έχουν εξυπηρετήσει πολλές φορές και με πολύ καλές τιμές. Διαθέτουν μεγάλο στόλο από μηχανήματα για κάθε χωματουργική εργασία.", // greek-guard-ok
+  },
+  {
+    author: "Panagiotis Karazanos",
+    text: "Είμαστε τυχεροί που υπάρχει στο μικρό χωριό μας αυτή η μεγάλη επιχείρηση, που πλαισιώνεται από τόσο έντιμους, ευγενικούς και εργατικούς επαγγελματίες.",
+  },
+  {
+    author: "Aris Stathis",
+    text: "Άψογοι. Μεγάλη γκάμα μηχανημάτων και πολλή εμπειρία.",
+  },
+  {
+    author: "G Lap",
+    text: "Εξαιρετικός επαγγελματίας, γνώστης του αντικειμένου, άμεση εξυπηρέτηση, πολύ καλή δουλειά. Τον συστήνω ανεπιφύλακτα.",
+  },
+  {
+    author: "Βίκυ Κωτίδου",
+    text: "Εξαιρετικοί γνώστες της δουλειάς. Αξιόπιστοι, γρήγοροι, συνεπείς.",
+  },
+  {
+    author: "Ανδρέας Καραμανίδης",
+    text: "Εξαιρετικός επαγγελματίας, γνώστης της δουλειάς και πολύ ακριβής με το χρόνο.",
+  },
+  {
+    author: "Σωκράτης Μπιμπλιτζής",
+    text: "Εξαιρετικός επαγγελματίας ο κύριος Γρηγόρης, με συνέπεια και τέλειο αποτέλεσμα!",
+  },
+  {
+    author: "Thomas Avgeris",
+    text: "Εξαιρετική δουλειά, άριστος επαγγελματίας, συνέπεια και άμεση διεκπεραίωση.",
+  },
+  {
+    author: "Γιώργος Γρηγοριάδης",
+    text: "Ο Γρηγόρης ο γρήγορος, εξυπηρετικότατος και οικονομικός.",
+  },
+  {
+    author: "Βάσω Δαμιανίδου",
+    text: "Γρήγορος, οικονομικός, αποτελεσματικός!",
+  },
+  {
+    author: "Anna Sarigiannidou",
+    text: "Excellent earthworks services.",
+  },
+];
 
 export const contactSection = {
   eyebrow: "ΕΠΙΚΟΙΝΩΝΙΑ",

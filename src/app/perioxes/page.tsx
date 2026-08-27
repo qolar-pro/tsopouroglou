@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { publishedAreas, areasPage, areaLinks } from "@/content/areas";
+import { areaLinks, areasPage } from "@/content/areas";
 import ArrowIcon from "@/components/ArrowIcon";
 import LevelLine from "@/components/LevelLine";
 import CallBand from "@/components/CallBand";
@@ -10,9 +10,18 @@ export const metadata: Metadata = {
   alternates: { canonical: "/perioxes" },
 };
 
+/**
+ * Reads `areaLinks`, the same list the homepage and footer use.
+ *
+ * It previously read `publishedAreas` — the routing list — which excludes
+ * Δασκάλων because Δασκάλων has no page of its own. The result was a place
+ * he actually serves being missing from the page whose entire job is to list
+ * the places he serves. Every list of areas anywhere on the site now comes
+ * from one source.
+ */
 export default function AreasIndex() {
-  const home = publishedAreas.filter((a) => a.homeGround);
-  const rest = publishedAreas.filter((a) => !a.homeGround);
+  const home = areaLinks.filter((a) => a.priority);
+  const rest = areaLinks.filter((a) => !a.priority);
 
   return (
     <main>
@@ -33,11 +42,11 @@ export default function AreasIndex() {
         <div className="wrap">
           <ul className="grid grid-2">
             {home.map((a) => (
-              <li key={a.slug}>
-                <a className="card" href={`/perioxes/${a.slug}`}>
-                  <span className="area-flag">ΒΑΣΗ ΜΑΣ</span>
+              <li key={a.name}>
+                <a className="card" href={a.href}>
+                  <span className="area-flag">{areasPage.priorityLabel}</span>
                   <h2 className="area-name">{a.name}</h2>
-                  <p className="area-body">{a.lede}</p>
+                  <p className="area-body">{a.card}</p>
                 </a>
               </li>
             ))}
@@ -45,9 +54,10 @@ export default function AreasIndex() {
 
           <ul className="grid grid-3" style={{ marginTop: "var(--s-3)" }}>
             {rest.map((a) => (
-              <li key={a.slug}>
-                <a className="card" href={`/perioxes/${a.slug}`}>
+              <li key={a.name}>
+                <a className="card" href={a.href}>
                   <h2 className="area-name area-name-sm">{a.name}</h2>
+                  <p className="area-body">{a.card}</p>
                   <span className="card-more" aria-hidden="true">
                     <ArrowIcon />
                   </span>
@@ -55,15 +65,6 @@ export default function AreasIndex() {
               </li>
             ))}
           </ul>
-
-          {/* Δασκάλων has no page of its own; its name still appears. */}
-          <p className="small" style={{ marginTop: "var(--s-6)" }}>
-            {areaLinks
-              .filter((l) => l.priority)
-              .map((l) => l.name)
-              .join(" και ")}{" "}
-            μοιράζονται την ίδια σελίδα — είναι και τα δύο η βάση μας.
-          </p>
         </div>
       </section>
 
