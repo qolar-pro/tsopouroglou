@@ -12,6 +12,8 @@
     "shot": "node scripts/shot.mjs",
     "overflow": "node scripts/overflow-audit.mjs",
     "nav-test": "node scripts/nav-test.mjs",
+    "touch-nav": "node scripts/touch-nav-test.mjs",
+    "check:meta": "node scripts/check-meta.mjs",
     "probe": "node scripts/layout-probe.mjs",
     "btn-states": "node scripts/button-states.mjs",
     "contrast": "node scripts/contrast-audit.mjs",
@@ -20,6 +22,7 @@
     "serve": "next start -p 3000"
   },
   "dependencies": {
+    "@vercel/analytics": "2.0.1",
     "next": "16.3.2",
     "react": "19.2.8",
     "react-dom": "19.2.8",

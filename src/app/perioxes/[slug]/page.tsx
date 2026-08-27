@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { areaPages, areaBySlug, areasPage } from "@/content/areas";
 import { services } from "@/content/services";
 import { business } from "@/content/site";
+import { pageOpenGraph } from "@/content/site-config";
 import Band from "@/components/Band";
 import ArrowIcon from "@/components/ArrowIcon";
 import CallBand from "@/components/CallBand";
@@ -24,12 +25,7 @@ export async function generateMetadata({
     // Reserve mechanism: an area whose copy cannot yet be made genuinely
     // distinct stays out of the index rather than shipping thin.
     ...(area.needsInput ? { robots: { index: false, follow: true } } : {}),
-    openGraph: {
-      type: "article",
-      locale: "el_GR",
-      title: area.metaTitle,
-      description: area.metaDescription,
-    },
+    openGraph: pageOpenGraph(area.metaTitle, area.metaDescription),
   };
 }
 

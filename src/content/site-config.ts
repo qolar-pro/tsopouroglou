@@ -30,3 +30,38 @@ export const FROM_EMAIL =
 /** Where quote requests land. */
 export const TO_EMAIL =
   process.env.RESEND_TO ?? "gregorestsopouroglou@gmail.com";
+
+/**
+ * The share card, as a metadata `images` entry.
+ *
+ * `app/opengraph-image.tsx` populates og:image automatically — but ONLY for
+ * routes that do not declare an `openGraph` block of their own. Next replaces
+ * that field wholesale rather than deep-merging it, so a page that sets
+ * `openGraph: { title, description }` silently drops the inherited image.
+ *
+ * That is exactly what happened: the twelve dynamic service and area pages —
+ * the ones most likely to be shared, because they name a specific job in a
+ * specific village — went out with no card while the five static ones had
+ * one. Every page now builds its openGraph through `pageOpenGraph` so the
+ * image cannot be forgotten again, and scripts/check-meta.mjs fails the
+ * check if any route ships without it.
+ */
+export const OG_IMAGE = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  type: "image/png",
+} as const;
+
+/** The openGraph block every page should use. */
+export const pageOpenGraph = (
+  title: string,
+  description: string,
+  type: "website" | "article" = "article"
+) => ({
+  type,
+  locale: "el_GR" as const,
+  title,
+  description,
+  images: [OG_IMAGE],
+});

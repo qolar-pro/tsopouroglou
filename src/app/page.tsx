@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import ErgaStrip from "@/components/ErgaStrip";
@@ -19,6 +20,16 @@ import ContactBlock from "@/components/ContactBlock";
  * so the Έργα section is simply absent when there are no photos. A missing
  * gallery is fine; a gallery of stock presented as his work is not.
  */
+/**
+ * Title and description are inherited from the layout; only the canonical is
+ * page-specific. Every other route set one and the homepage did not — the
+ * most-linked page on the site was the one without it, which is exactly where
+ * a stray ?utm_ or a trailing-slash variant does the most damage.
+ */
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
 export default function Home() {
   return (
     <main>

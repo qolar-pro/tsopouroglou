@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // There is an unrelated package-lock.json in D:\apps. Without this, Next
   // infers the parent as the workspace root and warns on every build.
+  reactStrictMode: true,
+
   turbopack: { root: __dirname },
 
   /**
@@ -38,6 +40,38 @@ const nextConfig: NextConfig = {
   // A static export cannot host the Resend route handler, and the API key
   // must stay server-side. Every content page is still prerendered at build,
   // so delivery is identical. Ruled on at gate 1.
+
+  /**
+   * Security headers.
+   *
+   * Deliberately NOT including a Content-Security-Policy. The site loads
+   * Google Fonts and Vercel Analytics, and a CSP written blind would very
+   * likely break production on deploy. That one wants report-only first,
+   * promoted once the reports are clean — separate, testable work, not a
+   * line added here.
+   */
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          // Nothing here is meant to be framed. A competitor framing the site
+          // under their own header is the realistic version of this.
+          { key: "X-Frame-Options", value: "DENY" },
+          // Stop the browser second-guessing declared content types.
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          // The quote form POSTs a name and phone number. Send the origin
+          // only, cross-origin.
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          // No page uses any of these; denying them costs nothing.
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+          },
+        ],
+      },
+    ];
+  },
 
   async redirects() {
     return [

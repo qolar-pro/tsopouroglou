@@ -17,6 +17,18 @@ ordinary phone photos read as a work record rather than as bad photography.
 
 Originals live in the chat; working copies are in `/public/erga/`.
 
+**A second pass caught what the first missed.** `ergotaxio.jpg` still had the
+phone gallery's back-arrow and a burned-in "2023 · 20 Ιουλίου" on it, and it
+was live in the Έργα gallery that way — the left strip is now cropped off and
+both machines are kept. Five more (`ekskafi-oikopedou`, `ekskafi-vathia`,
+`fortosi-kormon`, `metafora-dentron`, `themelia-jcb`) still carried black
+letterbox bars from the video frames they were taken from; those are trimmed.
+`object-fit: cover` was hiding most of it at most viewports, which is exactly
+why it survived a visual review.
+
+The share card at `/opengraph-image` is built from `ergotaxio` — his own site,
+two of his own machines.
+
 ## Where they are
 
 | Slot | Photo |

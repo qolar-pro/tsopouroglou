@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { services, serviceBySlug, servicesPage } from "@/content/services";
 import { business } from "@/content/site";
+import { pageOpenGraph } from "@/content/site-config";
 import Band from "@/components/Band";
 import ArrowIcon from "@/components/ArrowIcon";
 import CallBand from "@/components/CallBand";
@@ -24,12 +25,7 @@ export async function generateMetadata({
     title: service.metaTitle,
     description: service.metaDescription,
     alternates: { canonical: `/ypiresies/${service.slug}` },
-    openGraph: {
-      type: "article",
-      locale: "el_GR",
-      title: service.metaTitle,
-      description: service.metaDescription,
-    },
+    openGraph: pageOpenGraph(service.metaTitle, service.metaDescription),
   };
 }
 

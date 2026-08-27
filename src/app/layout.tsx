@@ -5,8 +5,9 @@ import HeaderScrollState from "@/components/HeaderScrollState";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCallBar from "@/components/StickyCallBar";
-import { SITE_URL } from "@/content/site-config";
+import { SITE_URL, pageOpenGraph } from "@/content/site-config";
 import { JsonLd, localBusinessSchema } from "@/lib/schema";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 /**
@@ -45,11 +46,8 @@ export const metadata: Metadata = {
   title: seo.title,
   description: seo.description,
   openGraph: {
-    type: "website",
-    locale: "el_GR",
+    ...pageOpenGraph(seo.title, seo.description, "website"),
     siteName: business.legalName,
-    title: seo.title,
-    description: seo.description,
   },
   twitter: {
     card: "summary_large_image",
@@ -73,6 +71,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <SiteFooter />
         <StickyCallBar />
+        {/*
+          Vercel Web Analytics. Cookieless by design, which is the entire
+          reason it is here rather than GA: CLAUDE.md §7b rules out anything
+          that sets a cookie without consent, and skipping the consent banner
+          is worth more on this audience than any metric it could collect.
+          No personal data, nothing to disclose beyond what the privacy page
+          already says.
+        */}
+        <Analytics />
       </body>
     </html>
   );
