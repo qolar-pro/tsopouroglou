@@ -1,179 +1,261 @@
 /**
- * THE IMAGE MANIFEST.
+ * THE IMAGE MANIFEST — real photographs from Γρηγόρης.
  *
- * Every image path on the site goes through this file, so replacing dummies
- * with real photos is editing one file — not hunting through pages of JSX.
- * That is CLAUDE.md §6b's requirement and the reason this exists.
+ * All placeholders are gone. Every image below is his own work, shot on a
+ * phone on his own jobs, which is exactly what CLAUDE.md §6b required before
+ * anything could be published.
  *
- * ── How to swap in real photos ────────────────────────────────────────────
- *   1. Drop the files into /public/erga/ or /public/exoplismos/
- *   2. Change `src` below to the new path and write a real Greek `alt`
- *   3. Set HAS_REAL_PHOTOS = true in site.ts
- *   4. Set SHOW_PLACEHOLDER_MEDIA = false below
- *   Nothing else changes. The layout already fits 4:3 and 3:4 phone photos.
+ * ── What the photos forced ────────────────────────────────────────────────
+ * There are NO before/after pairs. Not one photograph shows the same spot
+ * untouched and then finished — you only get those by shooting the "before"
+ * before starting, which is the easy thing to forget on a live job. So the
+ * gallery is single photographs with a sentence each, not pairs.
  *
- * ── Two separate flags, deliberately ──────────────────────────────────────
- *   HAS_REAL_PHOTOS       governs PUBLICATION — indexing, sitemap, nav.
- *   SHOW_PLACEHOLDER_MEDIA governs PREVIEW — whether dummies render at all.
+ * That is a real loss: none of the four ranking competitors has before/after,
+ * so it was the one uncontested format. It is worth asking him to shoot two
+ * frames on the next few jobs — see PLACEHOLDER_MEDIA.md.
  *
- * They are separate so the layout can be reviewed without ever putting the
- * gallery on a path to being indexed. Turning previews on cannot publish
- * anything: /erga and /exoplismos stay noindex and out of the sitemap while
- * HAS_REAL_PHOTOS is false, and `npm run check:media` fails a production
- * build that still has placeholders enabled.
+ * ── Slots left deliberately empty ─────────────────────────────────────────
+ * No photograph shows a βόθρος, an εκβραχισμός, or a beach. Those three
+ * service pages render with no image rather than with a stand-in, and the
+ * layout closes up around the absence.
  */
 
-/** Preview only. MUST be false for a production deploy. */
-export const SHOW_PLACEHOLDER_MEDIA = true;
+/** Real photographs are in. */
+export const SHOW_PLACEHOLDER_MEDIA = false;
 
 export type Img = {
   src: string;
   /** Descriptive Greek alt. Required — never decorative on content images. */
   alt: string;
-  /** 4:3 landscape or 3:4 portrait, matching what a phone produces. */
-  aspect: "4:3" | "3:4";
-  /** True while this is a dummy. Drives the visible ribbon. */
+  /** Phone photos come in both orientations; 4:5 suits a mixed grid. */
+  aspect: "4:3" | "3:4" | "4:5" | "wide";
   placeholder: boolean;
 };
 
-export type BeforeAfter = {
-  id: string;
-  /** Caption slug — the treatment that makes amateur photos read as a record. */
-  place: string;
-  work: string;
-  year: string;
-  /** Short title for the project card. */
-  title: string;
-  /** What the job actually was. Replaces a caption nobody reads with a
-      sentence that sells the work. */
-  description: string;
-  before: Img;
-  after: Img;
-};
-
-const ph = (src: string, alt: string, aspect: Img["aspect"] = "4:3"): Img => ({
-  src: `/placeholder/${src}.svg`,
+const p = (file: string, alt: string, aspect: Img["aspect"] = "4:5"): Img => ({
+  src: `/erga/${file}.jpg`,
   alt,
   aspect,
-  placeholder: true,
+  placeholder: false,
 });
 
-/**
- * Έργα — before/after is the primary format. None of the four ranking
- * competitor sites has it, despite selling visible physical change.
- */
-export const erga: BeforeAfter[] = [
-  {
-    id: "oikopedo",
-    title: "Οικόπεδο που είχε μείνει χρόνια",
-    description: "Ξερά χόρτα, βάτα και μπάζα από παλιά. Καθαρίσαμε, μαζέψαμε και ισοπεδώσαμε, ώστε ο ιδιοκτήτης να μπορεί να το δείξει σε αγοραστή.",
-    place: "ΜΕΤΑΜΟΡΦΩΣΗ",
-    work: "ΚΑΘΑΡΙΣΜΟΣ ΟΙΚΟΠΕΔΟΥ",
-    year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
-    before: ph("erga-oikopedo-prin", "Οικόπεδο με ξερά χόρτα και βάτα, πριν τον καθαρισμό"),
-    after: ph("erga-oikopedo-meta", "Το ίδιο οικόπεδο καθαρό και ισοπεδωμένο"),
-  },
-  {
-    id: "themelia",
-    title: "Θεμέλια για μονοκατοικία",
-    description: "Εκσκαφή θεμελίων σε οικόπεδο με κλίση. Βγήκαν τα χώματα με δικά μας φορτηγά και το σημείο παραδόθηκε έτοιμο για μπετόν.",
-    place: "ΟΙΚΙΣΜΟΣ ΔΑΣΚΑΛΩΝ",
-    work: "ΕΚΣΚΑΦΗ ΘΕΜΕΛΙΩΝ",
-    year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
-    before: ph("erga-themelia-prin", "Οικόπεδο πριν την εκσκαφή των θεμελίων"),
-    after: ph("erga-themelia-meta", "Ανοιγμένα θεμέλια, έτοιμα για μπετόν"),
-  },
-  {
-    id: "avli",
-    title: "Αυλή εξοχικού",
-    description: "Πέτρες και ανώμαλο έδαφος. Ήρθε φυτόχωμα, στρώθηκε και ισοπεδώθηκε με κλίση ώστε να φεύγει το νερό από το σπίτι.",
-    place: "ΨΑΚΟΥΔΙΑ",
-    work: "ΣΤΡΩΣΙΜΟ ΧΩΜΑΤΟΣ",
-    year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
-    before: ph("erga-avli-prin", "Αυλή με πέτρες και ανώμαλο έδαφος"),
-    after: ph("erga-avli-meta", "Η αυλή στρωμένη με φυτόχωμα και ισοπεδωμένη"),
-  },
-  {
-    id: "vothros",
-    title: "Βόθρος σε σπίτι εκτός δικτύου",
-    description: "Σκάψιμο, κατασκευή, σύνδεση με την αποχέτευση του σπιτιού και κλείσιμο. Η αυλή επανήλθε όπως ήταν.",
-    place: "ΝΙΚΗΤΗ",
-    work: "ΚΑΤΑΣΚΕΥΗ ΒΟΘΡΟΥ",
-    year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
-    before: ph("erga-vothros-prin", "Το σημείο πριν την εκσκαφή του βόθρου"),
-    after: ph("erga-vothros-meta", "Ο βόθρος κατασκευασμένος και κλεισμένος"),
-  },
-  {
-    id: "paralia",
-    title: "Ακτή πριν τη σεζόν",
-    description: "Φύκια, ξύλα και πέτρες που άφησε ο χειμώνας. Δουλέψαμε με τρακτέρ και φορτωτή για να μη βουλιάξει το μηχάνημα στην άμμο.",
-    place: "ΒΑΤΟΠΕΔΙ",
-    work: "ΚΑΘΑΡΙΣΜΟΣ ΠΑΡΑΛΙΑΣ",
-    year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
-    before: ph("erga-paralia-prin", "Ακτή με φύκια και ξύλα μετά τον χειμώνα"),
-    after: ph("erga-paralia-meta", "Η ίδια ακτή καθαρή και στρωμένη"),
-  },
-  {
-    id: "vrachos",
-    title: "Βράχος στη μέση του οικοπέδου",
-    description: "Είχε σταματήσει η εκσκαφή. Σπάσαμε τον βράχο, απομακρύναμε τα μπάζα και η δουλειά συνέχισε.",
-    place: "ΜΕΤΑΜΟΡΦΩΣΗ",
-    work: "ΕΚΒΡΑΧΙΣΜΟΣ",
-    year: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
-    before: ph("erga-vrachos-prin", "Βράχος μέσα στο οικόπεδο, πριν τον εκβραχισμό"),
-    after: ph("erga-vrachos-meta", "Το οικόπεδο μετά την απομάκρυνση του βράχου"),
-  },
-];
+/* ------------------------------------------------------------------ */
+/* Hero — a real machine on a real job, in his own village.            */
+/* ------------------------------------------------------------------ */
+export const heroPhoto: Img = p(
+  "ekskafi-oikopedou",
+  "Εκσκαφέας ανοίγει βαθιά εκσκαφή δίπλα σε κατοικία, σε οικόπεδο στη Χαλκιδική",
+  "3:4"
+);
 
-/** Homepage strip — the two strongest pairs, linking to the full gallery. */
-export const ergaFeatured = erga.slice(0, 2);
+/* ------------------------------------------------------------------ */
+/* Ποιοι είμαστε — the photograph the whole page was missing.          */
+/* ------------------------------------------------------------------ */
+export const etaireiaPhoto: Img = p(
+  "cheiristis",
+  "Χειριστής στην καμπίνα του μηχανήματος, εν ώρα εργασίας",
+  "4:3"
+);
 
-/** Στόλος — one per confirmed machine. Nothing he didn't tell us he owns. */
-export const stolos: { name: string; note: string; img: Img }[] = [
-  { name: "Τσάπα μεγάλη", note: "Θεμέλια και μεγάλες ποσότητες χώματος", img: ph("stolos-tsapa-megali", "Η μεγάλη τσάπα σε εργοτάξιο") },
-  { name: "Τσάπα μεσαία", note: "Η πιο συχνή επιλογή για οικόπεδα", img: ph("stolos-tsapa-mesaia", "Η μεσαία τσάπα εν ώρα εργασίας") },
-  { name: "Τσάπα μικρή", note: "Αυλές και στενά περάσματα", img: ph("stolos-tsapa-mikri", "Η μικρή τσάπα σε στενή αυλή") },
-  { name: "Φορτωτής", note: "Φόρτωση και μάζεμα", img: ph("stolos-fortotis", "Ο φορτωτής μας") },
-  { name: "Φορτηγά", note: "Μεταφορά χωμάτων και μπάζων", img: ph("stolos-fortiga", "Τα φορτηγά μας") },
-  { name: "JCB", note: "Σκάψιμο και φόρτωση μαζί", img: ph("stolos-jcb", "Το JCB μας") },
-  { name: "Διαβολάκι", note: "Εκεί που δεν περνάει μηχάνημα", img: ph("stolos-diavolaki", "Το διαβολάκι σε στενό χώρο") },
-  { name: "Τρακτέρ", note: "Δουλειά στην άμμο και σε χωράφια", img: ph("stolos-trakter", "Το τρακτέρ μας") },
-];
-
-/**
- * One photo per service page. A service page should show THAT work — a
- * generic site photo on all eight would be the visual equivalent of the
- * templated copy we avoided.
- */
-export const servicePhoto: Record<string, Img> = {
-  "ekskafes": ph("ypiresia-ekskafes", "Εκσκαφέας ανοίγει θεμέλια σε οικόπεδο"),
-  "katharismos-oikopedon": ph("ypiresia-katharismos-oikopedon", "Καθαρισμός οικοπέδου από ξερά χόρτα και βάτα"),
-  "vothroi": ph("ypiresia-vothroi", "Εκσκαφή και κατασκευή βόθρου σε αυλή"),
-  "ekvrachismoi": ph("ypiresia-ekvrachismoi", "Σπάσιμο βράχου μέσα σε οικόπεδο"),
-  "katharismos-paralias": ph("ypiresia-katharismos-paralias", "Καθαρισμός παραλίας από φύκια και ξύλα"),
-  "metafores-chomaton": ph("ypiresia-metafores-chomaton", "Φόρτωση χωμάτων σε φορτηγό"),
-  "choma-kipou": ph("ypiresia-choma-kipou", "Στρώσιμο φυτοχώματος σε αυλή"),
-  "syndeseis-nerou-apocheteusi": ph("ypiresia-syndeseis-nerou-apocheteusi", "Τάφρος για σύνδεση νερού"),
+/* ------------------------------------------------------------------ */
+/* Έργα — single photographs, each with what the job actually was.     */
+/* ------------------------------------------------------------------ */
+export type Project = {
+  id: string;
+  title: string;
+  description: string;
+  img: Img;
 };
 
-/** The hero photograph. Portrait, so it sits as a column beside the copy. */
-export const heroPhoto: Img = ph(
-  "hero-ergotaxio",
-  "Τσάπα εν ώρα εργασίας σε οικόπεδο στη Μεταμόρφωση Χαλκιδικής",
-  "3:4"
-);
+export const erga: Project[] = [
+  {
+    id: "ekskafi-oikopedou",
+    title: "Εκσκαφή δίπλα σε κατοικία",
+    description:
+      "Βαθιά εκσκαφή σε οικόπεδο με σπίτι από πάνω. Το χώμα βγήκε ελεγχόμενα και ο χώρος παραδόθηκε έτοιμος να συνεχίσει το συνεργείο.",
+    img: p(
+      "ekskafi-oikopedou",
+      "Εκσκαφέας ανοίγει βαθιά εκσκαφή δίπλα σε κατοικία"
+    ),
+  },
+  {
+    id: "themelia-jcb",
+    title: "Θεμέλια σε εξέλιξη",
+    description:
+      "Διαμόρφωση και επίχωση γύρω από θεμέλια με κολόνες. Το JCB δουλεύει πάνω στο πρανές, εκεί που δεν στέκεται μεγάλο μηχάνημα.",
+    img: p("themelia-jcb", "JCB διαμορφώνει χώμα γύρω από θεμέλια με κολόνες"),
+  },
+  {
+    id: "ksirizoma-dentrou",
+    title: "Ξερίζωμα δέντρου σε αυλή",
+    description:
+      "Ολόκληρο δέντρο βγήκε με τη ρίζα του από αυλή σπιτιού, χωρίς να πειραχτεί η περίφραξη και το γκαζόν δίπλα.",
+    img: p(
+      "ksirizoma-dentrou",
+      "Εκσκαφέας σηκώνει ολόκληρο δέντρο με τις ρίζες του από αυλή"
+    ),
+  },
+  {
+    id: "riza-megali",
+    title: "Ρίζα που δεν έβγαινε αλλιώς",
+    description:
+      "Μεγάλη ρίζα σε οικόπεδο μέσα στον οικισμό. Βγήκε ολόκληρη, με το μηχάνημα να δουλεύει ανάμεσα σε αυλές και αυτοκίνητα.",
+    img: p("riza-megali", "Μεγάλη ρίζα δέντρου στον κουβά του εκσκαφέα"),
+  },
+  {
+    id: "ekskafi-vathia",
+    title: "Δουλειά μέσα στο σκάμμα",
+    description:
+      "Δύο μηχανήματα μαζί: το μεγάλο βγάζει από πάνω, το μικρό καθαρίζει και ισιώνει μέσα στο σκάμμα.",
+    img: p(
+      "ekskafi-vathia",
+      "Μικρό ερπυστριοφόρο μηχάνημα δουλεύει μέσα σε βαθύ σκάμμα"
+    ),
+  },
+  {
+    id: "stroma-chomatos",
+    title: "Στρώσιμο χώματος σε αυλή",
+    description:
+      "Χώμα φερμένο, στρωμένο και ισοπεδωμένο μέχρι τον μαντρότοιχο, έτοιμο για φύτεμα.",
+    img: p(
+      "stroma-chomatos",
+      "Φορτωτής και ερπυστριοφόρο στρώνουν χώμα σε αυλή δίπλα σε μαντρότοιχο"
+    ),
+  },
+  {
+    id: "tafros-syndesi",
+    title: "Τάφρος για σύνδεση",
+    description:
+      "Στενή τάφρος με μικρό κουβά, δίπλα στον δρόμο και με το φορτηγό να περιμένει για τα χώματα.",
+    img: p("tafros-syndesi", "Μικρός εκσκαφέας ανοίγει στενή τάφρο δίπλα σε φορτηγό"),
+  },
+  {
+    id: "fortosi-kormon",
+    title: "Φόρτωση κορμών",
+    description:
+      "Κομμένοι κορμοί φορτώθηκαν σε φορτηγό μέσα στον οικισμό, με τον δρόμο να μένει ανοιχτός.",
+    img: p("fortosi-kormon", "Εκσκαφέας φορτώνει κορμούς δέντρων σε φορτηγό"),
+  },
+  {
+    id: "metafora-dentron",
+    title: "Μεταφορά δέντρων",
+    description:
+      "Ελιές με το χώμα τους, φορτωμένες σε δύο οχήματα για μεταφορά — ρίζα άθικτη, ώστε να ξαναφυτευτούν.",
+    img: p(
+      "metafora-dentron",
+      "Φορτηγά φορτωμένα με ελιές και τις ρίζες τους, από την καμπίνα του μηχανήματος"
+    ),
+  },
+  {
+    id: "riza-se-kouva",
+    title: "Κούτσουρο και ρίζες",
+    description:
+      "Κούτσουρο πεύκου με όλο του το ριζικό, βγαλμένο από κήπο ανάμεσα σε άλλα δέντρα.",
+    img: p("riza-se-kouva", "Κούτσουρο με ρίζες στον κουβά του εκσκαφέα"),
+  },
+  {
+    id: "tafros-themelia",
+    title: "Τάφρος δίπλα σε θεμέλιο",
+    description:
+      "Σκάψιμο κατά μήκος έτοιμου θεμελίου. Δύο μηχανήματα δούλεψαν μαζί για να μη μείνει η δουλειά.",
+    img: p(
+      "tafros-themelia",
+      "Εκσκαφέας ανοίγει τάφρο δίπλα σε έτοιμο θεμέλιο από μπετόν"
+    ),
+  },
+  {
+    id: "ergotaxio",
+    title: "Δύο μηχανήματα σε εργοτάξιο",
+    description:
+      "Εκσκαφέας και ερπυστριοφόρο σε οικοδομή με κολόνες, να ισιώνουν και να καθαρίζουν τον χώρο.",
+    img: p("ergotaxio", "Εκσκαφέας και ερπυστριοφόρο σε εργοτάξιο με κολόνες"),
+  },
+];
 
-/** Ποιοι είμαστε — one portrait. 3:4, because phones shoot people portrait. */
-export const etaireiaPhoto: Img = ph(
-  "etaireia-adelfia",
-  "Ο Γρηγόρης και ο Νικόλαος Τσοπούρογλου στο εργοτάξιο",
-  "3:4"
-);
+/** Homepage strip — the strongest four. */
+export const ergaFeatured = erga.slice(0, 4);
 
-/** Build-time integrity: every content image needs real alt text. */
+/* ------------------------------------------------------------------ */
+/* Στόλος                                                              */
+/*                                                                     */
+/* Labelled ONLY where the machine is unambiguous in the photograph —  */
+/* the JCB and the CAT are branded, the wheel loader is obvious. The   */
+/* excavators are not labelled by size, because we cannot tell μεγάλη  */
+/* from μεσαία in a photo and guessing would be inventing. The full    */
+/* confirmed machine list still appears as text on the page.           */
+/* See PLACEHOLDER_MEDIA.md.                                           */
+/* ------------------------------------------------------------------ */
+export const stolos: { name: string; note: string; img: Img }[] = [
+  {
+    name: "Τσάπα",
+    note: "Εκσκαφές, θεμέλια, ξεριζώματα",
+    img: p("riza-se-kouva", "Τσάπα με κούτσουρο και ρίζες στον κουβά", "4:5"),
+  },
+  {
+    name: "JCB",
+    note: "Σκάψιμο και φόρτωση μαζί",
+    img: p("themelia-jcb", "Το JCB σε εργοτάξιο με θεμέλια", "4:5"),
+  },
+  {
+    name: "Φορτωτής",
+    note: "Φόρτωση και μάζεμα",
+    img: p("fortotis-elaionas", "Ο φορτωτής σε ελαιώνα", "4:5"),
+  },
+  {
+    name: "Διαβολάκι",
+    note: "Εκεί που δεν περνάει μεγάλο μηχάνημα",
+    img: p("ekskafi-vathia", "Το διαβολάκι δουλεύει μέσα σε σκάμμα", "4:5"),
+  },
+  {
+    name: "Φορτηγά",
+    note: "Μεταφορά χωμάτων, μπάζων και κορμών",
+    img: p("fortosi-kormon", "Φορτηγό φορτώνεται με κορμούς", "4:5"),
+  },
+  {
+    name: "Μικρός εκσκαφέας",
+    note: "Στενές τάφροι και αυλές",
+    img: p("tafros-syndesi", "Μικρός εκσκαφέας ανοίγει τάφρο", "4:5"),
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Service pages — only where a photograph genuinely shows that work.  */
+/* βόθροι, εκβραχισμοί and καθαρισμοί παραλίας have none, so those      */
+/* pages render without an image rather than with a stand-in.          */
+/* ------------------------------------------------------------------ */
+export const servicePhoto: Record<string, Img> = {
+  ekskafes: p(
+    "ekskafi-vathia",
+    "Εκσκαφή σε βάθος, με δεύτερο μηχάνημα μέσα στο σκάμμα",
+    "4:3"
+  ),
+  "katharismos-oikopedon": p(
+    "ksirizoma-dentrou",
+    "Ξερίζωμα δέντρου κατά τον καθαρισμό οικοπέδου",
+    "4:3"
+  ),
+  "metafores-chomaton": p(
+    "fortosi-kormon",
+    "Φόρτωση σε φορτηγό για μεταφορά",
+    "4:3"
+  ),
+  "choma-kipou": p(
+    "stroma-chomatos",
+    "Στρώσιμο και ισοπέδωση χώματος σε αυλή",
+    "4:3"
+  ),
+  "syndeseis-nerou-apocheteusi": p(
+    "tafros-syndesi",
+    "Άνοιγμα στενής τάφρου για σύνδεση",
+    "4:3"
+  ),
+};
+
+/** Build-time integrity: every image needs real alt text and a real path. */
 {
   const all: Img[] = [
-    ...erga.flatMap((e) => [e.before, e.after]),
+    ...erga.map((e) => e.img),
     ...stolos.map((s) => s.img),
     ...Object.values(servicePhoto),
     etaireiaPhoto,
@@ -182,6 +264,14 @@ export const etaireiaPhoto: Img = ph(
   for (const img of all) {
     if (!img.alt || img.alt.trim().length < 10) {
       throw new Error(`media.ts: "${img.src}" has no usable alt text.`);
+    }
+    if (img.placeholder) {
+      throw new Error(
+        `media.ts: "${img.src}" is still flagged as a placeholder.`
+      );
+    }
+    if (!img.src.startsWith("/erga/")) {
+      throw new Error(`media.ts: "${img.src}" is not a real photo path.`);
     }
   }
 }

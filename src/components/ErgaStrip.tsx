@@ -1,47 +1,41 @@
-import { erga, SHOW_PLACEHOLDER_MEDIA } from "@/content/media";
-import { HAS_REAL_PHOTOS } from "@/content/site";
-import BeforeAfter from "./BeforeAfter";
+import { ergaFeatured } from "@/content/media";
+import Photo from "./Photo";
 import LevelLine from "./LevelLine";
 import ArrowIcon from "./ArrowIcon";
 
 /**
- * Έργα — a swipeable strip of projects, each with its own explanation.
+ * Έργα — a swipeable rail of real jobs, each with what the job actually was.
  *
- * This is the "slideshow with text explaining each picture", built as a
- * scroll-snap rail rather than an autoplaying carousel: it swipes natively on
- * a phone, needs no JavaScript, never moves on its own, and never hides a
- * project behind a timer the reader did not ask for.
+ * Single photographs rather than before/after pairs, because none of the
+ * photographs we have is a pair: you only get those by shooting the "before"
+ * before starting, which is the easy thing to forget on a live job. Worth
+ * fixing on future jobs — see PLACEHOLDER_MEDIA.md — but not worth faking.
  *
- * Before/after is kept rather than replaced. The competitor research is
- * unambiguous — none of the four ranking sites has it, despite all four
- * selling visible physical change — so it is the one format that is both the
- * most persuasive available and uncontested. The description alongside it is
- * what the slideshow idea was really after.
+ * Native scroll-snap, not an autoplaying carousel: it swipes on a phone,
+ * needs no JavaScript, and never moves on its own.
  */
 export default function ErgaStrip() {
-  if (!HAS_REAL_PHOTOS && !SHOW_PLACEHOLDER_MEDIA) return null;
-
   return (
     <section className="section surface-field" id="erga">
       <LevelLine />
       <div className="wrap section-head">
         <p className="label">ΕΡΓΑ</p>
-        <h2 className="h2">Πριν και μετά</h2>
+        <h2 className="h2">Δουλειές μας</h2>
         <p className="lede">
           <span className="measure">
-            Η δουλειά μας φαίνεται καλύτερα σε δύο φωτογραφίες παρά σε δέκα
-            προτάσεις. Σύρετε για να τις δείτε όλες.
+            Φωτογραφίες από δικά μας εργοτάξια — όχι από το ίντερνετ. Σύρετε
+            για να τις δείτε.
           </span>
         </p>
       </div>
 
       <ul className="rail">
-        {erga.map((pair) => (
-          <li key={pair.id} className="rail-item">
+        {ergaFeatured.map((project) => (
+          <li key={project.id} className="rail-item">
             <article className="project">
-              <BeforeAfter pair={pair} />
-              <h3 className="project-title">{pair.title}</h3>
-              <p className="project-desc">{pair.description}</p>
+              <Photo img={project.img} sizes="(min-width: 760px) 40vw, 84vw" />
+              <h3 className="project-title">{project.title}</h3>
+              <p className="project-desc">{project.description}</p>
             </article>
           </li>
         ))}
@@ -49,7 +43,7 @@ export default function ErgaStrip() {
 
       <div className="wrap">
         <p style={{ marginTop: "var(--s-6)" }}>
-          <a className="btn-quiet" href="/erga">
+          <a className="btn-quiet" href="/ypiresies#erga">
             Όλα τα έργα
             <ArrowIcon />
           </a>

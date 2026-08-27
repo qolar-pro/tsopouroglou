@@ -469,6 +469,10 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  /* Cards take their natural height. Stretching them to match the tallest in
+     the row leaves dead space inside the short ones — visible as soon as some
+     services had a photograph and others did not. */
+  align-items: start;
 }
 .grid-2 {
   grid-template-columns: 1fr;
@@ -1714,4 +1718,24 @@ a.contact-row:hover .contact-value {
   line-height: 1.55;
   margin-top: var(--s-2);
   max-width: 40ch;
+}
+
+/* Compact trust line on the homepage — the full Κριτικές section is on
+   /etaireia. */
+.rating-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  padding: var(--s-4) 0 var(--s-2);
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+}
+.rating-line .rating-score {
+  color: var(--color-accent);
+}
+.rating-line .inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
 }

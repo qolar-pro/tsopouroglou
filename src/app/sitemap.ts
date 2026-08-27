@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const core = ["/", "/ypiresies", "/perioxes", "/etaireia", "/epikoinonia"];
-  const gated = HAS_REAL_PHOTOS ? ["/exoplismos", "/erga"] : [];
+  const gated = HAS_REAL_PHOTOS ? ["/exoplismos"] : [];
 
   return [
     ...core.map((path) => ({

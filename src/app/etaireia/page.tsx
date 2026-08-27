@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { etaireia } from "@/content/pages";
 import LevelLine from "@/components/LevelLine";
 import CallBand from "@/components/CallBand";
+import Reviews from "@/components/Reviews";
 import Photo from "@/components/Photo";
-import { etaireiaPhoto, SHOW_PLACEHOLDER_MEDIA } from "@/content/media";
-import { HAS_REAL_PHOTOS } from "@/content/site";
+import { etaireiaPhoto } from "@/content/media";
 
 export const metadata: Metadata = {
   title: etaireia.metaTitle,
@@ -30,11 +30,9 @@ export default function Etaireia() {
       <section className="section surface-raised">
         <LevelLine />
         <div className="wrap about-cols">
-          {(HAS_REAL_PHOTOS || SHOW_PLACEHOLDER_MEDIA) && (
-            <div className="about-photo">
-              <Photo img={etaireiaPhoto} sizes="(min-width: 860px) 38vw, 100vw" />
-            </div>
-          )}
+          <div className="about-photo">
+            <Photo img={etaireiaPhoto} sizes="(min-width: 860px) 38vw, 100vw" />
+          </div>
           <div>
           {etaireia.blocks.map((b) => (
             <div key={b.heading} className="prose-block">
@@ -45,6 +43,10 @@ export default function Etaireia() {
           </div>
         </div>
       </section>
+
+      {/* Κριτικές merged in from the homepage: what people say about them
+          belongs with who they are, and it shortens the nav. */}
+      <Reviews />
 
       <CallBand />
     </main>

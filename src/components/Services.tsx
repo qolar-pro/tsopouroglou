@@ -1,6 +1,5 @@
 import { services, servicesSection } from "@/content/site";
-import { servicePhoto, SHOW_PLACEHOLDER_MEDIA } from "@/content/media";
-import { HAS_REAL_PHOTOS } from "@/content/site";
+import { servicePhoto } from "@/content/media";
 import LevelLine from "./LevelLine";
 import ArrowIcon from "./ArrowIcon";
 import Photo from "./Photo";
@@ -14,8 +13,6 @@ import Photo from "./Photo";
  * its own copy.
  */
 export default function Services() {
-  const showPhoto = HAS_REAL_PHOTOS || SHOW_PLACEHOLDER_MEDIA;
-
   return (
     <section className="section surface-raised" id="ypiresies">
       <LevelLine />
@@ -33,7 +30,7 @@ export default function Services() {
           {services.map((s) => (
             <li key={s.slug}>
               <a className="card card-media" href={`/ypiresies/${s.slug}`}>
-                {showPhoto && servicePhoto[s.slug] && (
+                {servicePhoto[s.slug] && (
                   <Photo
                     img={servicePhoto[s.slug]}
                     sizes="(min-width: 960px) 25vw, (min-width: 560px) 50vw, 100vw"

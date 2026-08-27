@@ -1,4 +1,5 @@
-import { whySection } from "@/content/site";
+import { whySection, reviewsSection, business } from "@/content/site";
+import ArrowIcon from "./ArrowIcon";
 import LevelLine from "./LevelLine";
 
 /**
@@ -20,6 +21,24 @@ export default function WhyUs() {
       </div>
 
       <div className="wrap">
+        {/* The full Κριτικές section moved to /etaireia. A one-line version
+            stays here so the homepage does not lose the social proof. */}
+        <p className="rating-line">
+          <span className="rating-score num">{reviewsSection.rating}</span>
+          <span>
+            στο Google, από {reviewsSection.count} κριτικές.{" "}
+            <a
+              className="inline-link"
+              href={business.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Δείτε τις
+              <ArrowIcon />
+            </a>
+          </span>
+        </p>
+
         <ul className="why-grid">
           {whySection.items.map((item) => (
             <li key={item.key} className="why-card">

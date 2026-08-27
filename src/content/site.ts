@@ -12,15 +12,13 @@
  */
 
 /**
- * Gallery and fleet pages cannot ship with stock photography — the whole
- * pitch is "look at what we've done", and stock excavators would be a lie to
- * his customers in a village where everyone knows everyone.
+ * TRUE since Γρηγόρης's own photographs arrived. /erga and /exoplismos are
+ * published: in the nav, in the sitemap, indexable.
  *
- * While false: /erga and /exoplismos are out of the nav, out of the sitemap,
- * noindex, and the Έργα section is absent from the homepage.
- * Flip to true only when real photos from Γρηγόρης are in /public/erga.
+ * The rule that gated them still stands — the gallery and fleet show his work
+ * and his machines, never stock. Nothing in /public/erga is a stand-in.
  */
-export const HAS_REAL_PHOTOS = false;
+export const HAS_REAL_PHOTOS = true;
 
 export const business = {
   legalName: "ΓΡΗΓΟΡΙΟΣ & ΝΙΚΟΛΑΟΣ ΤΣΟΠΟΥΡΟΓΛΟΥ",
@@ -238,24 +236,23 @@ export const contactSection = {
 export type NavItem = { href: string; label: string; gated?: boolean };
 
 /**
- * Every route AND every homepage section a reader might want to reach.
+ * Five items, deliberately.
  *
- * The homepage sections carry ids but nothing linked to them, so Κριτικές
- * and Περιοχές could only be found by scrolling or by typing a URL. An
- * anchor works from any page because it is absolute.
+ * Two merges cut it down from seven:
+ *   - Έργα folded into /ypiresies. The photographs ARE the proof of the
+ *     services, so splitting "what we do" from "what we have done" across
+ *     two routes made the reader hop for no reason. /erga 301s.
+ *   - Κριτικές folded into /etaireia. What people say about them belongs
+ *     with who they are, and it was only ever a homepage anchor.
  *
- * Κριτικές stays a homepage section rather than becoming /kritikes: with no
- * review text to publish — only paraphrased themes and a link out — a page
- * of its own would be thin, which is the same trap Δασκάλων was folded to
- * avoid.
+ * A nav a reader can take in at a glance is worth more than one that lists
+ * everything.
  */
 export const nav: NavItem[] = [
   { href: "/", label: "Αρχική" },
   { href: "/ypiresies", label: "Υπηρεσίες" },
   { href: "/perioxes", label: "Περιοχές" },
-  { href: "/exoplismos", label: "Στόλος & εξοπλισμός", gated: true },
-  { href: "/erga", label: "Έργα", gated: true },
-  { href: "/#kritikes", label: "Κριτικές" },
+  { href: "/exoplismos", label: "Στόλος", gated: true },
   { href: "/etaireia", label: "Ποιοι είμαστε" },
   { href: "/epikoinonia", label: "Επικοινωνία" },
 ];
@@ -272,7 +269,6 @@ export const nav: NavItem[] = [
     "erga",
     "perioxes",
     "giati-emas",
-    "kritikes",
     "epikoinonia",
   ]);
   for (const item of nav) {

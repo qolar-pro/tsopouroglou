@@ -2,15 +2,24 @@ import Image from "next/image";
 import type { Img } from "@/content/media";
 
 /**
- * Every content image on the site renders through here, so a placeholder can
- * never appear un-marked. The ribbon is applied by the component rather than
- * baked into the file — a real photo dropped into a placeholder slot by
- * mistake would still be flagged until `placeholder` is set false.
+ * Every content image renders through here, so framing stays consistent.
  *
- * Frames are fixed 4:3 or 3:4 with object-cover. The layout must fit what a
- * phone actually produces; designing for cinematic crops would break the day
- * real photos arrive.
+ * Consistent frames plus a factual caption are what make ordinary phone
+ * photographs read as a work record rather than as bad photography — which
+ * matters more here than anywhere, because phone photos are all this trade
+ * ever produces. No filters and no colour grading: grading someone's job site
+ * to look moody is its own kind of dishonesty.
+ *
+ * 4:5 is the default because these come in both orientations and it crops
+ * neither one badly.
  */
+const RATIO: Record<Img["aspect"], string> = {
+  "4:3": "4 / 3",
+  "3:4": "3 / 4",
+  "4:5": "4 / 5",
+  wide: "16 / 9",
+};
+
 export default function Photo({
   img,
   sizes = "(min-width: 960px) 33vw, 100vw",
@@ -21,7 +30,7 @@ export default function Photo({
   priority?: boolean;
 }) {
   return (
-    <figure className={`photo photo-${img.aspect === "3:4" ? "portrait" : "landscape"}`}>
+    <figure className="photo" style={{ aspectRatio: RATIO[img.aspect] }}>
       <Image
         src={img.src}
         alt={img.alt}
@@ -30,11 +39,6 @@ export default function Photo({
         priority={priority}
         style={{ objectFit: "cover" }}
       />
-      {img.placeholder && (
-        <span className="photo-ribbon" aria-hidden="true">
-          ΔΕΙΓΜΑ — ΟΧΙ ΠΡΑΓΜΑΤΙΚΗ ΦΩΤΟΓΡΑΦΙΑ
-        </span>
-      )}
     </figure>
   );
 }

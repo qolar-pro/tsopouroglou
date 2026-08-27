@@ -3,7 +3,6 @@ import Services from "@/components/Services";
 import ErgaStrip from "@/components/ErgaStrip";
 import Areas from "@/components/Areas";
 import WhyUs from "@/components/WhyUs";
-import Reviews from "@/components/Reviews";
 import ContactBlock from "@/components/ContactBlock";
 
 /**
@@ -25,7 +24,6 @@ export default function Home() {
       <ErgaStrip />
       <Areas />
       <WhyUs />
-      <Reviews />
       <ContactBlock />
     </main>
   );

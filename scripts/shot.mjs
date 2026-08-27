@@ -91,6 +91,28 @@ await send("Emulation.setDeviceMetricsOverride", {
 await send("Page.navigate", { url: URL_ });
 await sleep(2600);
 
+// next/image lazy-loads everything below the fold. captureBeyondViewport
+// renders the full height but never scrolls, so those images never enter the
+// viewport and never load — the capture comes back full of empty frames that
+// look exactly like broken images and are not. Scroll through first, then
+// return to the top.
+if (FULL) {
+  await send("Runtime.evaluate", {
+    expression: `(async () => {
+      const step = window.innerHeight * 0.8;
+      const end = document.body.scrollHeight;
+      for (let y = 0; y < end; y += step) {
+        window.scrollTo(0, y);
+        await new Promise(r => setTimeout(r, 120));
+      }
+      window.scrollTo(0, 0);
+      await new Promise(r => setTimeout(r, 300));
+    })()`,
+    awaitPromise: true,
+  });
+  await sleep(900);
+}
+
 const shot = await send("Page.captureScreenshot", {
   format: "png",
   captureBeyondViewport: FULL,

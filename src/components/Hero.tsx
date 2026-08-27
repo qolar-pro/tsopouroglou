@@ -1,6 +1,5 @@
 import { business, hero } from "@/content/site";
-import { heroPhoto, SHOW_PLACEHOLDER_MEDIA } from "@/content/media";
-import { HAS_REAL_PHOTOS } from "@/content/site";
+import { heroPhoto } from "@/content/media";
 import Photo from "./Photo";
 
 /**
@@ -18,8 +17,6 @@ import Photo from "./Photo";
  * is something no competitor site states.
  */
 export default function Hero() {
-  const showPhoto = HAS_REAL_PHOTOS || SHOW_PLACEHOLDER_MEDIA;
-
   return (
     <section className="hero">
       <div className="hero-grid">
@@ -54,15 +51,13 @@ export default function Hero() {
           <p className="hero-hours">{hero.hours}</p>
         </div>
 
-        {showPhoto && (
-          <div className="hero-media">
+        <div className="hero-media">
             <Photo
               img={heroPhoto}
               sizes="(min-width: 1000px) 44vw, 100vw"
               priority
             />
           </div>
-        )}
       </div>
 
       {/* Three checkable facts, on the level line that closes the hero. */}

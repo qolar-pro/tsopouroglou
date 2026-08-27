@@ -23,6 +23,13 @@ const nextConfig: NextConfig = {
         // what every SEO tool reports on.
         statusCode: 301,
       },
+      {
+        // Έργα merged into /ypiresies: the photographs are the proof of the
+        // services, so one page carries both.
+        source: "/erga",
+        destination: "/ypiresies",
+        statusCode: 301,
+      },
     ];
   },
 };
