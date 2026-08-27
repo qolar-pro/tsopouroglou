@@ -24,13 +24,27 @@ export default function Photo({
   img,
   sizes = "(min-width: 960px) 33vw, 100vw",
   priority = false,
+  frame = "img",
 }: {
   img: Img;
   sizes?: string;
   priority?: boolean;
+  /**
+   * "img" pins the frame to the file's own aspect, inline.
+   *
+   * "css" omits the inline style so a stylesheet can set the ratio instead —
+   * needed wherever the frame is responsive (the hero photo is 4:3 on a
+   * phone and 21:9 on a desktop). An inline style would win over the media
+   * query and silently ignore it, which is exactly the kind of override that
+   * looks like a broken layout rather than a bug.
+   */
+  frame?: "img" | "css";
 }) {
   return (
-    <figure className="photo" style={{ aspectRatio: RATIO[img.aspect] }}>
+    <figure
+      className="photo"
+      style={frame === "img" ? { aspectRatio: RATIO[img.aspect] } : undefined}
+    >
       <Image
         src={img.src}
         alt={img.alt}

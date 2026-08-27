@@ -88,21 +88,26 @@ await send("Page.navigate", { url: URL_ });
 await sleep(2500);
 
 const PROBES = [
-  [".grid-4", "gridTemplateColumns"],
-  [".grid-2", "gridTemplateColumns"],
-  [".grid-3", "gridTemplateColumns"],
-  [".why-grid", "gridTemplateColumns"],
-  [".rail", "gridAutoColumns"],
-  [".rail", "paddingLeft"],
+  // The rail is the whole redesign — verify it folds and unfolds.
+  [".band-grid", "gridTemplateColumns"],
+  [".band-body", "minWidth"],
   [".wrap", "paddingLeft"],
-  [".hero-grid", "gridTemplateColumns"],
+  // Section layouts.
+  [".items", "gridTemplateColumns"],
+  [".facts", "gridTemplateColumns"],
+  [".place", "gridTemplateColumns"],
+  [".reviews", "columnCount"],
+  [".rail", "gridAutoColumns"],
+  [".hero-meta", "gridTemplateColumns"],
   [".contact-grid", "gridTemplateColumns"],
+  [".creds", "gridTemplateColumns"],
   [".footer-cols", "gridTemplateColumns"],
+  // Chrome that swaps at the 940px nav breakpoint.
   [".sticky-call", "display"],
   [".nav-trigger", "display"],
   [".desk-nav", "display"],
   ["body", "paddingBottom"],
-  [".card", "backgroundColor"],
+  // Tokens that must survive the cascade.
   [".btn-call", "backgroundColor"],
   [".hero-year", "fontSize"],
 ];
@@ -118,11 +123,24 @@ const res = await send("Runtime.evaluate", { expression: expr, returnByValue: tr
 const rows = JSON.parse(res.result.value);
 
 console.log(`\nviewport ${WIDTH}px`);
+// A selector that is absent means the probe list has drifted away from the
+// stylesheet — the tool then silently stops checking whatever it was for.
+const absent = rows.filter(([, , v]) => v === "(absent)").map(([s]) => s);
 for (const [sel, prop, val] of rows) {
   const cols = prop === "gridTemplateColumns" && val.includes(" ")
     ? ` (${val.split(" ").length} cols)`
     : "";
   console.log(`  ${sel.padEnd(16)} ${prop.padEnd(20)} ${val}${cols}`);
+}
+
+if (absent.length) {
+  console.log(
+    `
+! ${absent.length} probe selector(s) not on this page: ${absent.join(", ")}` +
+      `
+  Either the page does not use them, or the probe list is stale.
+`
+  );
 }
 
 sock.close();

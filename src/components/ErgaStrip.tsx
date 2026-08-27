@@ -1,6 +1,6 @@
 import { ergaFeatured } from "@/content/media";
+import Band from "./Band";
 import Photo from "./Photo";
-import LevelLine from "./LevelLine";
 import ArrowIcon from "./ArrowIcon";
 
 /**
@@ -16,23 +16,24 @@ import ArrowIcon from "./ArrowIcon";
  */
 export default function ErgaStrip() {
   return (
-    <section className="section surface-field" id="erga">
-      <LevelLine />
-      <div className="wrap section-head">
-        <h2 className="h2">Δουλειές μας</h2>
-        <p className="lede">
-          <span className="measure">
-            Φωτογραφίες από δικά μας εργοτάξια — όχι από το ίντερνετ. Σύρετε
-            για να τις δείτε.
-          </span>
-        </p>
-      </div>
+    <Band label="ΕΡΓΑ" id="erga">
+      <h2 className="h2">Δουλειές μας</h2>
+      <p className="lede">
+        <span className="measure-prose">
+          Φωτογραφίες από δικά μας εργοτάξια — όχι από το ίντερνετ. Σύρετε για
+          να τις δείτε.
+        </span>
+      </p>
 
       <ul className="rail">
         {ergaFeatured.map((project) => (
           <li key={project.id} className="rail-item">
             <article className="project">
-              <Photo img={project.img} sizes="(min-width: 760px) 40vw, 84vw" />
+              <Photo
+                img={project.img}
+                sizes="(min-width: 760px) 26vw, 80vw"
+                frame="css"
+              />
               <h3 className="project-title">{project.title}</h3>
               <p className="project-desc">{project.description}</p>
             </article>
@@ -40,14 +41,12 @@ export default function ErgaStrip() {
         ))}
       </ul>
 
-      <div className="wrap">
-        <p style={{ marginTop: "var(--s-6)" }}>
-          <a className="btn-quiet" href="/ypiresies#erga">
-            Όλα τα έργα
-            <ArrowIcon />
-          </a>
-        </p>
-      </div>
-    </section>
+      <p style={{ marginTop: "var(--s-5)" }}>
+        <a className="btn-quiet" href="/ypiresies#erga">
+          Όλα τα έργα
+          <ArrowIcon />
+        </a>
+      </p>
+    </Band>
   );
 }

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { areaPages, areaBySlug, areasPage } from "@/content/areas";
 import { services } from "@/content/services";
 import { business } from "@/content/site";
-import LevelLine from "@/components/LevelLine";
+import Band from "@/components/Band";
 import ArrowIcon from "@/components/ArrowIcon";
 import CallBand from "@/components/CallBand";
 
@@ -40,41 +40,33 @@ export default async function AreaPage({
   const area = areaBySlug(slug);
   if (!area) notFound();
 
-  const others = areaPages.filter(
-    (a) => a.slug !== area.slug && !a.needsInput
-  );
+  const others = areaPages.filter((a) => a.slug !== area.slug && !a.needsInput);
 
   return (
     <main>
-      <section className="section surface-field page-head">
-        <div className="wrap">
-          <nav className="breadcrumb" aria-label="Διαδρομή">
-            <a href="/perioxes">{areasPage.backToAll}</a>
-          </nav>
+      <Band label={areasPage.eyebrow} head>
+        <nav className="breadcrumb" aria-label="Διαδρομή">
+          <a href="/perioxes">{areasPage.backToAll}</a>
+        </nav>
 
-          <p className="label" style={{ marginTop: "var(--s-5)" }}>
-            {areasPage.eyebrow}
-          </p>
-          <h1 className="h1" style={{ marginTop: "var(--s-3)" }}>
-            {area.h1}
-          </h1>
-          <p className="lede" style={{ marginTop: "var(--s-5)" }}>
-            <span className="measure">{area.lede}</span>
-          </p>
+        <h1 className="h1" style={{ marginTop: "var(--s-4)" }}>
+          {area.h1}
+        </h1>
+        <p className="lede">
+          <span className="measure-prose">{area.lede}</span>
+        </p>
 
-          <div className="band-cta">
-            <a className="btn btn-call" href={business.phone.href}>
-              ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
-            </a>
-          </div>
+        <div className="band-cta">
+          <a className="btn btn-call" href={business.phone.href}>
+            ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
+          </a>
         </div>
-      </section>
+      </Band>
 
       {/* The spine: home ground argues from presence, outer areas from
           capability. Same component, genuinely different content. */}
-      <section className="section surface-raised">
-        <LevelLine />
-        <div className="wrap detail-cols">
+      <Band label="ΕΠΙ ΤΟΠΟΥ">
+        <div className="detail-cols">
           {area.blocks.map((b) => (
             <div key={b.heading}>
               <h2 className="h3">{b.heading}</h2>
@@ -82,49 +74,45 @@ export default async function AreaPage({
             </div>
           ))}
         </div>
-      </section>
+      </Band>
 
       {/* Every area gets the full list — confirmed: no area-specific mix. */}
-      <section className="section surface-field">
-        <LevelLine />
-        <div className="wrap">
-          <h2 className="h2">{areasPage.servicesHeading}</h2>
-          <p className="lede" style={{ marginTop: "var(--s-4)" }}>
-            <span className="measure">{areasPage.servicesBody}</span>
-          </p>
-          <ul className="grid grid-4" style={{ marginTop: "var(--s-6)" }}>
-            {services.map((s) => (
-              <li key={s.slug}>
-                <a className="card" href={`/ypiresies/${s.slug}`}>
-                  <h3 className="card-title">{s.title}</h3>
-                  <span className="card-more" aria-hidden="true">
-                    <ArrowIcon />
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <Band label="ΥΠΗΡΕΣΙΕΣ" tone="tone">
+        <h2 className="h2">{areasPage.servicesHeading}</h2>
+        <p className="lede">
+          <span className="measure-prose">{areasPage.servicesBody}</span>
+        </p>
+        <ul className="places">
+          {services.map((s) => (
+            <li key={s.slug}>
+              <a className="place" href={`/ypiresies/${s.slug}`}>
+                <span className="place-name">{s.title}</span>
+                <span className="place-body">{s.card}</span>
+                <span className="place-flag" aria-hidden="true">
+                  <ArrowIcon />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Band>
 
-      <section className="section surface-raised">
-        <LevelLine />
-        <div className="wrap">
-          <h2 className="h2">{areasPage.otherAreasHeading}</h2>
-          <ul className="grid grid-3" style={{ marginTop: "var(--s-6)" }}>
-            {others.map((a) => (
-              <li key={a.slug}>
-                <a className="card" href={`/perioxes/${a.slug}`}>
-                  <h3 className="card-title">{a.name}</h3>
-                  <span className="card-more" aria-hidden="true">
-                    <ArrowIcon />
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <Band label="ΑΛΛΕΣ ΠΕΡΙΟΧΕΣ">
+        <h2 className="h2">{areasPage.otherAreasHeading}</h2>
+        <ul className="places">
+          {others.map((a) => (
+            <li key={a.slug}>
+              <a className="place" href={`/perioxes/${a.slug}`}>
+                <span className="place-name">{a.name}</span>
+                <span className="place-body">{a.card}</span>
+                <span className="place-flag" aria-hidden="true">
+                  <ArrowIcon />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Band>
 
       <CallBand />
     </main>

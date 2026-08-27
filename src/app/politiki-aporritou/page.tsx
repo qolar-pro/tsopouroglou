@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { business } from "@/content/site";
 import { SITE_URL } from "@/content/site-config";
+import Band from "@/components/Band";
 
 export const metadata: Metadata = {
   title: "Πολιτική απορρήτου | ΤΣΟΠΟΥΡΟΓΛΟΥ",
@@ -18,22 +19,17 @@ export const metadata: Metadata = {
 export default function Privacy() {
   return (
     <main>
-      <section className="section surface-field page-head">
-        <div className="wrap">
-          <p className="label">ΝΟΜΙΚΑ</p>
-          <h1 className="h1" style={{ marginTop: "var(--s-3)" }}>
-            Πολιτική απορρήτου
-          </h1>
-          <p className="lede" style={{ marginTop: "var(--s-5)" }}>
-            <span className="measure">
-              Σύντομη, γιατί συλλέγουμε ελάχιστα.
-            </span>
-          </p>
-        </div>
-      </section>
+      <Band label="ΝΟΜΙΚΑ" head>
+        <h1 className="h1">Πολιτική απορρήτου</h1>
+        <p className="lede">
+          <span className="measure-prose">
+            Σύντομη, γιατί συλλέγουμε ελάχιστα.
+          </span>
+        </p>
+      </Band>
 
-      <section className="section surface-raised">
-        <div className="wrap legal">
+      <Band label="ΑΠΟΡΡΗΤΟ">
+        <div className="legal">
           <h2 className="h3">Ποιοι είμαστε</h2>
           <p>
             {business.legalName}, {business.address.locality}{" "}
@@ -91,7 +87,7 @@ export default function Privacy() {
           <h2 className="h3">Ιστοσελίδα</h2>
           <p>{SITE_URL}</p>
         </div>
-      </section>
+      </Band>
     </main>
   );
 }

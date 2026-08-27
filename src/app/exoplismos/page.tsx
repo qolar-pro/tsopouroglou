@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { HAS_REAL_PHOTOS } from "@/content/site";
 import { gated } from "@/content/pages";
+import Band from "@/components/Band";
 import CallBand from "@/components/CallBand";
-import LevelLine from "@/components/LevelLine";
 import Photo from "@/components/Photo";
 import { stolos } from "@/content/media";
 
@@ -20,45 +20,39 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main>
-      <section className="section surface-field page-head">
-        <div className="wrap">
-          <p className="label">{page.eyebrow}</p>
-          <h1 className="h1" style={{ marginTop: "var(--s-3)" }}>
-            {page.h1}
-          </h1>
-          <p className="lede" style={{ marginTop: "var(--s-5)" }}>
-            <span className="measure">{page.lede}</span>
-          </p>
-        </div>
-      </section>
+      <Band label={page.eyebrow} head>
+        <h1 className="h1">{page.h1}</h1>
+        <p className="lede">
+          <span className="measure-prose">{page.lede}</span>
+        </p>
 
-      <section className="section surface-raised">
-        <LevelLine />
-        <div className="wrap">
-          {/* The machine list is text, so it is honest without photos.
-              Only the photographs are gated. */}
-          <ul className="fleet">
-            {stolos.map((m) => (
-              <li key={m.name}>
-                <Photo img={m.img} sizes="(min-width: 960px) 33vw, 50vw" />
-                <p className="fleet-name">{m.name}</p>
-                <p className="fleet-note">{m.note}</p>
-              </li>
-            ))}
-          </ul>
+        {/* The machine list is text, so it is honest without photos.
+            Only the photographs are gated. */}
+        <ul className="fleet">
+          {stolos.map((m) => (
+            <li key={m.name}>
+              <Photo
+                img={m.img}
+                sizes="(min-width: 1000px) 30vw, (min-width: 560px) 45vw, 92vw"
+                frame="css"
+              />
+              <p className="fleet-name">{m.name}</p>
+              <p className="fleet-note">{m.note}</p>
+            </li>
+          ))}
+        </ul>
+      </Band>
 
-          {/* The full confirmed list stays as text. The photographs label
-              only the machines identifiable without guessing. */}
-          <h2 className="h3" style={{ marginTop: "var(--s-8)" }}>
-            Ολα τα μηχανηματα
-          </h2>
-          <ul className="check-list">
-            {gated.exoplismos.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* The full confirmed list stays as text. The photographs label
+          only the machines identifiable without guessing. */}
+      <Band label="ΚΑΤΑΛΟΓΟΣ" tone="tone">
+        <h2 className="h2">Όλα τα μηχανήματα</h2>
+        <ul className="check-list">
+          {gated.exoplismos.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </Band>
 
       <CallBand />
     </main>

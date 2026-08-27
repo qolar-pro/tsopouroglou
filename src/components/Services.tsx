@@ -1,59 +1,51 @@
 import { services, servicesSection } from "@/content/site";
 import { servicePhoto } from "@/content/media";
-import LevelLine from "./LevelLine";
+import Band from "./Band";
 import ArrowIcon from "./ArrowIcon";
 import Photo from "./Photo";
 
 /**
- * Service cards: photograph on top, text beneath.
- *
- * One competitor runs twelve service cards that all share the SAME stock
- * photograph — which reads worse than no photographs at all. Each card here
- * gets its own image of that work, for the same reason each service page got
- * its own copy.
+ * The services are a list, not a deck of cards: photograph, a rule, the name,
+ * a line. Losing the card border and the tinted fill lets the photographs
+ * carry the section, which is the point — one competitor runs twelve service
+ * cards that all share the SAME stock photograph, which reads worse than no
+ * photographs at all.
  */
 export default function Services() {
   return (
-    <section className="section surface-raised" id="ypiresies">
-      <LevelLine />
+    <Band label={servicesSection.eyebrow} id="ypiresies">
+      <h2 className="h2">{servicesSection.heading}</h2>
+      <p className="lede">
+        <span className="measure-prose">{servicesSection.lede}</span>
+      </p>
 
-      <div className="wrap section-head">
-        <h2 className="h2">{servicesSection.heading}</h2>
-        <p className="lede">
-          <span className="measure">{servicesSection.lede}</span>
-        </p>
-      </div>
+      <ul className="items items-4">
+        {services.map((s) => (
+          <li key={s.slug}>
+            <a className="item" href={`/ypiresies/${s.slug}`}>
+              {servicePhoto[s.slug] && (
+                <Photo
+                  img={servicePhoto[s.slug]}
+                  sizes="(min-width: 900px) 22vw, (min-width: 560px) 45vw, 92vw"
+                  frame="css"
+                />
+              )}
+              {!servicePhoto[s.slug] && (
+                <span className="item-spacer" aria-hidden="true" />
+              )}
+              <span className="item-title">{s.title}</span>
+              <span className="item-body">{s.card}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
 
-      <div className="wrap">
-        <ul className="grid grid-4">
-          {services.map((s) => (
-            <li key={s.slug}>
-              <a className="card card-media" href={`/ypiresies/${s.slug}`}>
-                {servicePhoto[s.slug] && (
-                  <Photo
-                    img={servicePhoto[s.slug]}
-                    sizes="(min-width: 960px) 25vw, (min-width: 560px) 50vw, 100vw"
-                  />
-                )}
-                <span className="card-body-wrap">
-                  <h3 className="card-title">{s.title}</h3>
-                  <p className="card-body">{s.card}</p>
-                  <span className="card-more" aria-hidden="true">
-                    <ArrowIcon />
-                  </span>
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <p style={{ marginTop: "var(--s-7)" }}>
-          <a className="btn-quiet" href="/ypiresies">
-            {servicesSection.cta}
-            <ArrowIcon />
-          </a>
-        </p>
-      </div>
-    </section>
+      <p style={{ marginTop: "var(--s-7)" }}>
+        <a className="btn-quiet" href="/ypiresies">
+          {servicesSection.cta}
+          <ArrowIcon />
+        </a>
+      </p>
+    </Band>
   );
 }

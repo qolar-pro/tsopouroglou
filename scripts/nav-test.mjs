@@ -14,7 +14,7 @@ import { mkdtempSync, rmSync, existsSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const URL_ = process.argv[2] ?? "http://localhost:3123/";
+const URL_ = process.argv[2] ?? "http://localhost:3000/";
 const OUT = process.argv[3];
 
 const CANDIDATES = [
@@ -92,6 +92,25 @@ await sleep(2800);
 const ev = async (expr) =>
   (await send("Runtime.evaluate", { expression: expr, returnByValue: true }))
     .result.value;
+
+/**
+ * Assert the page actually loaded before believing anything measured on it.
+ *
+ * These tools once ran against a stale default port and reported on the
+ * browser's own connection-error page — nav-test failed loudly, but the
+ * overflow audit passed, because an error page has no overflow. A check that
+ * reports green on a page that never loaded is worse than no check.
+ */
+if (!(await ev(`!!document.querySelector("main") && !!document.title`))) {
+  console.error(
+    `
+✗ ${URL_} did not load a page from this site.
+` +
+      `  Is the dev server up on that port? \`npm run dev\` pins it to 3000.
+`
+  );
+  process.exit(1);
+}
 
 const results = [];
 const check = (name, got, want) => {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { services, serviceBySlug, servicesPage } from "@/content/services";
 import { business } from "@/content/site";
-import LevelLine from "@/components/LevelLine";
+import Band from "@/components/Band";
 import ArrowIcon from "@/components/ArrowIcon";
 import CallBand from "@/components/CallBand";
 import { JsonLd, serviceSchema, breadcrumbSchema } from "@/lib/schema";
@@ -44,6 +44,9 @@ export default async function ServicePage({
     .map((r) => serviceBySlug(r))
     .filter((r): r is NonNullable<typeof r> => Boolean(r));
 
+  const photo = servicePhoto[service.slug];
+  const showPhoto = (HAS_REAL_PHOTOS || SHOW_PLACEHOLDER_MEDIA) && photo;
+
   return (
     <main>
       <JsonLd data={serviceSchema(service)} />
@@ -54,35 +57,36 @@ export default async function ServicePage({
           { name: service.title, path: `/ypiresies/${service.slug}` },
         ])}
       />
+
       {/* ---- Head ---- */}
-      <section className="section surface-field page-head">
-        <div className="wrap">
-          <nav className="breadcrumb" aria-label="Διαδρομή">
-            <a href="/ypiresies">{servicesPage.backToAll}</a>
-          </nav>
+      <Band label={servicesPage.eyebrow} head>
+        <nav className="breadcrumb" aria-label="Διαδρομή">
+          <a href="/ypiresies">{servicesPage.backToAll}</a>
+        </nav>
 
-          <p className="label" style={{ marginTop: "var(--s-5)" }}>
-            {servicesPage.eyebrow}
-          </p>
-          <h1 className="h1" style={{ marginTop: "var(--s-3)" }}>
-            {service.h1}
-          </h1>
-          <p className="lede" style={{ marginTop: "var(--s-5)" }}>
-            <span className="measure">{service.lede}</span>
-          </p>
+        <h1 className="h1" style={{ marginTop: "var(--s-4)" }}>
+          {service.h1}
+        </h1>
+        <p className="lede">
+          <span className="measure-prose">{service.lede}</span>
+        </p>
 
-          <div className="band-cta">
-            <a className="btn btn-call" href={business.phone.href}>
-              ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
-            </a>
-          </div>
+        <div className="band-cta">
+          <a className="btn btn-call" href={business.phone.href}>
+            ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
+          </a>
         </div>
-      </section>
+
+        {showPhoto && (
+          <div className="hero-media">
+            <Photo img={photo} sizes="100vw" frame="css" priority />
+          </div>
+        )}
+      </Band>
 
       {/* ---- What it involves + which machine ---- */}
-      <section className="section surface-raised">
-        <LevelLine />
-        <div className="wrap detail-cols">
+      <Band label="Η ΔΟΥΛΕΙΑ">
+        <div className="detail-cols">
           <div>
             <h2 className="h3">{service.includesHeading}</h2>
             <ul className="check-list">
@@ -96,23 +100,13 @@ export default async function ServicePage({
             <h2 className="h3">{service.machinesHeading}</h2>
             <p className="detail-body">{service.machines}</p>
             {service.note && <p className="note">{service.note}</p>}
-            {(HAS_REAL_PHOTOS || SHOW_PLACEHOLDER_MEDIA) &&
-              servicePhoto[service.slug] && (
-                <div style={{ marginTop: "var(--s-6)" }}>
-                  <Photo
-                    img={servicePhoto[service.slug]}
-                    sizes="(min-width: 860px) 50vw, 100vw"
-                  />
-                </div>
-              )}
           </div>
         </div>
-      </section>
+      </Band>
 
       {/* ---- What to have ready, and where ---- */}
-      <section className="section surface-field">
-        <LevelLine />
-        <div className="wrap detail-cols">
+      <Band label="ΠΡΙΝ ΤΟ ΤΗΛΕΦΩΝΟ" tone="tone">
+        <div className="detail-cols">
           <div>
             <h2 className="h3">{service.askHeading}</h2>
             <ol className="ask-list">
@@ -127,28 +121,25 @@ export default async function ServicePage({
             <p className="detail-body">{servicesPage.areasBody}</p>
           </div>
         </div>
-      </section>
+      </Band>
 
       {/* ---- Related ---- */}
-      <section className="section surface-raised">
-        <LevelLine />
-        <div className="wrap">
-          <h2 className="h2">{servicesPage.relatedHeading}</h2>
-          <ul className="grid grid-3" style={{ marginTop: "var(--s-6)" }}>
-            {related.map((r) => (
-              <li key={r.slug}>
-                <a className="card" href={`/ypiresies/${r.slug}`}>
-                  <h3 className="card-title">{r.title}</h3>
-                  <p className="card-body">{r.card}</p>
-                  <span className="card-more" aria-hidden="true">
-                    <ArrowIcon />
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <Band label="ΣΧΕΤΙΚΑ">
+        <h2 className="h2">{servicesPage.relatedHeading}</h2>
+        <ul className="items items-3">
+          {related.map((r) => (
+            <li key={r.slug}>
+              <a className="item" href={`/ypiresies/${r.slug}`}>
+                <span className="item-title">{r.title}</span>
+                <span className="item-body">{r.card}</span>
+                <span className="item-more" aria-hidden="true">
+                  <ArrowIcon />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Band>
 
       <CallBand />
     </main>

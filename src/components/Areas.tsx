@@ -1,52 +1,40 @@
 import { areaLinks } from "@/content/areas";
 import { areasSection } from "@/content/site";
-import LevelLine from "./LevelLine";
+import Band from "./Band";
 
 /**
+ * The areas are rows, not cards. A place name and one sentence is a list, so
+ * it looks like one — and a list can hold five places at a glance where five
+ * boxes could not.
+ *
  * Priority response in Μεταμόρφωση and Δασκάλων is his real edge over anyone
  * driving in from Polychrono or Nea Moudania. He asked for it to be explicit,
- * so home ground gets a different card treatment and a flag — not merely a
- * place at the top of the list.
+ * so home ground keeps its flag; it is now a third column on the row rather
+ * than a differently-shaped card.
  */
 export default function Areas() {
-  const priority = areaLinks.filter((a) => a.priority);
-  const rest = areaLinks.filter((a) => !a.priority);
-
   return (
-    <section className="section surface-field" id="perioxes">
-      <LevelLine />
+    <Band label={areasSection.eyebrow} id="perioxes" tone="tone">
+      <h2 className="h2">{areasSection.heading}</h2>
+      <p className="lede">
+        <span className="measure-prose">{areasSection.lede}</span>
+      </p>
 
-      <div className="wrap section-head">
-        <h2 className="h2">{areasSection.heading}</h2>
-        <p className="lede">
-          <span className="measure">{areasSection.lede}</span>
-        </p>
-      </div>
-
-      <div className="wrap">
-        <ul className="grid grid-2">
-          {priority.map((a) => (
-            <li key={a.name}>
-              <a className="card" href={a.href}>
-                <span className="area-flag">{areasSection.priorityLabel}</span>
-                <h3 className="area-name">{a.name}</h3>
-                <p className="area-body">{a.card}</p>
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <ul className="grid grid-3" style={{ marginTop: "var(--s-3)" }}>
-          {rest.map((a) => (
-            <li key={a.name}>
-              <a className="card" href={a.href}>
-                <h3 className="area-name area-name-sm">{a.name}</h3>
-                <p className="area-body">{a.card}</p>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+      <ul className="places">
+        {areaLinks.map((a) => (
+          <li key={a.name}>
+            <a className="place" href={a.href}>
+              <span className="place-name">{a.name}</span>
+              <span className="place-body">{a.card}</span>
+              {a.priority ? (
+                <span className="place-flag">{areasSection.priorityLabel}</span>
+              ) : (
+                <span aria-hidden="true" />
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Band>
   );
 }

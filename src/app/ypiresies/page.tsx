@@ -3,7 +3,7 @@ import { services, servicesPage } from "@/content/services";
 import { erga, servicePhoto } from "@/content/media";
 import Photo from "@/components/Photo";
 import ArrowIcon from "@/components/ArrowIcon";
-import LevelLine from "@/components/LevelLine";
+import Band from "@/components/Band";
 import CallBand from "@/components/CallBand";
 
 /**
@@ -27,80 +27,66 @@ export const metadata: Metadata = {
 export default function ServicesAndWork() {
   return (
     <main>
-      <section className="section surface-field page-head">
-        <div className="wrap">
-          <p className="label">{servicesPage.eyebrow}</p>
-          <h1 className="h1" style={{ marginTop: "var(--s-3)" }}>
-            Τι κάνουμε, και τι έχουμε κάνει
-          </h1>
-          <p className="lede" style={{ marginTop: "var(--s-5)" }}>
-            <span className="measure">
-              Οκτώ δουλειές. Πιο κάτω, φωτογραφίες από δικά μας εργοτάξια —
-              η ίδια δουλειά, όχι σε λόγια.
-            </span>
-          </p>
-        </div>
-      </section>
+      <Band label={servicesPage.eyebrow} head>
+        <h1 className="h1">Τι κάνουμε, και τι έχουμε κάνει</h1>
+        <p className="lede">
+          <span className="measure-prose">
+            Οκτώ δουλειές. Πιο κάτω, φωτογραφίες από δικά μας εργοτάξια — η
+            ίδια δουλειά, όχι σε λόγια.
+          </span>
+        </p>
 
-      {/* ---- The eight services ---- */}
-      <section className="section surface-raised">
-        <LevelLine />
-        <div className="wrap">
-          <ul className="grid grid-2">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <a className="card card-media" href={`/ypiresies/${s.slug}`}>
-                  {servicePhoto[s.slug] && (
-                    <Photo
-                      img={servicePhoto[s.slug]}
-                      sizes="(min-width: 560px) 50vw, 100vw"
-                    />
-                  )}
-                  <span className="card-body-wrap">
-                    <h2 className="card-title">{s.title}</h2>
-                    <p className="card-body">{s.card}</p>
-                    <span className="card-more" aria-hidden="true">
-                      <ArrowIcon />
-                    </span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+        <ul className="items items-3">
+          {services.map((s) => (
+            <li key={s.slug}>
+              <a className="item" href={`/ypiresies/${s.slug}`}>
+                {servicePhoto[s.slug] && (
+                  <Photo
+                    img={servicePhoto[s.slug]}
+                    sizes="(min-width: 900px) 30vw, (min-width: 560px) 45vw, 92vw"
+                    frame="css"
+                  />
+                )}
+              {!servicePhoto[s.slug] && (
+                <span className="item-spacer" aria-hidden="true" />
+              )}
+                <span className="item-title">{s.title}</span>
+                <span className="item-body">{s.card}</span>
+                <span className="item-more" aria-hidden="true">
+                  <ArrowIcon />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Band>
 
       {/* ---- The evidence ---- */}
-      <section className="section surface-field" id="erga">
-        <LevelLine />
-        <div className="wrap section-head">
-          <p className="label">ΕΡΓΑ</p>
-          <h2 className="h2">Δουλειές μας</h2>
-          <p className="lede">
-            <span className="measure">
-              Όλες οι φωτογραφίες είναι από δικά μας εργοτάξια στη Χαλκιδική.
-              Καμία δεν είναι από το ίντερνετ.
-            </span>
-          </p>
-        </div>
+      <Band label="ΕΡΓΑ" id="erga" tone="tone">
+        <h2 className="h2">Δουλειές μας</h2>
+        <p className="lede">
+          <span className="measure-prose">
+            Όλες οι φωτογραφίες είναι από δικά μας εργοτάξια στη Χαλκιδική.
+            Καμία δεν είναι από το ίντερνετ.
+          </span>
+        </p>
 
-        <div className="wrap">
-          <ul className="erga-grid">
-            {erga.map((project) => (
-              <li key={project.id}>
-                <article className="project">
-                  <Photo
-                    img={project.img}
-                    sizes="(min-width: 760px) 46vw, 100vw"
-                  />
-                  <h3 className="project-title">{project.title}</h3>
-                  <p className="project-desc">{project.description}</p>
-                </article>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+        <ul className="erga-grid">
+          {erga.map((project) => (
+            <li key={project.id}>
+              <article className="project">
+                <Photo
+                  img={project.img}
+                  sizes="(min-width: 1000px) 28vw, (min-width: 620px) 44vw, 92vw"
+                  frame="css"
+                />
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-desc">{project.description}</p>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </Band>
 
       <CallBand />
     </main>

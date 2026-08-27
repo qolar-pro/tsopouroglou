@@ -3,66 +3,63 @@ import { heroPhoto } from "@/content/media";
 import Photo from "./Photo";
 
 /**
- * Split hero: the argument on the left, a photograph on the right.
+ * The headline runs the full measure and the photograph is a wide band
+ * beneath it.
  *
- * Research pattern — nearly every construction site that reads as serious
- * opens on a photograph, and the ones that read as cheap open on text alone.
- * But a full-bleed photo hero is hostage to having a good photo, and we have
- * none yet. Split solves both: the image is a column, not the ground, so if
- * it is absent the text column simply takes the full width and the hero still
- * works. Launch is never blocked on photography.
+ * It used to be a split — argument left, photo right — which made the photo a
+ * sidebar and capped the year at column width. 1987 is the thesis of the
+ * whole page, so it gets the page's full width; the photograph then gets to
+ * be a photograph rather than a decorative column. The two are stacked, so a
+ * missing photo still leaves a working hero and launch is never blocked on
+ * photography.
  *
- * 1987 stays inline in the sentence at display scale — the thesis, not a
- * stat block. The three credentials beneath it are each checkable, and each
- * is something no competitor site states.
+ * The three credentials beneath are each checkable, and each is something no
+ * competitor site states at all.
  */
 export default function Hero() {
   return (
     <section className="hero">
-      <div className="hero-grid">
-        <div className="hero-copy">
-          <p className="label">{hero.eyebrow}</p>
+      <div className="wrap">
+        <p className="label">{hero.eyebrow}</p>
 
-          <h1 className="hero-h1">
-            <span className="hero-h1-lead">{hero.headingLead}</span>
-            <span className="hero-year">{hero.headingYear}</span>
-          </h1>
+        <h1 className="hero-h1">
+          <span className="hero-h1-lead">{hero.headingLead}</span>
+          <span className="hero-year">{hero.headingYear}</span>
+        </h1>
 
+        <div className="hero-meta">
           <p className="hero-lede">
-            <span className="measure">
-              {hero.lede.map((line) => (
-                <span key={line} style={{ display: "block" }}>
-                  {line}
-                </span>
-              ))}
-            </span>
+            {hero.lede.map((line) => (
+              <span key={line} style={{ display: "block" }}>
+                {line}
+              </span>
+            ))}
           </p>
 
-          <div className="hero-cta">
-            <a className="btn btn-call" href={business.phone.href}>
-              {hero.callLabel}{" "}
-              <span className="num">{business.phone.display}</span>
-            </a>
-            <a className="btn btn-secondary" href="/epikoinonia">
-              {hero.quoteLabel}
-            </a>
+          <div>
+            <div className="hero-cta">
+              <a className="btn btn-call" href={business.phone.href}>
+                {hero.callLabel}{" "}
+                <span className="num">{business.phone.display}</span>
+              </a>
+              <a className="btn btn-secondary" href="/epikoinonia">
+                {hero.quoteLabel}
+              </a>
+            </div>
+            <p className="hero-hours">{hero.hours}</p>
           </div>
-
-          <p className="hero-hours">{hero.hours}</p>
         </div>
 
         <div className="hero-media">
-            <Photo
-              img={heroPhoto}
-              sizes="(min-width: 1000px) 44vw, 100vw"
-              priority
-            />
-          </div>
-      </div>
+          <Photo
+            img={heroPhoto}
+            sizes="100vw"
+            priority
+            frame="css"
+          />
+        </div>
 
-      {/* Three checkable facts, on the level line that closes the hero. */}
-      <div className="hero-creds">
-        <ul className="wrap creds">
+        <ul className="creds">
           {hero.credentials.map((c) => (
             <li key={c.key}>
               <span className="creds-key">{c.key}</span>

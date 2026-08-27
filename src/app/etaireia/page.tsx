@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { etaireia } from "@/content/pages";
-import LevelLine from "@/components/LevelLine";
+import Band from "@/components/Band";
 import CallBand from "@/components/CallBand";
 import Reviews from "@/components/Reviews";
 import Photo from "@/components/Photo";
@@ -15,34 +15,27 @@ export const metadata: Metadata = {
 export default function Etaireia() {
   return (
     <main>
-      <section className="section surface-field page-head">
-        <div className="wrap">
-          <p className="label">{etaireia.eyebrow}</p>
-          <h1 className="h1" style={{ marginTop: "var(--s-3)" }}>
-            {etaireia.h1}
-          </h1>
-          <p className="lede" style={{ marginTop: "var(--s-5)" }}>
-            <span className="measure">{etaireia.lede}</span>
-          </p>
-        </div>
-      </section>
+      <Band label={etaireia.eyebrow} head>
+        <h1 className="h1">{etaireia.h1}</h1>
+        <p className="lede">
+          <span className="measure-prose">{etaireia.lede}</span>
+        </p>
 
-      <section className="section surface-raised">
-        <LevelLine />
-        <div className="wrap about-cols">
-          <div className="about-photo">
-            <Photo img={etaireiaPhoto} sizes="(min-width: 860px) 38vw, 100vw" />
-          </div>
-          <div>
+        <div className="hero-media">
+          <Photo img={etaireiaPhoto} sizes="100vw" frame="css" priority />
+        </div>
+      </Band>
+
+      <Band label="Η ΙΣΤΟΡΙΑ">
+        <div className="detail-cols">
           {etaireia.blocks.map((b) => (
-            <div key={b.heading} className="prose-block">
+            <div key={b.heading}>
               <h2 className="h3">{b.heading}</h2>
-              <p className="detail-body measure-prose">{b.body}</p>
+              <p className="detail-body">{b.body}</p>
             </div>
           ))}
-          </div>
         </div>
-      </section>
+      </Band>
 
       {/* Κριτικές merged in from the homepage: what people say about them
           belongs with who they are, and it shortens the nav. */}

@@ -1,25 +1,26 @@
 import { business, contactSection } from "@/content/site";
-import LevelLine from "./LevelLine";
+import Band from "./Band";
 
 /**
- * Phone first, at display scale, above everything else. The form is the
- * secondary path — it exists mainly to unlock Google's "Online estimates"
- * attribute, which competing listings already have. Wired to Resend at
- * gate 6; this block links to it.
+ * The page ends dark, on the phone number.
+ *
+ * The phone is the conversion event, so the one place on the homepage that
+ * inverts is the one place we want a thumb to land. Everything above it is a
+ * continuous white ground; this is the only break in it, which is what makes
+ * it read as the end of an argument rather than as another stripe.
+ *
+ * The form is the secondary path — it exists mainly to unlock Google's
+ * "Online estimates" attribute, which competing listings already have.
  */
 export default function ContactBlock() {
   return (
-    <section className="section surface-field" id="epikoinonia">
-      <LevelLine />
+    <Band label={contactSection.eyebrow} id="epikoinonia" tone="ink">
+      <h2 className="h2">{contactSection.heading}</h2>
+      <p className="lede">
+        <span className="measure-prose">{contactSection.lede}</span>
+      </p>
 
-      <div className="wrap section-head">
-        <h2 className="h2">{contactSection.heading}</h2>
-        <p className="lede">
-          <span className="measure">{contactSection.lede}</span>
-        </p>
-      </div>
-
-      <div className="wrap contact-grid">
+      <div className="contact-grid">
         <a className="contact-primary" href={business.phone.href}>
           <span className="contact-label">{contactSection.mobileLabel}</span>
           <span className="contact-number">{business.phone.display}</span>
@@ -45,12 +46,12 @@ export default function ContactBlock() {
         </div>
       </div>
 
-      <div className="wrap contact-quote">
+      <div className="contact-quote">
         <a className="btn btn-call" href="/epikoinonia">
           {contactSection.quoteCta}
         </a>
         <p className="contact-quote-note">{contactSection.quoteNote}</p>
       </div>
-    </section>
+    </Band>
   );
 }

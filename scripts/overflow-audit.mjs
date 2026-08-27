@@ -12,9 +12,38 @@ import { mkdtempSync, rmSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const URL_ = process.argv[2] ?? "http://localhost:3112/";
+const URL_ = process.argv[2] ?? "http://localhost:3000/";
 const WIDTH = Number(process.argv[3] ?? 320);
 const HEIGHT = Number(process.argv[4] ?? 900);
+
+
+/**
+ * Assert the page actually loaded before believing anything measured on it.
+ *
+ * This tool once reported "no element exceeds the viewport" while pointed at
+ * a dead port: the browser rendered its own connection-error page, which has
+ * no overflow, and the audit passed on it. A check that reports green on a
+ * page that never loaded is worse than no check. Every CDP tool here asserts
+ * a site marker first.
+ */
+async function assertLoaded(send, url) {
+  const probe = await send("Runtime.evaluate", {
+    expression: `JSON.stringify({ main: !!document.querySelector("main"), title: document.title })`,
+    returnByValue: true,
+  });
+  const { main, title } = JSON.parse(probe.result.value);
+  if (!main || !title) {
+    console.error(
+      `
+✗ ${url} did not load a page from this site ` +
+        `(main=${main}, title=${JSON.stringify(title)}).
+` +
+        `  Is the dev server up on that port? \`npm run dev\` pins it to 3000.
+`
+    );
+    process.exit(1);
+  }
+}
 
 const CANDIDATES = [
   `${process.env.ProgramFiles}\\Google\\Chrome\\Application\\chrome.exe`,
@@ -133,6 +162,7 @@ await send("Emulation.setDeviceMetricsOverride", {
 });
 await send("Page.navigate", { url: URL_ });
 await sleep(2500);
+await assertLoaded(send, URL_);
 
 const res = await send("Runtime.evaluate", {
   expression: EXPR,

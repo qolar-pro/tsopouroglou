@@ -74,9 +74,12 @@ const CHECKS = [
   ["accent fill vs field", "accent", "field", 3.0, "button edge"],
   ["accent fill vs raised", "accent", "raised", 3.0, "button edge"],
 
-  // Inverted — the footer is the only dark zone.
+  // Inverted — the footer and the closing contact band.
   ["raised text on deep", "raised", "deep", 7.0, "AAA inverted"],
   ["field text on deep", "field", "deep", 7.0, "AAA inverted"],
+  // Muted copy inside the dark band. Held to AAA like its light-ground
+  // counterpart: this is read outdoors in sun, on a phone.
+  ["stone text on deep", "stone", "deep", 7.0, "AAA inverted muted"],
 
   // On dark the CTA keeps its fill and gains a ring, rather than taking a
   // second colour whose label would fail. The ring must read on both sides.

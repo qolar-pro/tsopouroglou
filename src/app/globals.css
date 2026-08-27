@@ -1,78 +1,55 @@
 @import "tailwindcss";
 
 /* ===========================================================================
-   ΣΤΑΘΜΗ · LEVEL
-   ---------------------------------------------------------------------------
-   Built from the green line a laser level throws across a plot — the
-   instrument that separates a licensed operator from a man with a digger.
-
-   Three light surfaces, not two: field (white), raised (gravel), stone.
-   Rhythm comes from alternating light tones. Only the footer is dark.
-
-   Every ratio below is computed, not eyeballed. Body text is 14–18:1;
-   AAA needs 7. The audience is 40–70, often outdoors in Chalkidiki sun on a
-   phone, so muted text is held to AAA as well — stricter than the spec, and
-   the token most likely to fail in daylight.
+   ΣΤΑΘΜΗ · LEVEL — palette and typeface unchanged, as asked.
+   scripts/contrast-audit.mjs parses THIS file, so the ratios in the comments
+   cannot drift from what ships.
 =========================================================================== */
 @theme {
-  /* --- Surfaces: three light, one dark ------------------------------- */
-  --color-field: #ffffff; /* page ground                                */
-  --color-raised: #f1f3f1; /* gravel — alternating sections, cards      */
-  --color-stone: #e4e8e6; /* deepest light band — the cut strata        */
-  --color-deep: #111716; /* footer only                                 */
+  --color-field: #ffffff;
+  --color-raised: #f1f3f1;
+  --color-stone: #e4e8e6;
+  --color-deep: #111716;
 
-  /* --- Ink ----------------------------------------------------------- */
-  --color-ink: #15191a; /* 17.71 / 15.88 / 14.32 on the three surfaces  */
+  --color-ink: #15191a; /* 17.71 / 15.88 / 14.32 on the light surfaces */
   --color-ink-muted: #434b4c; /*  8.94 /  8.01 /  7.23 — AAA on all     */
 
-  /* --- Lines: elevation is drawn, never lit -------------------------- */
   --color-line: #7c8583; /* functional boundary  3.79 / 3.40 / 3.07     */
-  --color-line-hair: #dce0de; /* decorative separator only (1.33)       */
+  --color-line-hair: #dce0de; /* decorative separator only              */
 
-  /* --- Accent: instrument green -------------------------------------- */
-  --color-accent: #0a6136; /*  7.56 on field, white label 7.56          */
-  --color-accent-hover: #08512d; /* white label  9.44                   */
-  --color-accent-press: #064124; /* white label 11.74                   */
+  --color-accent: #0a6136; /* 7.56 on field, white label 7.56           */
+  --color-accent-hover: #08512d;
+  --color-accent-press: #064124;
 
   --font-sans: var(--font-alegreya), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-alegreya-display), ui-sans-serif, system-ui,
     sans-serif;
 }
 
-/* ===========================================================================
-   SPACING — 4px base. White space is the brief.
-=========================================================================== */
 :root {
-  --s-1: 0.25rem; /*   4 */
-  --s-2: 0.5rem; /*    8 */
-  --s-3: 0.75rem; /*  12 */
-  --s-4: 1rem; /*      16 */
-  --s-5: 1.5rem; /*    24 */
-  --s-6: 2rem; /*      32 */
-  --s-7: 3rem; /*      48 */
-  --s-8: 4rem; /*      64 */
-  --s-9: 6rem; /*      96 */
-  --s-10: 8rem; /*    128 */
-  --s-11: 12rem; /*   192 */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
 
-  /* Section rhythm — roughly double the previous build. */
-  --section-y: clamp(4.5rem, 9vw, 8rem);
-
-  --container: 68rem;
+  --band-y: clamp(3.25rem, 7vw, 6rem);
+  --container: 76rem;
   --gutter: 1.25rem;
-
+  --rail: 10rem;
   --callbar: 60px;
 
-  /* Elevation is a drawn line. One system, two weights, no shadows. */
   --rule: 1px solid var(--color-line);
   --rule-hair: 1px solid var(--color-line-hair);
 
-  /* Motion — three moments, nothing else. */
   --t-fast: 120ms;
   --t-panel: 160ms;
   --ease: cubic-bezier(0.2, 0, 0.2, 1);
 }
-
 @media (min-width: 768px) {
   :root {
     --gutter: 2.5rem;
@@ -84,20 +61,17 @@
   }
 }
 
-/* ===========================================================================
-   TYPE SCALE — ratio 1.22 mobile / 1.28 desktop. Every step carries its own
-   line-height, tracking and measure. Greek keeps the looser leading: its
-   lowercase has more accent traffic above the x-height than Latin.
-=========================================================================== */
+/* Headings run larger than before: the rail now carries the structure, so a
+   heading can stop holding the section together and just be read. */
 :root {
-  --t-display: clamp(4.5rem, 26vw, 13rem); /*    72 → 208  the year only */
-  --t-h1: clamp(1.9375rem, 6.6vw, 3rem); /*       31 →  48             */
-  --t-h2: clamp(1.5625rem, 4.4vw, 2.3125rem); /*  25 →  37             */
-  --t-h3: clamp(1.3125rem, 2.4vw, 1.4375rem); /*  21 →  23             */
-  --t-lede: clamp(1.3125rem, 2.4vw, 1.4375rem); /* 21 → 23             */
-  --t-body: 1.0625rem; /*                          17 →  18            */
-  --t-small: 0.9375rem; /*                         15 → 15.5           */
-  --t-label: 0.8125rem; /*                         13                  */
+  --t-display: clamp(4.75rem, 22vw, 11rem);
+  --t-h1: clamp(2rem, 7.6vw, 3.75rem);
+  --t-h2: clamp(1.625rem, 5.4vw, 2.5rem);
+  --t-h3: clamp(1.25rem, 2.4vw, 1.4375rem);
+  --t-lede: clamp(1.25rem, 4.4vw, 1.4375rem);
+  --t-body: 1.0625rem;
+  --t-small: 0.9375rem;
+  --t-label: 0.8125rem;
 }
 @media (min-width: 768px) {
   :root {
@@ -113,40 +87,36 @@
   html {
     -webkit-text-size-adjust: 100%;
   }
-
   body {
-    /* Net, not a fix — overflow causes are corrected at source. */
     overflow-x: clip;
     background-color: var(--color-field);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: var(--t-body);
+    /* Greek lowercase has more accent traffic above the x-height than Latin;
+       1.5 crowds the tonos. */
     line-height: 1.65;
     padding-bottom: calc(var(--callbar) + env(safe-area-inset-bottom, 0px));
   }
-
   h1,
   h2,
   h3 {
     color: var(--color-ink);
     text-wrap: balance;
   }
-
   :focus-visible {
-    outline: 3px solid var(--color-ink); /* 17.71 on field */
+    outline: 3px solid var(--color-ink);
     outline-offset: 2px;
     border-radius: 1px;
   }
-  /* On the dark footer the ink ring would vanish; the field ring is 18.14. */
-  .surface-deep :focus-visible {
+  .band--ink :focus-visible,
+  .site-footer :focus-visible {
     outline-color: var(--color-field);
   }
-
   ::selection {
     background-color: var(--color-accent);
     color: #fff;
   }
-
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -161,25 +131,21 @@
 
 /* ===========================================================================
    LAYOUT PRIMITIVES
-=========================================================================== */
-
-/* Applied per-element rather than to a wrapper, so full-bleed bands can
-   escape without negative-margin tricks.
    NEVER put max-width on the same box as .wrap — margin-inline:auto would
-   then centre that box in the viewport instead of aligning it. This bug has
-   shipped twice; .measure exists so it cannot happen a third time. */
+   centre that box in the viewport instead of aligning it. Nest a .measure.
+   This has shipped as a bug twice.
+=========================================================================== */
 .wrap {
   max-width: var(--container);
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
-
 .measure {
   display: block;
 }
 @media (min-width: 768px) {
   .measure {
-    max-width: 46ch; /* ledes */
+    max-width: 46ch;
   }
 }
 .measure-prose {
@@ -187,19 +153,69 @@
   max-width: 66ch;
 }
 
-/* Vertical rhythm inside a section: children space themselves. */
-.stack {
-  display: flex;
-  flex-direction: column;
+/* ===========================================================================
+   THE BAND — one section, one rail.
+   Sections are separated by a hairline on a continuous white ground instead
+   of alternating background colours. Stripes made the page read as a stack of
+   unrelated blocks; one ground with rules reads as a single document.
+=========================================================================== */
+.band {
+  padding-block: var(--band-y);
+  border-top: var(--rule-hair);
 }
-.stack-3 > * + * {
-  margin-top: var(--s-3);
+.band-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
 }
-.stack-4 > * + * {
-  margin-top: var(--s-4);
+/**
+ * Grid items default to min-width:auto, which means they refuse to shrink
+ * below their content's intrinsic width. Anything that scrolls inside a band
+ * — the project rail, a wide table — then pushes the whole document wider
+ * than the viewport instead of scrolling within its own box. The rail did
+ * exactly this the moment it moved inside a band: 1052px of document on a
+ * 320px phone.
+ */
+.band-grid > * {
+  min-width: 0;
 }
-.stack-6 > * + * {
-  margin-top: var(--s-6);
+@media (min-width: 1000px) {
+  .band-grid {
+    grid-template-columns: var(--rail) 1fr;
+    gap: var(--s-8);
+  }
+}
+.band-label {
+  font-size: var(--t-label);
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  color: var(--color-ink-muted);
+}
+@media (min-width: 1000px) {
+  /* Sits on the heading's first baseline rather than floating above it. */
+  .band-label {
+    padding-top: 0.5em;
+  }
+}
+
+/* Tone and ink appear twice each on the whole site, not alternately. */
+.band--tone {
+  background-color: var(--color-raised);
+  border-top-color: transparent;
+}
+.band--ink {
+  background-color: var(--color-deep);
+  color: var(--color-raised);
+  border-top-color: transparent;
+}
+.band--ink h1,
+.band--ink h2,
+.band--ink h3 {
+  color: var(--color-field);
+}
+.band--ink .band-label,
+.band--ink .lede {
+  color: var(--color-stone);
 }
 
 /* ===========================================================================
@@ -209,37 +225,31 @@
   font-size: var(--t-label);
   font-weight: 400;
   line-height: 1.4;
-  letter-spacing: 0.08em;
-  /* Not green. An eyebrow is a label, not something you can act on — and
-     when every section opened with a green line, none of them stood out. */
+  letter-spacing: 0.1em;
   color: var(--color-ink-muted);
 }
-.surface-deep .label {
-  color: var(--color-raised);
-}
-
 .h1 {
   font-size: var(--t-h1);
-  line-height: 1.12;
-  letter-spacing: -0.015em;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   font-weight: 700;
 }
 .h2 {
   font-size: var(--t-h2);
-  line-height: 1.18;
-  letter-spacing: -0.01em;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
   font-weight: 700;
 }
 .h3 {
   font-size: var(--t-h3);
-  line-height: 1.3;
-  letter-spacing: -0.005em;
+  line-height: 1.25;
   font-weight: 700;
 }
 .lede {
   font-size: var(--t-lede);
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--color-ink-muted);
+  margin-top: var(--s-4);
 }
 .small {
   font-size: var(--t-small);
@@ -248,60 +258,133 @@
 }
 
 /* ===========================================================================
-   SURFACES
+   HERO — the headline runs the full measure and the photograph is a wide
+   band beneath it, not a column beside it. The year gets the room a thesis
+   deserves; the photo gets to be a photograph instead of a sidebar.
 =========================================================================== */
-.section {
-  position: relative;
-  padding-block: var(--section-y);
+.hero {
+  padding-top: var(--s-7);
+  border-top: 0;
 }
-.surface-field {
-  background-color: var(--color-field);
+@media (min-width: 1000px) {
+  .hero {
+    padding-top: var(--s-8);
+  }
 }
-.surface-raised {
-  background-color: var(--color-raised);
+.hero-h1 {
+  font-weight: 700;
 }
-.surface-deep {
-  background-color: var(--color-deep);
-  color: var(--color-raised);
+.hero-h1-lead {
+  display: block;
+  font-size: var(--t-h1);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
 }
-.surface-deep h1,
-.surface-deep h2,
-.surface-deep h3 {
-  color: var(--color-field);
+.hero-year {
+  display: block;
+  /* Display instance: the only place latin is preloaded, because these are
+     the LCP glyphs and ASCII digits live in the latin subset. */
+  font-family: var(--font-display);
+  font-size: var(--t-display);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  font-variant-numeric: lining-nums;
+  margin-top: var(--s-3);
+}
+.hero-meta {
+  display: grid;
+  gap: var(--s-5);
+  margin-top: var(--s-6);
+}
+@media (min-width: 900px) {
+  .hero-meta {
+    grid-template-columns: 1fr auto;
+    gap: var(--s-8);
+    align-items: end;
+  }
+}
+.hero-lede {
+  font-size: var(--t-lede);
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+  max-width: 40ch;
+}
+.hero-cta {
+  display: grid;
+  gap: var(--s-3);
+}
+@media (min-width: 520px) {
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+.hero-hours {
+  font-size: var(--t-small);
+  color: var(--color-ink-muted);
+  margin-top: var(--s-4);
+}
+.hero-media {
+  margin-top: var(--s-7);
+}
+.hero-media .photo {
+  aspect-ratio: 4 / 3;
+}
+@media (min-width: 700px) {
+  .hero-media .photo {
+    aspect-ratio: 2 / 1;
+  }
+}
+@media (min-width: 1100px) {
+  .hero-media .photo {
+    aspect-ratio: 21 / 9;
+  }
 }
 
-/* A band change is tonal and subtle by design (1.12–1.24). The level line
-   is what actually marks the boundary — see «Η στάθμη» below. */
+.creds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: var(--rule-hair);
+}
+@media (min-width: 720px) {
+  .creds {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.creds li {
+  padding-block: var(--s-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: baseline;
+}
+.creds li + li {
+  border-top: var(--rule-hair);
+}
+@media (min-width: 720px) {
+  .creds li + li {
+    border-top: 0;
+    border-inline-start: var(--rule-hair);
+    padding-inline-start: var(--s-5);
+  }
+}
+.creds-key {
+  font-size: var(--t-small);
+  font-weight: 700;
+}
+.creds-value {
+  font-size: var(--t-small);
+  color: var(--color-ink-muted);
+}
 
 /* ===========================================================================
-   «Η ΣΤΑΘΜΗ» — the level line.
-   The cut survives, but in this palette it is drawn rather than dug: a fine
-   ink rule with a short accent segment at its left, the way a laser level
-   marks a grade across a plot. It sits on every section boundary.
-=========================================================================== */
-.level {
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline: 0;
-  height: 2px;
-  background-color: var(--color-line-hair);
-}
-.level::before {
-  content: "";
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: 0;
-  width: clamp(3rem, 12vw, 7rem);
-  background-color: var(--color-accent);
-}
-.surface-deep .level {
-  background-color: #2b3331;
-}
-
-/* ===========================================================================
-   BUTTONS — real states. The press is physical, not a colour swap: each
-   button carries a 2px darker shelf at rest that collapses as the button
-   moves down 1px, so it reads as a solid object being pushed.
+   BUTTONS — unchanged state matrix. A 2px shelf at rest collapses as the
+   button drops, so a press reads as a solid object being pushed.
 =========================================================================== */
 .btn {
   --shelf: var(--color-accent-press);
@@ -321,14 +404,12 @@
   box-shadow: 0 2px 0 0 var(--shelf);
   transition: background-color var(--t-fast) var(--ease),
     box-shadow var(--t-fast) var(--ease), transform var(--t-fast) var(--ease),
-    border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+    color var(--t-fast) var(--ease);
 }
-
 .btn:active {
   transform: translateY(2px);
   box-shadow: 0 0 0 0 var(--shelf);
 }
-
 .btn[aria-disabled="true"],
 .btn:disabled {
   background-color: var(--color-line-hair);
@@ -338,11 +419,9 @@
   cursor: not-allowed;
   pointer-events: none;
 }
-
-/* Primary — the call. One colour on every surface. */
 .btn-call {
   background-color: var(--color-accent);
-  color: #fff; /* 7.56 AA */
+  color: #fff; /* 7.56 */
   letter-spacing: 0.03em;
 }
 .btn-call:hover {
@@ -351,17 +430,12 @@
 .btn-call:active {
   background-color: var(--color-accent-press);
 }
-/* On a dark surface the fill alone is only 2.4 against the ground, so the
-   button gains a ring rather than a second colour. Fill and label never
-   change anywhere on the site. */
-.surface-deep .btn-call {
+/* On dark ground the fill alone is 2.4 against the background, so the button
+   gains a ring rather than a second colour. Fill and label never change. */
+.band--ink .btn-call,
+.site-footer .btn-call {
   box-shadow: 0 2px 0 0 var(--shelf), inset 0 0 0 1px var(--color-field);
 }
-.surface-deep .btn-call:active {
-  box-shadow: inset 0 0 0 1px var(--color-field);
-}
-
-/* Secondary — outlined, drawn with the same rule system. */
 .btn-secondary {
   --shelf: var(--color-line);
   background-color: transparent;
@@ -377,20 +451,14 @@
   background-color: var(--color-stone);
   box-shadow: inset 0 0 0 1px var(--color-ink);
 }
-.surface-deep .btn-secondary {
+.band--ink .btn-secondary {
   color: var(--color-field);
   box-shadow: 0 2px 0 0 var(--color-line), inset 0 0 0 1px var(--color-line);
 }
-.surface-deep .btn-secondary:hover {
+.band--ink .btn-secondary:hover {
   background-color: #1b2322;
   box-shadow: 0 2px 0 0 var(--color-field), inset 0 0 0 1px var(--color-field);
 }
-.surface-deep .btn-secondary:active {
-  background-color: #1b2322;
-  box-shadow: inset 0 0 0 1px var(--color-field);
-}
-
-/* Quiet — a text action with a rule under it. */
 .btn-quiet {
   display: inline-flex;
   align-items: center;
@@ -408,270 +476,432 @@
 .btn-quiet:active {
   transform: translateY(1px);
 }
-
 .btn-block {
   width: 100%;
 }
-
-/* ===========================================================================
-   CARDS — elevation is the drawn line. No shadows, ever, on static content.
-=========================================================================== */
-.card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: var(--s-5);
-  background-color: var(--color-field);
-  /* Hairline, not a full rule. Elevation is still drawn — the line is just
-     quieter, so the page stops reading as a stack of boxes. */
-  border: var(--rule-hair);
-  border-radius: 2px;
-  text-decoration: none;
-  transition: background-color var(--t-fast) var(--ease),
-    border-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
-}
-.surface-raised .card {
-  background-color: var(--color-field);
-}
-.surface-field .card {
-  background-color: var(--color-raised);
-}
-.card:hover {
-  border-color: var(--color-ink);
-}
-.card:active {
-  transform: translateY(1px);
-}
-@media (min-width: 768px) {
-  .card {
-    padding: var(--s-6);
-  }
-}
-
-.card-title {
-  font-size: var(--t-h3);
-  line-height: 1.3;
-  font-weight: 700;
-  color: var(--color-ink);
-}
-.card-body {
-  font-size: var(--t-small);
-  line-height: 1.55;
-  color: var(--color-ink-muted);
-  margin-top: var(--s-2);
-  flex: 1 1 auto;
-}
-.card-more {
-  display: inline-flex;
-  color: var(--color-accent);
-  margin-top: var(--s-4);
-}
-
-.grid {
+.band-cta {
   display: grid;
   gap: var(--s-3);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  /* Cards take their natural height. Stretching them to match the tallest in
-     the row leaves dead space inside the short ones — visible as soon as some
-     services had a photograph and others did not. */
-  align-items: start;
-}
-.grid-2 {
-  grid-template-columns: 1fr;
-}
-.grid-4 {
-  grid-template-columns: 1fr;
-}
-@media (min-width: 560px) {
-  .grid-2,
-  .grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 960px) {
-  .grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-/* Base BEFORE the media query. An equal-specificity rule declared after a
-   media block wins on source order and silently kills it — this is the
-   third time that ordering has bitten in this file. */
-.grid-3 {
-  grid-template-columns: 1fr;
-}
-@media (min-width: 640px) {
-  .grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* ===========================================================================
-   SECTION HEADER BLOCK
-=========================================================================== */
-.section-head {
-  margin-bottom: var(--s-6);
-}
-/* The lede sits under the heading, not stacked behind another label. */
-.section-head .h2 + .lede {
-  margin-top: var(--s-3);
-}
-.section-head .label + .h2 {
-  margin-top: var(--s-3);
-}
-.section-head .h2 + .lede {
-  margin-top: var(--s-4);
-}
-
-/* ===========================================================================
-   HERO — split: the argument on the left, a photograph on the right.
-   The image is a column, not the ground, so its absence costs nothing.
-=========================================================================== */
-.hero {
-  background-color: var(--color-field);
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--s-7);
-  max-width: var(--container);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-  padding-top: var(--s-7);
-}
-@media (min-width: 1000px) {
-  .hero-grid {
-    grid-template-columns: 1fr 22rem;
-    gap: var(--s-9);
-    align-items: center;
-    padding-top: var(--s-9);
-    padding-bottom: var(--s-8);
-  }
-}
-
-.hero-copy .label + .hero-h1 {
-  margin-top: var(--s-5);
-}
-
-.hero-h1 {
-  font-weight: 700;
-  color: var(--color-ink);
-}
-.hero-h1-lead {
-  display: block;
-  font-size: var(--t-h1);
-  line-height: 1.12;
-  letter-spacing: -0.015em;
-}
-.hero-year {
-  display: block;
-  /* Display instance: the only place latin is preloaded, because these are
-     the LCP glyphs and ASCII digits live in the latin subset. */
-  font-family: var(--font-display);
-  color: var(--color-ink);
-  font-size: clamp(4.5rem, 19vw, 9rem);
-  font-weight: 900;
-  line-height: 0.86;
-  letter-spacing: -0.03em;
-  font-variant-numeric: lining-nums;
-  padding-top: var(--s-2);
-}
-/* The year sits on a short accent rule — the level line, at word scale. */
-.hero-year::after {
-  content: "";
-  display: block;
-  width: clamp(4rem, 30%, 9rem);
-  height: 4px;
-  background-color: var(--color-accent);
-  margin-top: var(--s-4);
-}
-
-.hero-lede {
-  color: var(--color-ink-muted);
-  font-size: var(--t-lede);
-  line-height: 1.55;
-  padding-top: var(--s-5);
-}
-
-.hero-cta {
-  display: grid;
-  gap: var(--s-3);
-  padding-top: var(--s-6);
+  margin-top: var(--s-6);
 }
 @media (min-width: 520px) {
-  .hero-cta {
+  .band-cta {
     display: flex;
     flex-wrap: wrap;
   }
 }
-
-.hero-hours {
-  color: var(--color-ink-muted);
-  font-size: var(--t-small);
-  padding-top: var(--s-4);
+.inline-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent);
+}
+.inline-link:hover {
+  color: var(--color-accent-hover);
 }
 
-.hero-media {
+/* ===========================================================================
+   PHOTOS — no filters, no grading. Consistent frames plus a factual caption
+   are what make ordinary phone photographs read as a work record.
+=========================================================================== */
+.photo {
   position: relative;
-}
-/* On a phone the image comes after the call button — the phone number should
-   never be pushed below the fold by a picture. */
-@media (max-width: 999px) {
-  .hero-media {
-    max-width: 22rem;
-  }
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--color-stone);
 }
 
-/* Credential strip closing the hero. Three things no competitor states. */
-.hero-creds {
-  border-top: var(--rule-hair);
-  border-bottom: var(--rule-hair);
-  background-color: var(--color-raised);
-  margin-top: var(--s-7);
-}
-.creds {
+/* ===========================================================================
+   ITEM LIST — services, related links and fleet are all the same thing:
+   a photograph, a rule, a name, a line. No boxes.
+=========================================================================== */
+.items {
   list-style: none;
-  margin: 0;
+  margin: var(--s-6) 0 0;
+  padding: 0;
   display: grid;
+  gap: var(--s-7) var(--s-5);
   grid-template-columns: 1fr;
 }
-@media (min-width: 720px) {
-  .creds {
+@media (min-width: 560px) {
+  .items-2,
+  .items-3,
+  .items-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  .items-3 {
     grid-template-columns: repeat(3, 1fr);
   }
-}
-.creds li {
-  padding-block: var(--s-4);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--s-2);
-}
-.creds li + li {
-  border-top: var(--rule-hair);
-}
-@media (min-width: 720px) {
-  .creds li + li {
-    border-top: 0;
-    border-inline-start: var(--rule-hair);
-    padding-inline-start: var(--s-5);
+  .items-4 {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
-.creds-key {
+.item {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+.item .photo {
+  aspect-ratio: 4 / 3;
+  margin-bottom: var(--s-4);
+}
+/**
+ * Only five of the eight services have a real photograph yet, so in a
+ * multi-column row the photoless titles floated to the top while their
+ * neighbours' sat a photo's height lower — the row read as broken rather
+ * than as ragged. This reserves the same height as blank space so the rules
+ * and titles line up.
+ *
+ * It is whitespace, not an empty image frame: nothing here implies a missing
+ * photo exists. And it is off in the single-column layout, where there is no
+ * row to align to and it would just be a hole in the list.
+ */
+.item-spacer {
+  display: none;
+}
+@media (min-width: 560px) {
+  .item-spacer {
+    display: block;
+    aspect-ratio: 4 / 3;
+    margin-bottom: var(--s-4);
+  }
+}
+.item-title {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  line-height: 1.2;
+  padding-top: var(--s-3);
+  border-top: 2px solid var(--color-ink);
+  transition: color var(--t-fast) var(--ease);
+}
+.item-body {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+  margin-top: var(--s-2);
+}
+a.item:hover .item-title {
+  color: var(--color-accent);
+}
+.item-more {
+  display: inline-flex;
+  color: var(--color-accent);
+  margin-top: var(--s-3);
+}
+
+/* ===========================================================================
+   PLACE LIST — areas are rows, not cards. A place and a sentence is a list,
+   so it should look like one.
+=========================================================================== */
+.places {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+}
+.places li {
+  border-top: var(--rule-hair);
+}
+.places li:last-child {
+  border-bottom: var(--rule-hair);
+}
+.place {
+  display: grid;
+  gap: var(--s-2);
+  padding-block: var(--s-5);
+  text-decoration: none;
+  color: inherit;
+}
+@media (min-width: 760px) {
+  .place {
+    grid-template-columns: 15rem 1fr auto;
+    gap: var(--s-6);
+    align-items: baseline;
+  }
+}
+.place-name {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  line-height: 1.2;
+  transition: color var(--t-fast) var(--ease);
+}
+.place-body {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+}
+.place-flag {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+a.place:hover .place-name {
+  color: var(--color-accent);
+}
+
+/* ===========================================================================
+   FACTS — four checkable numbers. Each one is verifiable, which is what
+   makes setting them large honest rather than a counter.
+=========================================================================== */
+.facts {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 620px) {
+  .facts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1100px) {
+  .facts {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-5);
+  }
+}
+.fact {
+  border-top: 2px solid var(--color-ink);
+  padding-top: var(--s-3);
+}
+.fact-figure {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.fact-title {
   font-size: var(--t-small);
   font-weight: 700;
-  color: var(--color-ink);
+  margin-top: var(--s-3);
 }
-.creds-value {
+.fact-body {
   font-size: var(--t-small);
+  color: var(--color-ink-muted);
+  margin-top: var(--s-1);
+}
+
+/* ===========================================================================
+   REVIEWS — no boxes. A rule, a quote, a name.
+=========================================================================== */
+.rating {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+}
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--color-ink);
+  transform: translateY(3px);
+}
+.rating-score {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-h3);
+  line-height: 1;
+}
+.rating-count {
+  font-size: var(--t-small);
+  color: var(--color-ink-muted);
+}
+.rating-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  margin-top: var(--s-5);
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+}
+.rating-line .inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+}
+.reviews {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  columns: 1;
+  column-gap: var(--s-7);
+}
+@media (min-width: 760px) {
+  .reviews {
+    columns: 2;
+  }
+}
+@media (min-width: 1100px) {
+  .reviews {
+    columns: 3;
+  }
+}
+.reviews li {
+  break-inside: avoid;
+  margin-bottom: var(--s-6);
+}
+.review {
+  margin: 0;
+  border-top: var(--rule-hair);
+  padding-top: var(--s-4);
+}
+.review blockquote {
+  margin: 0;
+}
+.review blockquote p {
+  font-size: var(--t-small);
+  line-height: 1.6;
+}
+.review figcaption {
+  margin-top: var(--s-3);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
   color: var(--color-ink-muted);
 }
 
 /* ===========================================================================
-   HEADER — designed, not assembled. One rule that appears only after the
-   page has scrolled past the hero. Motion moment 1 of 3.
+   PROJECT RAIL — native scroll-snap. Nothing moves on its own.
+=========================================================================== */
+.rail {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0 0 var(--s-4);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(15rem, 80vw);
+  gap: var(--s-5);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  /* Mandatory snapping aligns the first item to the SCROLLPORT edge and
+     scrolls past leading padding, so scroll-padding is what it honours.
+     The rail sits inside the band body here, so both are zero. */
+  scroll-padding-inline: 0;
+  scrollbar-width: thin;
+}
+@media (min-width: 760px) {
+  .rail {
+    grid-auto-columns: minmax(18rem, 26vw);
+  }
+}
+.rail-item {
+  scroll-snap-align: start;
+}
+.project .photo {
+  aspect-ratio: 4 / 3;
+}
+.project-title {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 2px solid var(--color-ink);
+}
+.project-desc {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+  margin-top: var(--s-2);
+}
+.erga-grid {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-7) var(--s-5);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 620px) {
+  .erga-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1000px) {
+  .erga-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===========================================================================
+   CONTACT
+=========================================================================== */
+.contact-grid {
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: 1fr;
+  margin-top: var(--s-6);
+}
+@media (min-width: 760px) {
+  .contact-grid {
+    grid-template-columns: auto 1fr;
+    gap: var(--s-8);
+    align-items: start;
+  }
+}
+.contact-primary {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  min-height: 56px;
+}
+.contact-label {
+  display: block;
+  font-size: var(--t-label);
+  letter-spacing: 0.1em;
+  color: var(--color-ink-muted);
+}
+.contact-number {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.25rem, 9vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  padding-top: var(--s-2);
+}
+.contact-primary:hover .contact-number {
+  color: var(--color-accent);
+}
+.contact-row {
+  display: block;
+  padding-block: var(--s-3);
+  min-height: 56px;
+  border-top: var(--rule-hair);
+  text-decoration: none;
+  color: inherit;
+}
+.contact-value {
+  display: block;
+  font-size: var(--t-h3);
+  font-weight: 700;
+  padding-top: 2px;
+}
+.contact-value-email {
+  font-size: var(--t-body);
+  overflow-wrap: anywhere;
+}
+a.contact-row:hover .contact-value {
+  color: var(--color-accent);
+}
+.contact-quote {
+  margin-top: var(--s-7);
+}
+.contact-quote-note {
+  font-size: var(--t-small);
+  color: var(--color-ink-muted);
+  margin-top: var(--s-3);
+}
+
+/* ===========================================================================
+   HEADER + NAV
 =========================================================================== */
 .site-header {
   background-color: var(--color-field);
@@ -688,7 +918,6 @@
     z-index: 40;
   }
 }
-
 .site-header-inner {
   display: flex;
   align-items: center;
@@ -702,7 +931,6 @@
     min-height: 80px;
   }
 }
-
 .wordmark {
   text-decoration: none;
   min-width: 0;
@@ -711,33 +939,31 @@
   display: block;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(1rem, 4.6vw, 1.25rem);
+  font-size: clamp(1rem, 4.6vw, 1.1875rem);
   line-height: 1.1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   color: var(--color-ink);
 }
 .wordmark-tagline {
   display: block;
   white-space: nowrap;
   font-size: 10.5px;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
   line-height: 1.3;
   color: var(--color-ink-muted);
   padding-top: 3px;
 }
 @media (min-width: 400px) {
   .wordmark-tagline {
-    font-size: 11.5px;
+    font-size: 11px;
   }
 }
-
 .site-header-actions {
   display: flex;
   align-items: center;
   gap: var(--s-2);
   flex: 0 0 auto;
 }
-
 .header-call {
   display: inline-flex;
   align-items: center;
@@ -758,10 +984,6 @@
   background-color: var(--color-raised);
   box-shadow: inset 0 0 0 1px var(--color-ink);
 }
-
-/* ===========================================================================
-   NAV
-=========================================================================== */
 .desk-nav {
   display: none;
 }
@@ -794,7 +1016,6 @@
     border-bottom-color: var(--color-accent);
   }
 }
-
 .nav-trigger {
   display: inline-flex;
   flex-direction: column;
@@ -830,9 +1051,8 @@
   font-size: 9.5px;
   letter-spacing: 0.08em;
 }
-
-/* This block must come AFTER .nav-trigger's own rules — an equal-specificity
-   rule earlier in the file loses on source order regardless of media query. */
+/* Must come AFTER .nav-trigger's own rules — an equal-specificity rule
+   earlier in the file loses on source order regardless of media query. */
 @media (min-width: 940px) {
   .nav-trigger {
     display: none;
@@ -844,9 +1064,6 @@
     padding-bottom: 0;
   }
 }
-
-/* The panel genuinely floats, so it is the one place a shadow is allowed.
-   Motion moment 2 of 3. */
 .nav-panel {
   position: fixed;
   inset: 0;
@@ -863,7 +1080,6 @@
     transform: translateY(8px);
   }
 }
-
 .nav-panel-head {
   display: flex;
   align-items: center;
@@ -874,7 +1090,7 @@
 }
 .nav-panel-title {
   font-size: var(--t-label);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--color-ink-muted);
 }
 .nav-close {
@@ -893,7 +1109,6 @@
 .nav-close:hover {
   background-color: var(--color-raised);
 }
-
 .nav-list {
   list-style: none;
   margin: 0;
@@ -919,140 +1134,254 @@
 }
 
 /* ===========================================================================
-   AREAS — home ground is promoted, not merely listed first.
+   INNER PAGES
 =========================================================================== */
-.area-flag {
-  display: inline-block;
-  padding: var(--s-1) var(--s-2);
-  margin-bottom: var(--s-3);
-  background-color: var(--color-ink);
-  color: var(--color-field); /* 17.71 */
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  border-radius: 2px;
-}
-.area-name {
-  font-size: var(--t-h2);
-  line-height: 1.15;
-  font-weight: 700;
-  color: var(--color-ink);
-}
-.area-name-sm {
-  font-size: var(--t-h3);
-}
-.area-body {
-  font-size: var(--t-small);
-  line-height: 1.55;
+.breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--color-ink-muted);
-  margin-top: var(--s-2);
+  font-size: var(--t-small);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-line);
 }
-
-/* ===========================================================================
-   ΓΙΑΤΙ ΕΜΑΣ — four flat statements, separated by rules.
-=========================================================================== */
-.why-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.breadcrumb a:hover {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-ink);
+}
+.detail-cols {
   display: grid;
+  gap: var(--s-7);
   grid-template-columns: 1fr;
 }
-@media (min-width: 760px) {
-  .why-list {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: var(--s-8);
+@media (min-width: 860px) {
+  .detail-cols {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-8);
   }
 }
-.why-item {
-  padding-block: var(--s-5);
+.detail-body {
+  margin-top: var(--s-4);
+  max-width: 52ch;
+}
+.check-list {
+  list-style: none;
+  margin: var(--s-5) 0 0;
+  padding: 0;
+}
+.check-list li {
+  position: relative;
+  padding-left: var(--s-6);
+  padding-block: var(--s-3);
   border-top: var(--rule-hair);
 }
-.why-title {
-  font-size: var(--t-h3);
-  line-height: 1.3;
-  font-weight: 700;
+.check-list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: calc(var(--s-3) + 0.62em);
+  width: 14px;
+  height: 2px;
+  background-color: var(--color-line);
 }
-.why-body {
+/* Numbered because the caller reads them in order while on the phone. */
+.ask-list {
+  list-style: none;
+  counter-reset: ask;
+  margin: var(--s-5) 0 0;
+  padding: 0;
+}
+.ask-list li {
+  counter-increment: ask;
+  position: relative;
+  padding-left: var(--s-7);
+  padding-block: var(--s-3);
+  border-top: var(--rule-hair);
+}
+.ask-list li::before {
+  content: counter(ask);
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: var(--s-3);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-small);
   color: var(--color-ink-muted);
-  margin-top: var(--s-2);
 }
-
-/* ===========================================================================
-   CONTACT
-=========================================================================== */
-.contact-grid {
+.note {
+  margin-top: var(--s-5);
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--color-line);
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+  max-width: 52ch;
+}
+.prose-block + .prose-block {
+  margin-top: var(--s-6);
+  padding-top: var(--s-6);
+  border-top: var(--rule-hair);
+}
+.about-cols {
   display: grid;
   gap: var(--s-6);
   grid-template-columns: 1fr;
 }
-@media (min-width: 760px) {
-  .contact-grid {
-    grid-template-columns: auto 1fr;
-    gap: var(--s-9);
+@media (min-width: 860px) {
+  .about-cols {
+    grid-template-columns: 20rem 1fr;
+    gap: var(--s-8);
     align-items: start;
   }
 }
-.contact-primary {
-  display: block;
-  text-decoration: none;
-  min-height: 56px;
+.about-photo .photo {
+  aspect-ratio: 4 / 3;
 }
-.contact-label {
-  display: block;
-  font-size: var(--t-label);
-  letter-spacing: 0.08em;
-  color: var(--color-ink-muted);
+.fleet {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-7) var(--s-5);
+  grid-template-columns: 1fr;
 }
-.contact-number {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(2rem, 9vw, 3rem);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: var(--color-ink);
-  padding-top: var(--s-1);
+@media (min-width: 560px) {
+  .fleet {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-.contact-primary:hover .contact-number {
-  color: var(--color-accent);
+@media (min-width: 1000px) {
+  .fleet {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-.contact-row {
-  display: block;
-  padding-block: var(--s-3);
-  min-height: 56px;
-  border-top: var(--rule-hair);
-  text-decoration: none;
+.fleet .photo {
+  aspect-ratio: 4 / 3;
 }
-.contact-value {
-  display: block;
-  color: var(--color-ink);
+.fleet-name {
   font-size: var(--t-h3);
   font-weight: 700;
-  padding-top: 2px;
-}
-.contact-value-email {
-  font-size: var(--t-body);
-  overflow-wrap: anywhere;
-}
-a.contact-row:hover .contact-value {
-  color: var(--color-accent);
-}
-.contact-quote {
-  padding-top: var(--s-7);
-}
-.contact-quote-note {
-  color: var(--color-ink-muted);
-  font-size: var(--t-small);
+  margin-top: var(--s-4);
   padding-top: var(--s-3);
+  border-top: 2px solid var(--color-ink);
+}
+.fleet-note {
+  font-size: var(--t-small);
+  color: var(--color-ink-muted);
+  margin-top: var(--s-1);
 }
 
 /* ===========================================================================
-   FOOTER — the one dark zone.
+   FORM
+=========================================================================== */
+.quote-form {
+  display: grid;
+  gap: var(--s-5);
+  max-width: 34rem;
+}
+.field {
+  display: grid;
+  gap: var(--s-2);
+}
+.field label {
+  font-size: var(--t-small);
+  font-weight: 700;
+}
+.req {
+  color: var(--color-ink-muted);
+}
+.field input,
+.field textarea {
+  font: inherit;
+  font-size: var(--t-body);
+  color: var(--color-ink);
+  background-color: var(--color-field);
+  border: 1px solid var(--color-line);
+  border-radius: 2px;
+  padding: var(--s-3);
+  min-height: 52px;
+  width: 100%;
+}
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.field input:hover,
+.field textarea:hover {
+  border-color: var(--color-ink-muted);
+}
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--color-ink);
+}
+/* Off-screen rather than display:none — some bots skip hidden fields. */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-3);
+  align-items: start;
+}
+.consent input {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  accent-color: var(--color-accent);
+}
+.consent label {
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}
+.consent a {
+  color: var(--color-accent);
+}
+.form-status:empty {
+  display: none;
+}
+.form-status {
+  color: var(--color-accent-press);
+  font-size: var(--t-small);
+  padding: var(--s-3);
+  border-left: 2px solid var(--color-accent-press);
+}
+.form-done {
+  padding: var(--s-6);
+  background-color: var(--color-raised);
+  border-radius: 2px;
+  max-width: 34rem;
+}
+
+/* ===========================================================================
+   LEGAL
+=========================================================================== */
+.legal h2 {
+  margin-top: var(--s-7);
+  margin-bottom: var(--s-3);
+}
+.legal h2:first-child {
+  margin-top: 0;
+}
+.legal p {
+  max-width: 66ch;
+  color: var(--color-ink-muted);
+}
+.legal a {
+  color: var(--color-accent);
+}
+
+/* ===========================================================================
+   FOOTER
 =========================================================================== */
 .site-footer {
   background-color: var(--color-deep);
   color: var(--color-raised);
-  padding-block: var(--s-8) var(--s-8);
+  padding-block: var(--s-8);
 }
 .footer-name {
   color: var(--color-field);
@@ -1060,11 +1389,9 @@ a.contact-row:hover .contact-value {
   font-weight: 900;
   font-size: var(--t-h3);
   line-height: 1.2;
-  letter-spacing: 0.01em;
 }
 .footer-rights {
   font-size: var(--t-small);
-  color: var(--color-raised);
   margin-top: var(--s-2);
   max-width: 46ch;
 }
@@ -1088,7 +1415,7 @@ a.contact-row:hover .contact-value {
 .footer-heading {
   font-size: var(--t-label);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--color-field);
   padding-bottom: var(--s-3);
   border-bottom: 1px solid #2b3331;
@@ -1154,7 +1481,7 @@ a.contact-row:hover .contact-value {
   justify-content: center;
   gap: var(--s-3);
   min-height: var(--callbar);
-  color: #fff;
+  color: #fff; /* 7.56 */
   text-decoration: none;
   transition: background-color var(--t-fast) var(--ease);
 }
@@ -1182,583 +1509,77 @@ a.contact-row:hover .contact-value {
 }
 
 /* ===========================================================================
-   INNER PAGES — service and area detail
+   INK-BAND OVERRIDES
+   The dark band is the conversion moment — the phone number — and it sits
+   directly above the dark footer, so the footer takes a hairline to keep the
+   two from reading as one undifferentiated slab.
 =========================================================================== */
-.page-head {
-  padding-block: var(--s-8) var(--section-y);
+.band--ink .item-title,
+.band--ink .fleet-name,
+.band--ink .project-title,
+.band--ink .fact {
+  border-top-color: var(--color-field);
 }
-
-.breadcrumb a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  color: var(--color-ink-muted);
-  font-size: var(--t-small);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-line);
+.band--ink .item-body,
+.band--ink .place-body,
+.band--ink .fact-body,
+.band--ink .small,
+.band--ink .rating-count,
+.band--ink .rating-line,
+.band--ink .contact-label,
+.band--ink .place-flag,
+.band--ink .contact-quote-note,
+.band--ink .review figcaption {
+  color: var(--color-stone); /* 15.55 on deep */
 }
-.breadcrumb a:hover {
-  color: var(--color-ink);
-  border-bottom-color: var(--color-ink);
+.band--ink .places li,
+.band--ink .places li:last-child,
+.band--ink .contact-row,
+.band--ink .creds li + li,
+.band--ink .check-list li {
+  border-color: #2b3331;
 }
-
-/* Two columns of detail on wide screens, stacked on a phone. */
-.detail-cols {
-  display: grid;
-  gap: var(--s-8);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 860px) {
-  .detail-cols {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--s-9);
-  }
-}
-
-.detail-body {
-  margin-top: var(--s-4);
-  max-width: 52ch;
-}
-
-/* A checked item is a claim about scope, so the mark is drawn in the accent
-   rather than being a bullet. Same line system as everything else. */
-.check-list {
-  list-style: none;
-  margin: var(--s-5) 0 0;
-  padding: 0;
-}
-.check-list li {
-  position: relative;
-  padding-left: var(--s-6);
-  padding-block: var(--s-3);
-  border-top: var(--rule-hair);
-}
-.check-list li::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 0;
-  inset-block-start: calc(var(--s-3) + 0.62em);
-  width: 14px;
-  height: 2px;
-  background-color: var(--color-line);
-}
-
-/* Numbered because the caller reads them in order while on the phone. */
-.ask-list {
-  list-style: none;
-  counter-reset: ask;
-  margin: var(--s-5) 0 0;
-  padding: 0;
-}
-.ask-list li {
-  counter-increment: ask;
-  position: relative;
-  padding-left: var(--s-7);
-  padding-block: var(--s-3);
-  border-top: var(--rule-hair);
-}
-.ask-list li::before {
-  content: counter(ask);
-  position: absolute;
-  inset-inline-start: 0;
-  inset-block-start: var(--s-3);
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: var(--t-small);
-  color: var(--color-ink-muted);
-}
-
-/* A caveat or an honest boundary. Marked by a rule, not a coloured box. */
-.note {
-  margin-top: var(--s-5);
-  padding-left: var(--s-4);
-  border-left: 2px solid var(--color-line);
-  color: var(--color-ink-muted);
-  font-size: var(--t-small);
-  max-width: 52ch;
-}
-
-.band-cta {
-  display: grid;
-  gap: var(--s-3);
-  margin-top: var(--s-6);
-}
-@media (min-width: 520px) {
-  .band-cta {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-.inline-link {
-  color: var(--color-accent);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-accent);
-}
-.inline-link:hover {
-  color: var(--color-accent-hover);
-}
-
-/* ===========================================================================
-   FORM — four fields. Controls are drawn with the same line system.
-=========================================================================== */
-.quote-form {
-  display: grid;
-  gap: var(--s-5);
-  max-width: 34rem;
-}
-
-.field {
-  display: grid;
-  gap: var(--s-2);
-}
-.field label {
-  font-size: var(--t-small);
-  font-weight: 700;
-  color: var(--color-ink);
-}
-.req {
-  color: var(--color-ink-muted);
-}
-
-.field input,
-.field textarea {
-  font: inherit;
-  font-size: var(--t-body);
-  color: var(--color-ink);
-  background-color: var(--color-field);
-  /* --border clears 3:1 — a control's boundary must be perceivable. */
-  border: 1px solid var(--color-line);
-  border-radius: 2px;
-  padding: var(--s-3);
-  min-height: 52px;
-  width: 100%;
-}
-.field textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-.field input:hover,
-.field textarea:hover {
-  border-color: var(--color-ink-muted);
-}
-.field input:focus-visible,
-.field textarea:focus-visible {
-  border-color: var(--color-ink);
-}
-
-/* Honeypot. Off-screen rather than display:none — some bots skip hidden
-   fields, and off-screen still reads as fillable to them. */
-.hp {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-.consent {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--s-3);
-  align-items: start;
-}
-.consent input {
-  width: 22px;
-  height: 22px;
-  margin-top: 2px;
-  accent-color: var(--color-accent);
-}
-.consent label {
-  font-size: var(--t-small);
-  line-height: 1.5;
-  color: var(--color-ink-muted);
-}
-.consent a {
-  color: var(--color-accent);
-}
-
-.form-status:empty {
-  display: none;
-}
-.form-status {
-  color: var(--color-accent-press);
-  font-size: var(--t-small);
-  padding: var(--s-3);
-  border-left: 2px solid var(--color-accent-press);
-}
-
-.form-done {
-  padding: var(--s-6);
-  background-color: var(--color-field);
-  border: 1px solid var(--color-line);
-  border-radius: 2px;
-  max-width: 34rem;
-}
-
-/* ===========================================================================
-   LEGAL / PROSE
-=========================================================================== */
-.legal h2 {
-  margin-top: var(--s-7);
-  margin-bottom: var(--s-3);
-}
-.legal h2:first-child {
-  margin-top: 0;
-}
-.legal p {
-  max-width: 66ch;
-  color: var(--color-ink-muted);
-}
-.legal a {
-  color: var(--color-accent);
-}
-
-.prose-block + .prose-block {
-  margin-top: var(--s-7);
-  padding-top: var(--s-7);
-  border-top: var(--rule-hair);
-}
-
-/* ===========================================================================
-   PHOTOS — fixed frames matching what a phone produces. Hard edges, no
-   rounding, no filters: consistent framing plus a factual caption is what
-   makes amateur photos read as a record rather than as bad photography.
-=========================================================================== */
-.photo {
-  position: relative;
-  display: block;
-  margin: 0;
-  overflow: hidden;
-  background-color: var(--color-stone);
-}
-.photo-landscape {
-  aspect-ratio: 4 / 3;
-}
-.photo-portrait {
-  aspect-ratio: 3 / 4;
-}
-
-/* Applied by the component, not baked into the file, so a real photo sitting
-   in a placeholder slot is still flagged. */
-.photo-ribbon {
-  position: absolute;
-  inset-block-end: 0;
-  inset-inline: 0;
-  background-color: var(--color-accent-press);
-  color: #fff;
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-align: center;
-  padding-block: 5px;
-}
-
-/* --- Before / after --------------------------------------------------- */
-.ba {
-  margin: 0;
-}
-.ba-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* One hard seam, not a gap. */
-  gap: 2px;
-  background-color: var(--color-ink);
-  border: 1px solid var(--color-line);
-}
-.ba-side {
-  position: relative;
-}
-.ba-label {
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  z-index: 2;
-  background-color: var(--color-ink);
+.band--ink .contact-number,
+.band--ink .contact-value,
+.band--ink .rating-score,
+.band--ink .stars,
+.band--ink .fact-figure,
+.band--ink .fact-title,
+.band--ink .place-name,
+.band--ink .item-title {
   color: var(--color-field);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 5px 9px;
 }
-.ba-caption {
-  font-size: var(--t-label);
-  letter-spacing: 0.06em;
-  color: var(--color-ink-muted);
-  padding-top: var(--s-3);
+.band--ink .inline-link,
+.band--ink .btn-quiet {
+  color: var(--color-field);
+  border-bottom-color: var(--color-field);
+}
+.band--ink a.place:hover .place-name,
+.band--ink a.item:hover .item-title,
+.band--ink .contact-primary:hover .contact-number,
+.band--ink a.contact-row:hover .contact-value {
+  color: var(--color-stone);
+}
+/**
+ * The closing contact band is dark and the footer is dark, so without a
+ * boundary the page ends in one undifferentiated slab — on a phone that is
+ * more than half the remaining scroll. The rule uses the functional line
+ * colour, not the near-invisible internal divider, so it reads as the same
+ * kind of section boundary the light bands use.
+ */
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  padding-top: var(--s-9);
 }
 
-/* --- Fleet ------------------------------------------------------------- */
-.fleet {
-  list-style: none;
-  margin: var(--s-6) 0 0;
-  padding: 0;
-  display: grid;
-  gap: var(--s-5);
-  grid-template-columns: 1fr;
+/* The first band on an inner page: no dividing rule, since there is nothing
+   above it to divide from. */
+.band--head {
+  border-top: 0;
+  padding-top: var(--s-7);
 }
-@media (min-width: 560px) {
-  .fleet {
-    grid-template-columns: repeat(2, 1fr);
+@media (min-width: 1000px) {
+  .band--head {
+    padding-top: var(--s-8);
   }
-}
-@media (min-width: 960px) {
-  .fleet {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-.fleet-name {
-  font-size: var(--t-h3);
-  font-weight: 700;
-  padding-top: var(--s-3);
-}
-.fleet-note {
-  font-size: var(--t-small);
-  color: var(--color-ink-muted);
-  padding-top: var(--s-1);
-}
-
-.erga-grid {
-  list-style: none;
-  margin: var(--s-6) 0 0;
-  padding: 0;
-  display: grid;
-  gap: var(--s-7);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 760px) {
-  .erga-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* A banner the reviewer cannot miss while previews are on. */
-.preview-banner {
-  background-color: var(--color-accent-press);
-  color: #fff;
-  text-align: center;
-  font-size: var(--t-small);
-  font-weight: 700;
-  padding: var(--s-3) var(--gutter);
-}
-
-/* Ποιοι είμαστε — portrait beside the prose on wide screens. */
-.about-cols {
-  display: grid;
-  gap: var(--s-7);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 860px) {
-  .about-cols {
-    grid-template-columns: 20rem 1fr;
-    gap: var(--s-9);
-    align-items: start;
-  }
-}
-
-/* ===========================================================================
-   CARDS WITH MEDIA — photo on top, text beneath.
-=========================================================================== */
-.card-media {
-  padding: 0;
-  overflow: hidden;
-}
-.card-media .photo {
-  border-bottom: var(--rule-hair);
-}
-.card-body-wrap {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  padding: var(--s-5);
-}
-
-/* ===========================================================================
-   ΓΙΑΤΙ ΕΜΑΣ — panels with the figure set large. Every figure is checkable.
-=========================================================================== */
-.why-grid {
-  list-style: none;
-  margin: var(--s-6) 0 0;
-  padding: 0;
-  display: grid;
-  gap: var(--s-3);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 720px) {
-  .why-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-.why-card {
-  display: flex;
-  gap: var(--s-5);
-  align-items: flex-start;
-  padding: var(--s-6);
-  background-color: var(--color-field);
-  border: var(--rule-hair);
-  border-radius: 2px;
-}
-.why-figure {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(2.25rem, 6vw, 3rem);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
-  color: var(--color-ink);
-  flex: 0 0 auto;
-  min-width: 3.4ch;
-}
-.why-title {
-  font-size: var(--t-h3);
-  font-weight: 700;
-  line-height: 1.25;
-}
-.why-body {
-  color: var(--color-ink-muted);
-  font-size: var(--t-small);
-  line-height: 1.55;
-  margin-top: var(--s-2);
-}
-
-/* ===========================================================================
-   PROJECT RAIL — swipeable, native scroll-snap. No autoplay, no JS: nothing
-   moves unless the reader moves it.
-=========================================================================== */
-.rail {
-  list-style: none;
-  margin: var(--s-6) 0 0;
-  padding-inline: var(--gutter);
-  padding-bottom: var(--s-4);
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(17rem, 84vw);
-  gap: var(--s-5);
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  /* Mandatory snapping aligns the first item to the SCROLLPORT edge, which
-     scrolls straight past the leading padding and leaves the first card
-     flush to the viewport while the heading above it is indented.
-     scroll-padding is the property snapping actually honours. */
-  scroll-padding-inline: var(--gutter);
-  scrollbar-width: thin;
-}
-@media (min-width: 760px) {
-  .rail {
-    grid-auto-columns: minmax(24rem, 40vw);
-    /* Align the first card with the container, so the rail reads as content
-       running off the edge rather than as a stray box. */
-    padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
-    scroll-padding-inline: max(
-      var(--gutter),
-      calc((100vw - var(--container)) / 2 + var(--gutter))
-    );
-  }
-}
-.rail-item {
-  scroll-snap-align: start;
-}
-.project-title {
-  font-size: var(--t-h3);
-  font-weight: 700;
-  line-height: 1.25;
-  padding-top: var(--s-4);
-}
-.project-desc {
-  color: var(--color-ink-muted);
-  font-size: var(--t-small);
-  line-height: 1.55;
-  padding-top: var(--s-2);
-}
-
-/* ===========================================================================
-   ΚΡΙΤΙΚΕΣ — no quote cards. The themes are paraphrased; the reviews
-   themselves live on Google, which is the point being made.
-=========================================================================== */
-.rating {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--s-2) var(--s-3);
-  margin-top: var(--s-4);
-}
-.stars {
-  display: inline-flex;
-  gap: 2px;
-  color: var(--color-ink);
-  transform: translateY(3px);
-}
-.rating-score {
-  font-size: var(--t-h2);
-  line-height: 1;
-  color: var(--color-ink);
-}
-.rating-count {
-  font-size: var(--t-small);
-  color: var(--color-ink-muted);
-}
-
-/* Real reviews, as written. A masonry-ish column flow so short and long
-   quotes sit together without stretching each other. */
-.reviews {
-  list-style: none;
-  margin: var(--s-6) 0 0;
-  padding: 0;
-  columns: 1;
-  column-gap: var(--s-5);
-}
-@media (min-width: 700px) {
-  .reviews {
-    columns: 2;
-  }
-}
-@media (min-width: 1040px) {
-  .reviews {
-    columns: 3;
-  }
-}
-.reviews li {
-  break-inside: avoid;
-  margin-bottom: var(--s-5);
-}
-.review {
-  margin: 0;
-  padding: var(--s-5);
-  background-color: var(--color-raised);
-  border: var(--rule-hair);
-  border-radius: 2px;
-}
-.review blockquote {
-  margin: 0;
-}
-.review blockquote p {
-  font-size: var(--t-small);
-  line-height: 1.6;
-  color: var(--color-ink);
-}
-.review figcaption {
-  margin-top: var(--s-3);
-  font-size: var(--t-label);
-  letter-spacing: 0.04em;
-  color: var(--color-ink-muted);
-}
-
-/* Compact trust line on the homepage — the full Κριτικές section is on
-   /etaireia. */
-.rating-line {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--s-2) var(--s-3);
-  padding: var(--s-4) 0 var(--s-2);
-  color: var(--color-ink-muted);
-  font-size: var(--t-small);
-}
-.rating-line .rating-score {
-  color: var(--color-ink);
-}
-.rating-line .inline-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s-1);
 }

@@ -9,8 +9,11 @@ import ContactBlock from "@/components/ContactBlock";
  * Section order follows the brief:
  *   hero → υπηρεσίες → [έργα] → περιοχές → γιατί εμάς → επικοινωνία
  *
- * Surfaces alternate field / raised so rhythm comes from two light tones
- * rather than from a dark band. Only the footer is dark.
+ * One continuous white ground, sections divided by a hairline and named in
+ * the left rail. Rhythm comes from the rail and the rules, not from
+ * alternating fills — Areas takes the single gravel band and the closing
+ * contact section takes the single dark one, which is what makes the phone
+ * number the last and heaviest thing on the page.
  *
  * ErgaStrip renders itself null unless there is something honest to show,
  * so the Έργα section is simply absent when there are no photos. A missing
