@@ -1826,11 +1826,20 @@ a.contact-row:hover .contact-value {
  * Below the nav breakpoint the switcher moves into the panel, where there is
  * room for the language's full name instead of two letters.
  */
-.site-header .langswitch {
+/*
+ * Scoped to the header BAR, not to any descendant of <header>.
+ *
+ * MobileNav renders inside <header class="site-header">, and although the
+ * panel is position:fixed it is still a DOM descendant — so `.site-header
+ * .langswitch` matched the panel's switcher too and hid the one control this
+ * rule exists to reveal. The direct-child selector targets only the switcher
+ * sitting in the header row.
+ */
+.site-header-actions > .langswitch {
   display: none;
 }
 @media (min-width: 940px) {
-  .site-header .langswitch {
+  .site-header-actions > .langswitch {
     display: block;
   }
 }

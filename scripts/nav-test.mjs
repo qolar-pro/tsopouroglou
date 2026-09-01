@@ -156,6 +156,35 @@ check(
 console.log(
   `        focused: ${JSON.stringify(await ev(`document.activeElement.textContent.trim().slice(0,30)`))}`
 );
+
+/**
+ * The language switcher must be VISIBLE inside the open panel.
+ *
+ * On mobile the panel is the only place it exists — the header bar has no
+ * room for it. It shipped hidden: MobileNav renders inside <header>, so a
+ * rule written as `.site-header .langswitch { display: none }` matched the
+ * panel's copy too, even though the panel is position:fixed and looks
+ * separate. The element was in the DOM the whole time, which is why nothing
+ * failed; it was simply not displayed.
+ *
+ * Checking computed display rather than presence is the point.
+ */
+check(
+  "lang switcher in panel",
+  await ev(
+    `(() => {
+       const el = document.querySelector('.nav-panel .langswitch');
+       if (!el) return 'ABSENT';
+       return getComputedStyle(el).display !== 'none' ? true : 'HIDDEN';
+     })()`
+  ),
+  true
+);
+console.log(
+  `        languages: ${await ev(
+    `JSON.stringify([...document.querySelectorAll('.nav-panel .langswitch a')].map(a => a.getAttribute('hreflang')))`
+  )}`
+);
 console.log(
   `        links:   ${await ev(`JSON.stringify([...document.querySelectorAll('.nav-list a')].map(a=>a.textContent))`)}`
 );
