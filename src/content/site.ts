@@ -46,6 +46,10 @@ export const business = {
 
   // Confirmed on the Google Business Profile: open 24 hours, seven days.
   hoursNote: "Ανοιχτά όλο το 24ωρο, κάθε μέρα",
+  /**
+   * Not shown on the site — client's decision. Kept because the footer and
+   * the privacy page can restore it in one line if that changes.
+   */
   vat: "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]",
 } as const;
 

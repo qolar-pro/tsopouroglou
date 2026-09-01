@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { business } from "@/content/site";
 import { epikoinonia } from "@/content/pages";
-import QuoteForm from "@/components/QuoteForm";
 import Band from "@/components/Band";
 import PageHero from "@/components/PageHero";
 
@@ -59,18 +58,31 @@ export default function Epikoinonia() {
         </div>
       </Band>
 
+      {/*
+        No quote form. The brief's own finding was that for this audience the
+        phone outperforms any form, and a form that is visible but not
+        delivering reads as a broken site — worse than not having one. So the
+        written path is a plain mailto, which needs no service, no API key and
+        cannot silently fail.
+      */}
       <Band label="ΠΡΟΣΦΟΡΑ" id="prosfora">
-        <div className="detail-cols">
-          <div>
-            <h2 className="h2">{epikoinonia.formHeading}</h2>
-            <p className="lede">
-              <span className="measure-prose">{epikoinonia.formLede}</span>
-            </p>
-          </div>
-          <div>
-            <QuoteForm />
-          </div>
+        <h2 className="h2">{epikoinonia.formHeading}</h2>
+        <p className="lede">
+          <span className="measure-prose">{epikoinonia.formLede}</span>
+        </p>
+
+        <div className="band-cta">
+          <a className="btn btn-call" href={business.phone.href}>
+            ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
+          </a>
+          <a className="btn btn-secondary" href={`mailto:${business.email}`}>
+            Στείλτε email
+          </a>
         </div>
+
+        <p className="small" style={{ marginTop: "var(--s-5)" }}>
+          {epikoinonia.askNote}
+        </p>
       </Band>
     </main>
   );

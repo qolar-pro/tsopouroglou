@@ -7,7 +7,7 @@ import PageHero from "@/components/PageHero";
 export const metadata: Metadata = {
   title: "Πολιτική απορρήτου | ΤΣΟΠΟΥΡΟΓΛΟΥ",
   description:
-    "Τι στοιχεία συλλέγει η φόρμα επικοινωνίας, γιατί, πού πηγαίνουν και για πόσο κρατιούνται.",
+    "Τι στοιχεία κρατάμε όταν επικοινωνείτε μαζί μας, γιατί, και για πόσο.",
   alternates: { canonical: "/politiki-aporritou" },
 };
 
@@ -35,13 +35,13 @@ export default function Privacy() {
             Τηλέφωνο <a href={business.phone.href}>{business.phone.display}</a>,
             email <a href={`mailto:${business.email}`}>{business.email}</a>.
           </p>
-          <p>ΑΦΜ: {business.vat}</p>
 
           <h2 className="h3">Τι συλλέγουμε</h2>
           <p>
-            Μόνο όσα συμπληρώνετε μόνοι σας στη φόρμα προσφοράς: το όνομά σας,
-            το τηλέφωνό σας, την περιοχή και την περιγραφή της δουλειάς.
-            Τίποτε άλλο.
+            Η ιστοσελίδα δεν έχει φόρμα και δεν συλλέγει στοιχεία από μόνη
+            της. Κρατάμε μόνο ό,τι μας στέλνετε εσείς όταν μας παίρνετε
+            τηλέφωνο ή μας γράφετε email — το όνομά σας, το τηλέφωνό σας και
+            τη δουλειά που θέλετε. Τίποτε άλλο.
           </p>
 
           <h2 className="h3">Γιατί</h2>
@@ -53,10 +53,9 @@ export default function Privacy() {
 
           <h2 className="h3">Πού πηγαίνουν</h2>
           <p>
-            Το μήνυμα φτάνει ως email στο{" "}
-            <a href={`mailto:${business.email}`}>{business.email}</a>. Για την
-            αποστολή χρησιμοποιούμε την υπηρεσία Resend, και η ιστοσελίδα
-            φιλοξενείται στη Vercel. Και οι δύο επεξεργάζονται τα δεδομένα για
+            Στο τηλέφωνο και στο γραμματοκιβώτιό μας, στο{" "}
+            <a href={`mailto:${business.email}`}>{business.email}</a>. Η
+            ιστοσελίδα φιλοξενείται στη Vercel, που την εμφανίζει για
             λογαριασμό μας.
           </p>
 

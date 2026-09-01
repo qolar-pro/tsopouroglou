@@ -71,9 +71,12 @@ export default function SiteFooter() {
 
         <div className="footer-legal">
           <a href="/politiki-aporritou">{footer.privacyLabel}</a>
-          <span className="footer-vat">
-            {footer.vatLabel}: {business.vat}
-          </span>
+          {/* ΑΦΜ deliberately omitted — client's decision. It rendered as the
+              literal "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]" token, which on a live site looks
+              broken rather than pending. Business identification is expected
+              of a Greek commercial site (Π.Δ. 131/2003), so this is worth
+              revisiting; the label and the field are still in content, so
+              restoring it is one line. */}
         </div>
       </div>
     </footer>
