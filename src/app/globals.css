@@ -6,18 +6,21 @@
    cannot drift from what ships.
 =========================================================================== */
 @theme {
-  --color-field: #ffffff;
-  --color-raised: #f1f3f1;
-  --color-stone: #e4e8e6;
+  /* Warmed off the pure white the site opened with. Pure white is clinical
+     for a business whose subject is soil; this is barely off, and nowhere
+     near the cream the brief warns against. */
+  --color-field: #faf8f5;
+  --color-raised: #f0ece5;
+  --color-stone: #e3ddd3;
   --color-deep: #111716;
 
-  --color-ink: #15191a; /* 17.71 / 15.88 / 14.32 on the light surfaces */
-  --color-ink-muted: #434b4c; /*  8.94 /  8.01 /  7.23 — AAA on all     */
+  --color-ink: #15191a; /* 16.71 / 15.04 / 13.11 on the light surfaces */
+  --color-ink-muted: #453f38; /*  9.80 /  8.82 /  7.69 — AAA on all     */
 
-  --color-line: #7c8583; /* functional boundary  3.79 / 3.40 / 3.07     */
-  --color-line-hair: #dce0de; /* decorative separator only              */
+  --color-line: #7f7a70; /* functional boundary  4.03 / 3.62 / 3.16     */ /* functional boundary  3.79 / 3.40 / 3.07     */
+  --color-line-hair: #ddd7cc; /* decorative separator only              */
 
-  --color-accent: #0a6136; /* 7.56 on field, white label 7.56           */
+  --color-accent: #0a6136; /* 7.14 on field, white label 7.56           */
   --color-accent-hover: #08512d;
   --color-accent-press: #064124;
 
@@ -676,50 +679,6 @@
   aspect-ratio: 4 / 3;
   margin-bottom: var(--s-4);
 }
-/**
- * Only five of the eight services have a real photograph yet, so in a
- * multi-column row the photoless titles floated to the top while their
- * neighbours' sat a photo's height lower — the row read as broken rather
- * than as ragged. This reserves the same height as blank space so the rules
- * and titles line up.
- *
- * It is whitespace, not an empty image frame: nothing here implies a missing
- * photo exists. And it is off in the single-column layout, where there is no
- * row to align to and it would just be a hole in the list.
- */
-.item-spacer {
-  display: none;
-}
-@media (min-width: 560px) {
-  .item-spacer {
-    display: block;
-    aspect-ratio: 4 / 3;
-    margin-bottom: var(--s-4);
-  }
-}
-.item-title {
-  font-size: var(--t-h3);
-  font-weight: 700;
-  line-height: 1.2;
-  padding-top: var(--s-3);
-  border-top: 2px solid var(--color-ink);
-  transition: color var(--t-fast) var(--ease);
-}
-.item-body {
-  font-size: var(--t-small);
-  line-height: 1.55;
-  color: var(--color-ink-muted);
-  margin-top: var(--s-2);
-}
-a.item:hover .item-title {
-  color: var(--color-accent);
-}
-.item-more {
-  display: inline-flex;
-  color: var(--color-accent);
-  margin-top: var(--s-3);
-}
-
 /* ===========================================================================
    PLACE LIST — areas are rows, not cards. A place and a sentence is a list,
    so it should look like one.
@@ -1917,4 +1876,241 @@ a.contact-row:hover .contact-value {
 }
 .nav-panel .langswitch a[data-current="true"] {
   border-color: var(--color-accent);
+}
+
+/* ===========================================================================
+   FULL-BLEED HERO
+   Replaces the framed panel on the homepage and on any inner page that has a
+   photograph. For a trade business, seeing a machine in the ground in the
+   first second beats reading a claim about one — the panel put the proof
+   below a full screen of dark.
+
+   Pages with NO photograph keep the panel, because a full-bleed hero with
+   nothing to bleed is just a dark box. Seven routes are still in that state.
+=========================================================================== */
+.bleed {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 86vh;
+  overflow: hidden;
+  background-color: var(--color-deep);
+}
+/* Inner pages get less height — the visitor has already committed, and a
+   full viewport of hero on every page becomes an obstacle. */
+.bleed--inner {
+  min-height: 62vh;
+}
+.bleed-img,
+.bleed-img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/**
+ * Heavier at the bottom than a plain wash: 1987 is set at display scale and
+ * has to hold against sunlit soil, not sit in a convenient dark corner.
+ */
+.bleed-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 23, 22, 0.62) 0%,
+    rgba(17, 23, 22, 0.3) 30%,
+    rgba(17, 23, 22, 0.88) 72%,
+    rgba(17, 23, 22, 0.96) 100%
+  );
+}
+.bleed-inner {
+  position: relative;
+  width: 100%;
+  padding-block: var(--s-8) var(--s-7);
+}
+.bleed h1,
+.bleed .h1 {
+  color: var(--color-field);
+}
+.bleed .label {
+  color: var(--color-stone);
+}
+.bleed .lede {
+  color: #dfe4e1;
+  max-width: 44ch;
+}
+.bleed .hero-hours {
+  color: var(--color-stone);
+}
+.bleed .btn-call {
+  box-shadow: 0 2px 0 0 var(--color-accent-press),
+    inset 0 0 0 1px var(--color-field);
+}
+.bleed .btn-secondary {
+  color: var(--color-field);
+  box-shadow: 0 2px 0 0 var(--color-line), inset 0 0 0 1px var(--color-line);
+}
+.bleed .btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+.bleed .breadcrumb a {
+  color: var(--color-stone);
+  border-bottom-color: var(--color-line);
+}
+.bleed .creds {
+  border-top-color: rgba(255, 255, 255, 0.22);
+  margin-top: var(--s-6);
+}
+.bleed .creds li {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+.bleed .creds-key {
+  color: var(--color-field);
+}
+.bleed .creds-value {
+  color: var(--color-stone);
+}
+
+/* ===========================================================================
+   SERVICE HIERARCHY
+   Two lead with a photograph, the rest are a typographic list. Eight
+   identical cards gave every job the same weight and needed blank spacers
+   wherever a photo was missing.
+=========================================================================== */
+.svc-split {
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: 1fr;
+  margin-top: var(--s-7);
+  text-align: left;
+}
+@media (min-width: 800px) {
+  .svc-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.svc-lead {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.svc-lead .photo {
+  aspect-ratio: 4 / 3;
+}
+.svc-lead-title {
+  display: block;
+  font-size: var(--t-h3);
+  font-weight: 700;
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 2px solid var(--color-ink);
+  transition: color var(--t-fast) var(--ease);
+}
+.svc-lead:hover .svc-lead-title {
+  color: var(--color-accent);
+}
+.svc-lead-body {
+  display: block;
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+  line-height: 1.55;
+  margin-top: var(--s-2);
+}
+.svc-rest {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  border-top: var(--rule-hair);
+  grid-column: 1 / -1;
+}
+.svc-rest li {
+  border-bottom: var(--rule-hair);
+}
+.svc-rest a {
+  display: grid;
+  gap: var(--s-1) var(--s-6);
+  padding-block: var(--s-4);
+  min-height: 56px;
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--t-fast) var(--ease);
+}
+@media (min-width: 700px) {
+  .svc-rest a {
+    grid-template-columns: 20rem 1fr;
+    align-items: baseline;
+  }
+}
+.svc-rest a:hover {
+  color: var(--color-accent);
+}
+.svc-rest-name {
+  font-size: var(--t-h3);
+  font-weight: 700;
+}
+.svc-rest-body {
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+  line-height: 1.55;
+}
+
+/* ===========================================================================
+   MASONRY GALLERY
+   Replaces the 4:3 grid. Most of his photographs are vertical, and cropping
+   every one to landscape threw away the composition — the depth of a trench,
+   the height of a lifted root. CSS columns let each keep its own shape.
+=========================================================================== */
+.shots {
+  columns: 1;
+  column-gap: var(--s-4);
+  margin-top: var(--s-7);
+  text-align: left;
+}
+@media (min-width: 640px) {
+  .shots {
+    columns: 2;
+  }
+}
+@media (min-width: 1100px) {
+  .shots {
+    columns: 3;
+  }
+}
+.shot {
+  break-inside: avoid;
+  margin: 0 0 var(--s-4);
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-deep);
+}
+.shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 500ms var(--ease);
+}
+.shot:hover img {
+  transform: scale(1.04);
+}
+.shot figcaption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  padding: var(--s-7) var(--s-4) var(--s-3);
+  color: var(--color-field);
+  font-size: var(--t-small);
+  font-weight: 700;
+  line-height: 1.35;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 23, 22, 0) 0%,
+    rgba(17, 23, 22, 0.9) 100%
+  );
+}
+@media (prefers-reduced-motion: reduce) {
+  .shot:hover img,
+  .svc-lead:hover img {
+    transform: none;
+  }
 }

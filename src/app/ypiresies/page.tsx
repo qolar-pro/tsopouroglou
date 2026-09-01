@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { services, servicesPage } from "@/content/services";
 import { erga, servicePhoto } from "@/content/media";
 import Photo from "@/components/Photo";
-import ArrowIcon from "@/components/ArrowIcon";
 import Band from "@/components/Band";
 import PageHero from "@/components/PageHero";
 import CallBand from "@/components/CallBand";
@@ -40,29 +39,35 @@ export default function ServicesAndWork() {
       <Band label={servicesPage.eyebrow} id="ypiresies">
         <h2 className="h2">Οι οκτώ δουλειές</h2>
 
-        <ul className="items items-3">
-          {services.map((s) => (
-            <li key={s.slug}>
-              <a className="item" href={`/ypiresies/${s.slug}`}>
-                {servicePhoto[s.slug] && (
-                  <Photo
-                    img={servicePhoto[s.slug]}
-                    sizes="(min-width: 900px) 30vw, (min-width: 560px) 45vw, 92vw"
-                    frame="css"
-                  />
-                )}
-              {!servicePhoto[s.slug] && (
-                <span className="item-spacer" aria-hidden="true" />
+        <div className="svc-split">
+          {services.slice(0, 2).map((s) => (
+            <a key={s.slug} className="svc-lead" href={`/ypiresies/${s.slug}`}>
+              {servicePhoto[s.slug] && (
+                <Photo
+                  img={servicePhoto[s.slug]}
+                  sizes="(min-width: 800px) 45vw, 92vw"
+                  frame="css"
+                />
               )}
-                <span className="item-title">{s.title}</span>
-                <span className="item-body">{s.card}</span>
-                <span className="item-more" aria-hidden="true">
-                  <ArrowIcon />
-                </span>
-              </a>
-            </li>
+              <span className="svc-lead-title">{s.title}</span>
+              <span className="svc-lead-body">{s.card}</span>
+            </a>
           ))}
-        </ul>
+
+          {/* No spacer needed any more: the list form does not reserve a
+              photo slot, so a service without one simply has no picture
+              instead of a blank hole in a grid row. */}
+          <ul className="svc-rest">
+            {services.slice(2).map((s) => (
+              <li key={s.slug}>
+                <a href={`/ypiresies/${s.slug}`}>
+                  <span className="svc-rest-name">{s.title}</span>
+                  <span className="svc-rest-body">{s.card}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </Band>
 
       {/* ---- The evidence ---- */}
@@ -75,21 +80,22 @@ export default function ServicesAndWork() {
           </span>
         </p>
 
-        <ul className="erga-grid">
+        {/* Columns, not a grid. Most of these are vertical phone
+            photographs and a uniform grid cropped every one to landscape. */}
+        <div className="shots">
           {erga.map((project) => (
-            <li key={project.id}>
-              <article className="project">
-                <Photo
-                  img={project.img}
-                  sizes="(min-width: 1000px) 28vw, (min-width: 620px) 44vw, 92vw"
-                  frame="css"
-                />
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-desc">{project.description}</p>
-              </article>
-            </li>
+            <figure key={project.id} className="shot">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={project.img.src}
+                alt={project.img.alt}
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>{project.title}</figcaption>
+            </figure>
           ))}
-        </ul>
+        </div>
       </Band>
 
       <CallBand />

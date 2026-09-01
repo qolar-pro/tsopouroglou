@@ -195,8 +195,8 @@ export const erga: Project[] = [
   },
 ];
 
-/** Homepage strip — the strongest four. */
-export const ergaFeatured = erga.slice(0, 4);
+/** Homepage teaser — six, so the three-column masonry balances. */
+export const ergaFeatured = erga.slice(0, 6);
 
 /* ------------------------------------------------------------------ */
 /* Στόλος                                                              */

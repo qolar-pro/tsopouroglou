@@ -1,45 +1,43 @@
 import { ergaFeatured } from "@/content/media";
 import Band from "./Band";
-import Photo from "./Photo";
 import ArrowIcon from "./ArrowIcon";
 
 /**
- * Έργα — a swipeable rail of real jobs, each with what the job actually was.
+ * Έργα — the strongest few, in the same masonry treatment as the full
+ * gallery.
  *
- * Single photographs rather than before/after pairs, because none of the
- * photographs we have is a pair: you only get those by shooting the "before"
- * before starting, which is the easy thing to forget on a live job. Worth
- * fixing on future jobs — see PLACEHOLDER_MEDIA.md — but not worth faking.
+ * This was a horizontal scroll rail. The rail worked, but it cropped every
+ * photograph to a single shape to make the row line up, and most of his
+ * photographs are vertical — so a deep trench or a lifted root arrived
+ * looking like a landscape snapshot of nothing in particular.
  *
- * Native scroll-snap, not an autoplaying carousel: it swipes on a phone,
- * needs no JavaScript, and never moves on its own.
+ * Columns let each photograph keep the shape it was taken in. Nothing moves
+ * on its own and there is no JavaScript.
  */
 export default function ErgaStrip() {
   return (
-    <Band label="ΕΡΓΑ" id="erga">
+    <Band label="ΕΡΓΑ" id="erga" tone="tone">
       <h2 className="h2">Δουλειές μας</h2>
       <p className="lede">
         <span className="measure-prose">
-          Φωτογραφίες από δικά μας εργοτάξια — όχι από το ίντερνετ. Σύρετε για
-          να τις δείτε.
+          Φωτογραφίες από δικά μας εργοτάξια — όχι από το ίντερνετ.
         </span>
       </p>
 
-      <ul className="rail">
+      <div className="shots">
         {ergaFeatured.map((project) => (
-          <li key={project.id} className="rail-item">
-            <article className="project">
-              <Photo
-                img={project.img}
-                sizes="(min-width: 760px) 26vw, 80vw"
-                frame="css"
-              />
-              <h3 className="project-title">{project.title}</h3>
-              <p className="project-desc">{project.description}</p>
-            </article>
-          </li>
+          <figure key={project.id} className="shot">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.img.src}
+              alt={project.img.alt}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{project.title}</figcaption>
+          </figure>
         ))}
-      </ul>
+      </div>
 
       <p style={{ marginTop: "var(--s-5)" }}>
         <a className="btn-quiet" href="/ypiresies#erga">
