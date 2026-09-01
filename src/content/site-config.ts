@@ -5,13 +5,59 @@
  * OG tag, sitemap entry and JSON-LD @id derives from SITE_URL, so registering
  * it — or choosing a different name — is a one-line edit here, not a
  * find-and-replace across the site.
- *
- * NEXT_PUBLIC_SITE_URL overrides it, so Vercel preview deployments can carry
- * their own origin without touching source.
  */
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  "https://xomatourgika-tsopouroglou.gr";
+const PRODUCTION_URL = "https://xomatourgika-tsopouroglou.gr";
+
+/**
+ * An env var that exists but is EMPTY is not the same as one that is unset,
+ * and `??` only catches the second.
+ *
+ * This broke the first Vercel deploy. `NEXT_PUBLIC_SITE_URL` was present with
+ * a blank value — trivially easy to do by adding the key in the dashboard and
+ * leaving the field empty — so the fallback never fired, SITE_URL became "",
+ * and `new URL("")` threw. The stack pointed at metadataBase in layout.tsx,
+ * eleven files from the actual cause.
+ */
+const env = (name: string) => {
+  const v = process.env[name]?.trim();
+  return v ? v.replace(/\/+$/, "") : undefined;
+};
+
+/**
+ * Preview deployments get their own origin.
+ *
+ * The production domain does not exist yet, so without this every canonical,
+ * og:image and JSON-LD @id on a preview points at a host that fails to
+ * resolve — which makes the share card untestable and the preview impossible
+ * to check properly. Vercel marks preview deployments noindex, so pointing
+ * them at themselves costs nothing in search.
+ *
+ * PRODUCTION IS NEVER a *.vercel.app URL: a canonical pointing at the
+ * deployment host instead of the real domain would split the site's ranking
+ * signals across two origins. Only an explicit override, or the real domain.
+ */
+export const SITE_URL = (() => {
+  const explicit = env("NEXT_PUBLIC_SITE_URL");
+  if (explicit) return explicit;
+
+  const previewHost = env("VERCEL_URL");
+  if (process.env.VERCEL_ENV === "preview" && previewHost) {
+    return `https://${previewHost}`;
+  }
+
+  return PRODUCTION_URL;
+})();
+
+// Fail here, with the reason, rather than eleven files away inside a
+// `new URL()` that reports only "Invalid URL".
+try {
+  new URL(SITE_URL);
+} catch {
+  throw new Error(
+    `site-config: SITE_URL is not a valid absolute URL (got ${JSON.stringify(SITE_URL)}). ` +
+      `Check NEXT_PUBLIC_SITE_URL — an empty value in the Vercel dashboard is the usual cause.`
+  );
+}
 
 /** Absolute URL for a site-relative path. */
 export const abs = (path: string) =>
