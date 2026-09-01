@@ -1712,6 +1712,23 @@ a.contact-row:hover .contact-value {
   }
 }
 
+/**
+ * The breadcrumb inside a dark hero.
+ *
+ * It inherits --color-ink-muted, which is tuned for the light surfaces and
+ * lands at about 1.9:1 on the dark ground — effectively invisible. The
+ * contrast audit did not catch it because the pair was not in its list; it is
+ * now, so this cannot regress silently.
+ */
+.band--ink .breadcrumb a {
+  color: var(--color-stone); /* 14.67 on deep */
+  border-bottom-color: var(--color-line);
+}
+.band--ink .breadcrumb a:hover {
+  color: var(--color-field);
+  border-bottom-color: var(--color-field);
+}
+
 /* ===========================================================================
    PAGE HERO + WORDMARK MARK
 =========================================================================== */

@@ -72,15 +72,33 @@ there would be decoration.
 Everything below is one phone photo per line. No equipment, no planning — the
 next few jobs would produce all of it.
 
-**1. The three service pages with nothing on them.** Highest value per photo,
-because each one is a page that currently argues in words only.
-  - a finished **βόθρος** — the excavation, or the chamber before it is covered
-  - an **εκβραχισμός** — the hammer on rock, or broken rock loaded out
-  - a **καθαρισμός παραλίας** — the machine on sand. This is the one that
-    matters most commercially: uncontested keyword, real seasonal demand,
-    no competitor covers it, and right now it has no picture.
+**1. ~~The three service pages with nothing on them~~ — DONE 2026-09-01.**
+All three supplied and live:
+  - **βόθρος** → `vothros-daktylioi` — concrete rings going down on straps
+  - **εκβραχισμός** → `ekvrachismos-vrachos` — the broken rock in the bucket
+  - **καθαρισμός παραλίας** → `paralia-petres` — stones off the shoreline.
+    This was the one that mattered most commercially: uncontested keyword,
+    real seasonal demand, no competitor covers it, and it had no picture.
 
-**2. One photo per area — five photos.** Each area page has genuinely
+Two spares came with them and went into the gallery: `paralia-vrachos`
+(a rock lifted out of the shallows) and `kipos-fortosi` (loading a truck
+inside a planted garden without touching the planting).
+
+All five arrived as phone screenshots and were cropped: status and title
+bars, video play/progress overlays, a "Κοινή χρήση οθόνης" toast, and on one
+a white notification fragment at the right edge that survived the first crop
+and was only caught by measuring near-white columns. No filters, no grading.
+
+**2. ~~One photo per area~~ — NOT DOING.** Ruled out by the client
+2026-09-01. Wikimedia Commons was checked as a licensed source first and
+turned out not to have it anyway: only Νικήτη has a usable image, the file
+named for Μεταμόρφωση's own postal code is a hotel bathroom, the high-res
+"Metamorfosi" set is a different inland village, and "Βατοπέδι" on Commons is
+exclusively the Mount Athos monastery — a different place entirely. The four
+area pages stay text-only.
+
+**~~2b. One photo per area, from Γρηγόρης~~ — still the only way this would
+happen.** Each area page has genuinely
 distinct copy and nothing to look at. A recognisable frame of the place
 (a plot, a yard, the coast at Ψακούδια or Βατοπέδι) makes the page about
 somewhere real rather than about a keyword. It also guards against the thin
@@ -90,8 +108,12 @@ somewhere real rather than about a keyword. It also guards against the thin
   - Βατοπέδι
   - Ψακούδια
 
-**3. Before/after pairs** — see below. Still the one format nobody in this
-market has.
+**3. ~~Before/after pairs~~ — DROPPED 2026-09-01.** Ruled out by the client.
+It was the one format no competitor has, and the gallery was originally
+designed around it, so this is a real competitive concession — but it needs a
+discipline on live jobs (shoot the "before" before the machine moves) that
+isn't there, and a half-kept habit produces worse pairs than none. The gallery
+is single photographs with descriptions and does not need reworking.
 
 **4. The two brothers together** — one frame, the strongest image the site
 could have.

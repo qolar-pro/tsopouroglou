@@ -80,6 +80,10 @@ const CHECKS = [
   // Muted copy inside the dark band. Held to AAA like its light-ground
   // counterpart: this is read outdoors in sun, on a phone.
   ["stone text on deep", "stone", "deep", 7.0, "AAA inverted muted"],
+  // The breadcrumb inside a dark hero. It inherited ink-muted — tuned for the
+  // light surfaces — and shipped at about 1.9:1 on the dark ground. Pinned so
+  // the same inheritance mistake cannot pass again.
+  ["breadcrumb on deep", "stone", "deep", 7.0, "AAA inverted link"],
 
   // On dark the CTA keeps its fill and gains a ring, rather than taking a
   // second colour whose label would fail. The ring must read on both sides.

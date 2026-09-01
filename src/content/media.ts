@@ -171,6 +171,28 @@ export const erga: Project[] = [
       "Εκσκαφέας και ερπυστριοφόρο σε οικοδομή με κολόνες, να ισιώνουν και να καθαρίζουν τον χώρο.",
     img: p("ergotaxio", "Εκσκαφέας και ερπυστριοφόρο σε εργοτάξιο με κολόνες"),
   },
+  {
+    id: "paralia-vrachos",
+    title: "Βράχος μέσα από τη θάλασσα",
+    description:
+      "Βγάλσιμο βράχου από το ρηχό νερό, με το μηχάνημα να δουλεύει από την ακτή.",
+    img: p(
+      "paralia-vrachos",
+      "Εκσκαφέας σηκώνει βράχο μέσα από τα ρηχά, με τη θάλασσα γύρω",
+      "3:4"
+    ),
+  },
+  {
+    id: "kipos-fortosi",
+    title: "Φόρτωση μέσα από κήπο",
+    description:
+      "Φόρτωση σε φορτηγό ανάμεσα σε φυτεμένο κήπο, χωρίς να πειραχτούν τα γύρω φυτά.",
+    img: p(
+      "kipos-fortosi",
+      "Εκσκαφέας φορτώνει φορτηγό ανάμεσα σε θάμνους και φυτά κήπου",
+      "4:3"
+    ),
+  },
 ];
 
 /** Homepage strip — the strongest four. */
@@ -248,6 +270,24 @@ export const servicePhoto: Record<string, Img> = {
   "syndeseis-nerou-apocheteusi": p(
     "tafros-syndesi",
     "Άνοιγμα στενής τάφρου για σύνδεση",
+    "4:3"
+  ),
+  // The last three gaps, closed. These were the only service pages that
+  // argued in words with nothing to look at — and καθαρισμός παραλίας is the
+  // uncontested keyword no competitor covers, so it mattered most.
+  vothroi: p(
+    "vothros-daktylioi",
+    "Τσιμεντένιοι δακτύλιοι βόθρου κατεβαίνουν στο σκάμμα με ιμάντες",
+    "3:4"
+  ),
+  ekvrachismoi: p(
+    "ekvrachismos-vrachos",
+    "Μεγάλος βράχος στον κουβά του εκσκαφέα μετά τον εκβραχισμό",
+    "3:4"
+  ),
+  "katharismos-paralias": p(
+    "paralia-petres",
+    "Εκσκαφέας μαζεύει πέτρες από την ακτή, με τη θάλασσα πίσω",
     "4:3"
   ),
 };
