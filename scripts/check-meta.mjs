@@ -93,6 +93,22 @@ const CHECKS = [
   },
 ];
 
+/**
+ * JSON-LD checks.
+ *
+ * Structured data is the most invisible thing on the site: it renders
+ * nothing, and a typo that makes it unparseable looks identical to a page
+ * that is working. Google simply drops it. So every route's blocks must
+ * parse, and the LocalBusiness node must keep the properties that do the
+ * local-search work — sameAs above all, which is what tells Google this site
+ * and his Google Business Profile are one business.
+ */
+const LD_RE = /<script type="application\/ld\+json">(.*?)<\/script>/gs;
+
+function ldBlocks(html) {
+  return [...html.matchAll(LD_RE)].map((m) => m[1]);
+}
+
 const failures = [];
 let checked = 0;
 
@@ -115,6 +131,50 @@ for (const route of ROUTES) {
     checked++;
     const value = c.get(html);
     if (!c.ok(value)) failures.push([route, c.id, `${c.msg} (got ${JSON.stringify(value)})`]);
+  }
+
+  // ---- JSON-LD ----
+  const blocks = ldBlocks(html);
+  checked++;
+  if (blocks.length === 0) {
+    failures.push([route, "json-ld", "no JSON-LD on this route"]);
+    continue;
+  }
+
+  const parsed = [];
+  for (const b of blocks) {
+    checked++;
+    try {
+      parsed.push(JSON.parse(b));
+    } catch (e) {
+      failures.push([route, "json-ld", `block does not parse: ${e.message}`]);
+    }
+  }
+
+  const biz = parsed.find((d) => d["@type"] === "GeneralContractor");
+  checked++;
+  if (!biz) {
+    failures.push([route, "localbusiness", "no GeneralContractor node — it is site-wide, so every route should carry it"]);
+  } else {
+    for (const key of ["sameAs", "image", "logo", "description", "geo", "areaServed", "openingHoursSpecification"]) {
+      checked++;
+      if (!biz[key]) failures.push([route, "localbusiness", `missing "${key}"`]);
+    }
+    checked++;
+    // Ruled out at gate 1: Google prohibits self-serving review markup for a
+    // LocalBusiness, and a manual action would cost the exact rankings this
+    // site exists to win.
+    if (biz.aggregateRating) {
+      failures.push([route, "localbusiness", "aggregateRating must NOT be present — self-serving review markup"]);
+    }
+  }
+
+  // Detail pages are the ones that can win a breadcrumb in the SERP.
+  if (/^\/(ypiresies|perioxes)\/./.test(route)) {
+    checked++;
+    if (!parsed.some((d) => d["@type"] === "BreadcrumbList")) {
+      failures.push([route, "breadcrumb", "detail page has no BreadcrumbList"]);
+    }
   }
 }
 

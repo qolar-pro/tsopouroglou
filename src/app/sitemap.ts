@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { HAS_REAL_PHOTOS } from "@/content/site";
 import { services } from "@/content/services";
 import { publishedAreas } from "@/content/areas";
-import { abs } from "@/content/site-config";
+import { abs, CONTENT_UPDATED } from "@/content/site-config";
 
 /**
  * The sitemap is generated from the same flags that govern the nav, so a
@@ -10,7 +10,8 @@ import { abs } from "@/content/site-config";
  * HAS_REAL_PHOTOS is false; an area stays out while its needsInput is true.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  // See CONTENT_UPDATED: a build timestamp here is a lie told every deploy.
+  const now = new Date(CONTENT_UPDATED);
 
   const core = ["/", "/ypiresies", "/perioxes", "/etaireia", "/epikoinonia"];
   const gated = HAS_REAL_PHOTOS ? ["/exoplismos"] : [];

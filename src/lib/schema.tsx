@@ -1,6 +1,7 @@
-import { business } from "@/content/site";
+import { business, seo } from "@/content/site";
 import { services, type Service } from "@/content/services";
 import { areaPages } from "@/content/areas";
+import { heroPhoto } from "@/content/media";
 import { SITE_URL, abs } from "@/content/site-config";
 
 /**
@@ -54,7 +55,25 @@ export function localBusinessSchema() {
       latitude: business.geo.lat,
       longitude: business.geo.lng,
     },
+    description: seo.description,
+    /**
+     * Entity linking. This is the single most valuable line here for local
+     * search: it tells Google that this site and that Google Business Profile
+     * are the same business, so the 5.0★ listing, the 24-hour opening hours
+     * and the Maps position reinforce the site's rankings instead of
+     * competing as two unconnected entities.
+     */
+    sameAs: [business.googleMapsUrl],
+    /** Google's local-business guidance asks for an image. His own work. */
+    image: abs(heroPhoto.src),
+    logo: abs("/icon.svg"),
     hasMap: business.googleMapsUrl,
+    /**
+     * NO priceRange. It is a recommended property and we do not have his
+     * prices — his reviews call him οικονομικός but that is not a number.
+     * Inventing one to fill a schema field is exactly the fabrication the
+     * brief bans.
+     */
     // Confirmed on his verified Google Business Profile: 24h, seven days.
     openingHoursSpecification: [
       {

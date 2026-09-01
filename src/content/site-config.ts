@@ -65,3 +65,15 @@ export const pageOpenGraph = (
   description,
   images: [OG_IMAGE],
 });
+
+/**
+ * When the site's CONTENT last changed. Bump this when copy, services, areas
+ * or photos change — not on every deploy.
+ *
+ * The sitemap previously stamped `new Date()`, so every build told Google
+ * that all nineteen pages had just changed. Google only trusts <lastmod> if
+ * it is consistently accurate, and a value that is always "now" is
+ * consistently wrong — it trains the crawler to ignore the field, which
+ * costs the one signal that would matter when a page genuinely does change.
+ */
+export const CONTENT_UPDATED = "2026-09-01T00:00:00.000Z";

@@ -8,6 +8,7 @@ import Band from "@/components/Band";
 import PageHero from "@/components/PageHero";
 import ArrowIcon from "@/components/ArrowIcon";
 import CallBand from "@/components/CallBand";
+import { JsonLd, breadcrumbSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return areaPages.map((a) => ({ slug: a.slug }));
@@ -41,6 +42,16 @@ export default async function AreaPage({
 
   return (
     <main>
+      {/* Service pages carried a BreadcrumbList and area pages did not — the
+          same trail, half-marked. Breadcrumbs surface in the SERP itself, so
+          the area pages were giving that up for nothing. */}
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Αρχική", path: "/" },
+          { name: "Περιοχές", path: "/perioxes" },
+          { name: area.name, path: `/perioxes/${area.slug}` },
+        ])}
+      />
       <PageHero
         label={areasPage.eyebrow}
         title={<h1 className="h1">{area.h1}</h1>}
