@@ -41,3 +41,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ---------------------------------------------------------------------------
+# Strategy docs — deliberately NOT published.
+#
+# The GitHub repo is public. These three name a local competitor (with their
+# phone number), carry a strategic assessment of them, and hold candid notes
+# on the client's own gaps. This is a village where everyone knows everyone —
+# the brief says so repeatedly — so none of it belongs in a searchable repo.
+#
+# They were also stripped from all 27 commits of history with filter-branch,
+# because gitignoring alone would still have published every earlier copy.
+# Full history is preserved locally on the `backup-full-history` branch.
+#
+# Keep them: they are the reason the build is the way it is. Just keep them
+# here. CLAUDE.md is additionally rewritten by `next dev` on every run.
+# ---------------------------------------------------------------------------
+CLAUDE.md
+PLACEHOLDERS.md
+RESEARCH_competitor_sites.md
