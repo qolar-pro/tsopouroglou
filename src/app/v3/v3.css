@@ -1,0 +1,487 @@
+/**
+ * v3 — the parts of each version that actually won, put together.
+ *
+ * Scoped under .v3 and prefixed .v3-, so it cannot leak. Delete src/app/v3.
+ *
+ * FROM v2 (the alternative)
+ *   - Full-bleed hero photograph. For a trade business, seeing a machine in
+ *     the ground in the first second beats reading a claim about one. v1 put
+ *     its photo below a screenful of dark panel.
+ *   - Services with hierarchy instead of eight identical cards — and it
+ *     matches reality, since only five of eight have a photograph.
+ *   - The masonry gallery. Decisive: v1 cropped every photo to 4:3, which
+ *     throws away the composition of every vertical shot, and most of his
+ *     photos are vertical.
+ *   - A warmer ground. Pure white is clinical for a business whose subject
+ *     is soil; this is barely off-white, not the cream the brief warns about.
+ *
+ * FROM v1 (the live site)
+ *   - The green. It is genuinely uncommon in this category — no competitor
+ *     uses it — and it is the phone button, which is the conversion event, so
+ *     it stays one colour everywhere and stays the WCAG-verified 7.56. v2's
+ *     clay was warmer but closer to the generic contractor look.
+ *   - 1987 at full display size. v2 shrank it to fit over the photo, which
+ *     gave away the single most valuable fact on the page.
+ *   - The chapter rule with its label inset — quieter and more distinctive
+ *     than a plain eyebrow.
+ *   - Areas as rows, not boxes. Five places and a sentence each is a list.
+ *   - The dark closing panel with the number set huge and tappable.
+ */
+
+.v3 {
+  --v3-ink: #15191a;
+  --v3-soft: #434b4c;
+  --v3-ground: #faf8f5; /* barely warm; 17.1 against ink */
+  --v3-raised: #f0ece5;
+  --v3-line: #d8d2c8;
+  --v3-deep: #111716;
+  --v3-green: #0a6136;
+  --v3-green-deep: #08512d;
+
+  background-color: var(--v3-ground);
+  color: var(--v3-ink);
+}
+.v3 .v3-wrap {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) {
+  .v3 .v3-wrap {
+    padding-inline: 3rem;
+  }
+}
+
+/* ---------- HERO ---------- */
+.v3-hero {
+  position: relative;
+  min-height: 86vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background-color: var(--v3-deep);
+}
+.v3-hero-img {
+  position: absolute;
+  inset: 0;
+}
+.v3-hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Heavier at the bottom than v2's, because the year is set much larger here
+   and has to hold against sunlit soil rather than sit in a clear corner. */
+.v3-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 23, 22, 0.62) 0%,
+    rgba(17, 23, 22, 0.3) 30%,
+    rgba(17, 23, 22, 0.88) 72%,
+    rgba(17, 23, 22, 0.96) 100%
+  );
+}
+.v3-hero-inner {
+  position: relative;
+  width: 100%;
+  padding-block: 5rem 3rem;
+}
+.v3-eyebrow {
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  color: var(--v3-soft);
+}
+.v3-hero .v3-eyebrow {
+  color: #cfd6d3;
+}
+.v3-hero h1 {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+.v3-hero-lead {
+  display: block;
+  font-size: clamp(1.75rem, 6vw, 3.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+}
+/* Full display scale, as on the live site. This is the thesis of the page. */
+.v3-hero-year {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(4.5rem, 20vw, 10.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  margin-top: 0.5rem;
+}
+.v3-hero-lede {
+  color: #dfe4e1;
+  font-size: clamp(1.0625rem, 2.3vw, 1.3125rem);
+  line-height: 1.55;
+  max-width: 44ch;
+  margin-top: 1.5rem;
+}
+.v3-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.v3-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  padding-inline: 1.75rem;
+  border: 0;
+  border-radius: 2px;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 140ms ease;
+}
+.v3-btn-call {
+  background-color: var(--v3-green);
+  color: #fff;
+  box-shadow: 0 2px 0 0 #064124, inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+.v3-btn-call:hover {
+  background-color: var(--v3-green-deep);
+}
+.v3-btn-ghost {
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+.v3-btn-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+.v3-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2.5rem;
+  list-style: none;
+  margin: 2.25rem 0 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+.v3-trust li {
+  color: #fff;
+  font-size: 0.9375rem;
+}
+.v3-trust b {
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+/* ---------- SECTIONS + CHAPTER RULE (from v1) ---------- */
+.v3-section {
+  padding-block: clamp(3.5rem, 8vw, 6.5rem);
+}
+.v3-section--raised {
+  background-color: var(--v3-raised);
+}
+.v3-rule {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0 0 3rem;
+}
+.v3-rule::before,
+.v3-rule::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--v3-line);
+}
+.v3-rule span {
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  color: var(--v3-soft);
+  white-space: nowrap;
+}
+.v3-head {
+  text-align: center;
+  max-width: 56ch;
+  margin-inline: auto;
+}
+.v3-h2 {
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.v3-lede {
+  font-size: clamp(1.0625rem, 2.2vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--v3-soft);
+  margin-top: 1rem;
+}
+
+/* ---------- SERVICES (from v2) ---------- */
+.v3-services {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+  margin-top: 3rem;
+  text-align: left;
+}
+@media (min-width: 800px) {
+  .v3-services {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.v3-svc-lead {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.v3-svc-lead figure {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: var(--v3-raised);
+}
+.v3-svc-lead img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+.v3-svc-lead:hover img {
+  transform: scale(1.03);
+}
+.v3-svc-lead h3 {
+  font-size: 1.4375rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--v3-ink);
+}
+.v3-svc-lead p {
+  color: var(--v3-soft);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+.v3-svc-list {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--v3-line);
+  grid-column: 1 / -1;
+}
+.v3-svc-list li {
+  border-bottom: 1px solid var(--v3-line);
+}
+.v3-svc-list a {
+  display: grid;
+  gap: 0.25rem 2rem;
+  padding-block: 1.125rem;
+  text-decoration: none;
+  color: inherit;
+  transition: color 140ms ease;
+}
+@media (min-width: 700px) {
+  .v3-svc-list a {
+    grid-template-columns: 20rem 1fr;
+    align-items: baseline;
+  }
+}
+.v3-svc-list a:hover {
+  color: var(--v3-green);
+}
+.v3-svc-name {
+  font-size: 1.1875rem;
+  font-weight: 700;
+}
+.v3-svc-body {
+  color: var(--v3-soft);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+/* ---------- GALLERY (from v2) ---------- */
+.v3-gallery {
+  columns: 1;
+  column-gap: 1rem;
+  margin-top: 3rem;
+  text-align: left;
+}
+@media (min-width: 640px) {
+  .v3-gallery {
+    columns: 2;
+  }
+}
+@media (min-width: 1100px) {
+  .v3-gallery {
+    columns: 3;
+  }
+}
+.v3-shot {
+  break-inside: avoid;
+  margin: 0 0 1rem;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--v3-deep);
+}
+.v3-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 500ms ease;
+}
+.v3-shot:hover img {
+  transform: scale(1.04);
+}
+.v3-shot figcaption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  padding: 2.5rem 1rem 0.875rem;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.35;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 23, 22, 0) 0%,
+    rgba(17, 23, 22, 0.9) 100%
+  );
+}
+
+/* ---------- AREAS as rows (from v1) ---------- */
+.v3-places {
+  list-style: none;
+  margin: 3rem 0 0;
+  padding: 0;
+  text-align: left;
+}
+.v3-places li {
+  border-top: 1px solid var(--v3-line);
+}
+.v3-places li:last-child {
+  border-bottom: 1px solid var(--v3-line);
+}
+.v3-place {
+  display: grid;
+  gap: 0.375rem;
+  padding-block: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+@media (min-width: 760px) {
+  .v3-place {
+    grid-template-columns: 15rem 1fr auto;
+    gap: 2rem;
+    align-items: baseline;
+  }
+}
+.v3-place-name {
+  font-size: 1.3125rem;
+  font-weight: 700;
+  transition: color 140ms ease;
+}
+.v3-place:hover .v3-place-name {
+  color: var(--v3-green);
+}
+.v3-place-body {
+  color: var(--v3-soft);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.v3-place-flag {
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--v3-soft);
+  white-space: nowrap;
+}
+
+/* ---------- FACTS (from v1) ---------- */
+.v3-facts {
+  list-style: none;
+  margin: 3rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+  text-align: left;
+}
+@media (min-width: 620px) {
+  .v3-facts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1100px) {
+  .v3-facts {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+.v3-fact {
+  border-top: 2px solid var(--v3-ink);
+  padding-top: 0.75rem;
+}
+.v3-fact-figure {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.v3-fact-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin-top: 0.75rem;
+}
+.v3-fact-body {
+  font-size: 0.9375rem;
+  color: var(--v3-soft);
+  margin-top: 0.25rem;
+}
+
+/* ---------- CLOSE (from v1) ---------- */
+.v3-close {
+  background-color: var(--v3-deep);
+  color: #e4e8e6;
+  padding-block: clamp(3.5rem, 8vw, 6rem);
+  text-align: center;
+}
+.v3-close .v3-h2 {
+  color: #fff;
+}
+.v3-close .v3-lede {
+  color: #cfd6d3;
+}
+.v3-close-number {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 10vw, 4.25rem);
+  line-height: 1;
+  color: #fff;
+  text-decoration: none;
+  margin-top: 1.5rem;
+  border-bottom: 4px solid var(--v3-green);
+}
+.v3-close-number:hover {
+  border-bottom-color: #fff;
+}
+.v3-close-note {
+  color: #cfd6d3;
+  margin-top: 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.v3-flag {
+  background-color: #111716;
+  color: #fff;
+  font-size: 0.8125rem;
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+}
+.v3-flag a {
+  color: #fff;
+}
