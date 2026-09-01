@@ -1,3 +1,4 @@
+import { pageAlternates } from "@/content/site-config";
 import type { Metadata } from "next";
 import { etaireia } from "@/content/pages";
 import Band from "@/components/Band";
@@ -10,7 +11,7 @@ import { etaireiaPhoto } from "@/content/media";
 export const metadata: Metadata = {
   title: etaireia.metaTitle,
   description: etaireia.metaDescription,
-  alternates: { canonical: "/etaireia" },
+  alternates: pageAlternates("/etaireia"),
 };
 
 export default function Etaireia() {

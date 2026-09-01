@@ -1,3 +1,4 @@
+import { pageAlternates } from "@/content/site-config";
 import type { Metadata } from "next";
 import { services, servicesPage } from "@/content/services";
 import { erga, servicePhoto } from "@/content/media";
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   title: "Υπηρεσίες και έργα — Χωματουργικά Χαλκιδική | ΤΣΟΠΟΥΡΟΓΛΟΥ",
   description:
     "Εκσκαφές, καθαρισμοί οικοπέδων, βόθροι, εκβραχισμοί, καθαρισμοί παραλίας, μεταφορές χωμάτων, χώμα κήπου, συνδέσεις νερού — και φωτογραφίες από δικά μας εργοτάξια. Μεταμόρφωση Χαλκιδικής, από το 1987. Τηλ. 697 355 7903.",
-  alternates: { canonical: "/ypiresies" },
+  alternates: pageAlternates("/ypiresies"),
 };
 
 export default function ServicesAndWork() {

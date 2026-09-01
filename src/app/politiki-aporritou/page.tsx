@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { business } from "@/content/site";
-import { SITE_URL } from "@/content/site-config";
+import { SITE_URL, pageAlternates } from "@/content/site-config";
 import Band from "@/components/Band";
 import PageHero from "@/components/PageHero";
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Πολιτική απορρήτου | ΤΣΟΠΟΥΡΟΓΛΟΥ",
   description:
     "Τι στοιχεία κρατάμε όταν επικοινωνείτε μαζί μας, γιατί, και για πόσο.",
-  alternates: { canonical: "/politiki-aporritou" },
+  alternates: pageAlternates("/politiki-aporritou"),
 };
 
 /**

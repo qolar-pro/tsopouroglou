@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { areaPages, areaBySlug, areasPage } from "@/content/areas";
 import { services } from "@/content/services";
 import { business } from "@/content/site";
-import { pageOpenGraph } from "@/content/site-config";
+import { pageOpenGraph, pageAlternates } from "@/content/site-config";
 import Band from "@/components/Band";
 import PageHero from "@/components/PageHero";
 import ArrowIcon from "@/components/ArrowIcon";
@@ -23,7 +23,7 @@ export async function generateMetadata({
   return {
     title: area.metaTitle,
     description: area.metaDescription,
-    alternates: { canonical: `/perioxes/${area.slug}` },
+    alternates: pageAlternates(`/perioxes/${area.slug}`),
     // Reserve mechanism: an area whose copy cannot yet be made genuinely
     // distinct stays out of the index rather than shipping thin.
     ...(area.needsInput ? { robots: { index: false, follow: true } } : {}),

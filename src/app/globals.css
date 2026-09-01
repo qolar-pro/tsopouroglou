@@ -1809,3 +1809,103 @@ a.contact-row:hover .contact-value {
   flex: 0 0 auto;
   border-radius: 6px;
 }
+
+/* ===========================================================================
+   LANGUAGE SWITCHER
+   Three links, no JavaScript. Sits beside the phone button in the header.
+=========================================================================== */
+/**
+ * The header has room for the mark, the wordmark, the phone and the menu
+ * button — and that is all. Adding the switcher at 390px overlapped it
+ * straight through "ΤΣΟΠΟΥΡΟΓΛΟΥ".
+ *
+ * Note the overflow audit passed the whole time: the two elements collide
+ * inside the viewport rather than pushing past its edge, so nothing measured
+ * as too wide. Only the screenshot showed it.
+ *
+ * Below the nav breakpoint the switcher moves into the panel, where there is
+ * room for the language's full name instead of two letters.
+ */
+.site-header .langswitch {
+  display: none;
+}
+@media (min-width: 940px) {
+  .site-header .langswitch {
+    display: block;
+  }
+}
+.langswitch ul {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.langswitch a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 40px;
+  padding-inline: var(--s-2);
+  font-size: var(--t-label);
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease);
+}
+.langswitch a:hover {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-line);
+}
+.langswitch a[data-current="true"] {
+  color: var(--color-ink);
+  font-weight: 700;
+  border-bottom-color: var(--color-accent);
+}
+/* Below the nav breakpoint the header is already tight — the switcher keeps
+   its tap targets but drops to the smallest it can legibly be. */
+@media (max-width: 480px) {
+  .langswitch a {
+    min-width: 34px;
+    padding-inline: var(--s-1);
+  }
+}
+
+/* Visible to screen readers only. The switcher's two-letter labels say
+   nothing when read aloud, so each carries its language's full name. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* In the mobile panel the switcher is a row of real, full-width targets. */
+.nav-panel .langswitch {
+  margin-top: var(--s-6);
+  padding-top: var(--s-5);
+  border-top: var(--rule-hair);
+}
+.nav-panel .langswitch ul {
+  gap: var(--s-2);
+}
+.nav-panel .langswitch a {
+  flex: 1;
+  min-height: 52px;
+  border: 1px solid var(--color-line);
+  border-bottom-width: 2px;
+  border-radius: 2px;
+  font-size: var(--t-small);
+}
+.nav-panel .langswitch a[data-current="true"] {
+  border-color: var(--color-accent);
+}

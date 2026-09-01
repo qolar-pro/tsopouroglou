@@ -1,9 +1,11 @@
 import { business, wordmark, visibleNav } from "@/content/site";
+import type { Locale } from "@/content/i18n";
 import MobileNav from "./MobileNav";
 import Mark from "./Mark";
+import LangSwitch from "./LangSwitch";
 import PhoneIcon from "./PhoneIcon";
 
-export default function SiteHeader() {
+export default function SiteHeader({ lang = "el" }: { lang?: Locale }) {
   return (
     <header className="site-header">
       <div className="wrap site-header-inner">
@@ -42,6 +44,8 @@ export default function SiteHeader() {
             </ul>
           </nav>
 
+          <LangSwitch current={lang} />
+
           <a
             className="header-call"
             href={business.phone.href}
@@ -52,7 +56,7 @@ export default function SiteHeader() {
               {business.phone.display}
             </span>
           </a>
-          <MobileNav />
+          <MobileNav lang={lang} />
         </div>
       </div>
     </header>

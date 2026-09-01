@@ -1,3 +1,4 @@
+import { pageAlternates } from "@/content/site-config";
 import type { Metadata } from "next";
 import { areaLinks, areasPage } from "@/content/areas";
 import Band from "@/components/Band";
@@ -7,7 +8,7 @@ import CallBand from "@/components/CallBand";
 export const metadata: Metadata = {
   title: areasPage.metaTitle,
   description: areasPage.metaDescription,
-  alternates: { canonical: "/perioxes" },
+  alternates: pageAlternates("/perioxes"),
 };
 
 /**

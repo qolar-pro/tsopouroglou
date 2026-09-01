@@ -1,3 +1,4 @@
+import { pageAlternates } from "@/content/site-config";
 import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -27,7 +28,7 @@ import ContactBlock from "@/components/ContactBlock";
  * a stray ?utm_ or a trailing-slash variant does the most damage.
  */
 export const metadata: Metadata = {
-  alternates: { canonical: "/" },
+  alternates: pageAlternates("/"),
 };
 
 export default function Home() {

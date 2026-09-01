@@ -1,3 +1,4 @@
+import { pageAlternates } from "@/content/site-config";
 import type { Metadata } from "next";
 import { HAS_REAL_PHOTOS } from "@/content/site";
 import { gated } from "@/content/pages";
@@ -12,7 +13,7 @@ const page = gated.exoplismos;
 export const metadata: Metadata = {
   title: page.metaTitle,
   description: page.metaDescription,
-  alternates: { canonical: "/exoplismos" },
+  alternates: pageAlternates("/exoplismos"),
   // Gated on real photography. Publishing stock excavators as his work would
   // be a lie to his customers — CLAUDE.md §6b.
   ...(HAS_REAL_PHOTOS ? {} : { robots: { index: false, follow: false } }),

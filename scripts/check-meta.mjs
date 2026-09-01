@@ -35,6 +35,9 @@ const ROUTES = [
   "/perioxes/nikiti",
   "/perioxes/vatopedi",
   "/perioxes/psakoudia",
+  // The translated landing pages.
+  "/en",
+  "/sr",
 ];
 
 const one = (html, re) => html.match(re)?.[1]?.trim() ?? null;
@@ -78,6 +81,16 @@ const CHECKS = [
     // twitter:card is summary_large_image site-wide; without an image that
     // renders worse than declaring nothing at all.
     msg: "twitter:card is large but there is no twitter:image",
+  },
+  {
+    id: "hreflang",
+    get: (h) => (h.match(/<link rel="alternate" hrefLang=/gi) ?? []).length,
+    // el, en, sr-Latn, x-default — reciprocal on every route.
+    ok: (n) => n >= 4,
+    // Next replaces `alternates` wholesale instead of deep-merging, so a page
+    // that sets only { canonical } silently drops the whole hreflang map.
+    // That happened: every Greek page stopped advertising the translations.
+    msg: "fewer than 4 hreflang links — did this page set alternates without pageAlternates()?",
   },
   {
     id: "lang",

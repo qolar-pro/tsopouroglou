@@ -5,7 +5,7 @@ import HeaderScrollState from "@/components/HeaderScrollState";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCallBar from "@/components/StickyCallBar";
-import { SITE_URL, pageOpenGraph } from "@/content/site-config";
+import { SITE_URL, abs, pageOpenGraph } from "@/content/site-config";
 import { JsonLd, localBusinessSchema } from "@/lib/schema";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -43,6 +43,20 @@ const alegreyaSans = Alegreya_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  alternates: {
+    /**
+     * hreflang has to be reciprocal. If the Greek pages do not point at the
+     * translations, Google sees three unrelated pages instead of one site in
+     * three languages, and may treat the English and Serbian pages as thin
+     * duplicates rather than alternates.
+     */
+    languages: {
+      el: abs("/"),
+      en: abs("/en"),
+      "sr-Latn": abs("/sr"),
+      "x-default": abs("/"),
+    },
+  },
   title: seo.title,
   description: seo.description,
   openGraph: {

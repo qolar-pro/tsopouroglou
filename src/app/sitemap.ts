@@ -3,6 +3,7 @@ import { HAS_REAL_PHOTOS } from "@/content/site";
 import { services } from "@/content/services";
 import { publishedAreas } from "@/content/areas";
 import { abs, CONTENT_UPDATED } from "@/content/site-config";
+import { TRANSLATED } from "@/content/i18n";
 
 /**
  * The sitemap is generated from the same flags that govern the nav, so a
@@ -37,6 +38,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...gated.map((path) => ({
       url: abs(path),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+    // The translated landing pages. Without these they are reachable only
+    // from the header switcher, which is a weak discovery path for a page
+    // meant to be found by a Serbian owner searching in Serbian.
+    ...TRANSLATED.map((lang) => ({
+      url: abs(`/${lang}`),
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.6,

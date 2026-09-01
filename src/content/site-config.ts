@@ -109,3 +109,25 @@ export const pageOpenGraph = (
  * costs the one signal that would matter when a page genuinely does change.
  */
 export const CONTENT_UPDATED = "2026-09-01T00:00:00.000Z";
+
+/**
+ * The `alternates` block every page should use.
+ *
+ * Next replaces `alternates` wholesale rather than deep-merging it — the same
+ * trap that silently dropped og:image from twelve routes. So a page setting
+ * only `{ canonical }` throws away the hreflang map inherited from the
+ * layout, and the Greek pages stopped advertising the English and Serbian
+ * translations at all. hreflang has to be reciprocal or Google treats the
+ * translations as unrelated thin pages rather than alternates of one site.
+ *
+ * Build alternates through here and both survive.
+ */
+export const pageAlternates = (canonical: string) => ({
+  canonical,
+  languages: {
+    el: abs("/"),
+    en: abs("/en"),
+    "sr-Latn": abs("/sr"),
+    "x-default": abs("/"),
+  },
+});

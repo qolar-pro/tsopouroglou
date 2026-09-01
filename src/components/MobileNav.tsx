@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { visibleNav, business } from "@/content/site";
+import LangSwitch from "./LangSwitch";
+import type { Locale } from "@/content/i18n";
 
 /**
  * Full-screen navigation panel.
@@ -14,7 +16,7 @@ import { visibleNav, business } from "@/content/site";
  * the panel on open and back to the trigger on close, and the page behind is
  * locked from scrolling.
  */
-export default function MobileNav() {
+export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -95,6 +97,9 @@ export default function MobileNav() {
             <a className="btn btn-call btn-block" href={business.phone.href}>
               ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
             </a>
+            {/* The switcher lives here on mobile — the header cannot hold it
+                without colliding with the wordmark. */}
+            <LangSwitch current={lang} />
           </div>
         </div>
       )}

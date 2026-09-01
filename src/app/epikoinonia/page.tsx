@@ -1,3 +1,4 @@
+import { pageAlternates } from "@/content/site-config";
 import type { Metadata } from "next";
 import { business } from "@/content/site";
 import { epikoinonia } from "@/content/pages";
@@ -7,7 +8,7 @@ import PageHero from "@/components/PageHero";
 export const metadata: Metadata = {
   title: epikoinonia.metaTitle,
   description: epikoinonia.metaDescription,
-  alternates: { canonical: "/epikoinonia" },
+  alternates: pageAlternates("/epikoinonia"),
 };
 
 export default function Epikoinonia() {
