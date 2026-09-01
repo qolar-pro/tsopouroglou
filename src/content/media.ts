@@ -315,3 +315,22 @@ export const servicePhoto: Record<string, Img> = {
     }
   }
 }
+
+/**
+ * Photographs for the gallery on a page that ALSO shows the services above
+ * it, with their own photographs.
+ *
+ * Five files were appearing twice on /ypiresies — once as the picture for a
+ * service, then again a screen later in the gallery. It reads as though we
+ * ran out of photographs, which undercuts the one line that section makes:
+ * that all of this is his own work.
+ *
+ * "What we do" and "what we have done" should not be the same pictures.
+ */
+export const ergaExcluding = (used: Img[]) => {
+  const taken = new Set(used.map((i) => i.src));
+  return erga.filter((p) => !taken.has(p.img.src));
+};
+
+/** Every service photograph, for the exclusion above. */
+export const allServicePhotos = Object.values(servicePhoto);

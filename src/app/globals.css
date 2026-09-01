@@ -818,7 +818,8 @@ a.place:hover .place-name {
   margin: var(--s-6) 0 0;
   padding: 0;
   columns: 1;
-  column-gap: var(--s-7);
+  column-gap: var(--s-5);
+  text-align: left;
 }
 @media (min-width: 760px) {
   .reviews {
@@ -832,12 +833,50 @@ a.place:hover .place-name {
 }
 .reviews li {
   break-inside: avoid;
-  margin-bottom: var(--s-6);
+  margin-bottom: var(--s-5);
 }
+/**
+ * A review was a bare paragraph with a name under it — text dropped on the
+ * page rather than testimony. Each is a framed card now: an initials disc,
+ * the name, the stars, then the quote. It reads as separate people saying
+ * separate things, and the count becomes obvious at a glance.
+ */
 .review {
   margin: 0;
-  border-top: var(--rule-hair);
-  padding-top: var(--s-4);
+  background-color: var(--color-field);
+  border: 1px solid var(--color-line-hair);
+  border-radius: 10px;
+  padding: var(--s-5);
+}
+.review-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+.review-avatar {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: #fff; /* 7.56 on accent */
+  font-size: var(--t-small);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.review-author {
+  font-size: var(--t-small);
+  font-weight: 700;
+  line-height: 1.3;
+}
+.review-head .stars {
+  color: var(--color-accent);
+  transform: none;
+  margin-top: 2px;
 }
 .review blockquote {
   margin: 0;
@@ -845,11 +884,6 @@ a.place:hover .place-name {
 .review blockquote p {
   font-size: var(--t-small);
   line-height: 1.6;
-}
-.review figcaption {
-  margin-top: var(--s-3);
-  font-size: 11.5px;
-  letter-spacing: 0.06em;
   color: var(--color-ink-muted);
 }
 
@@ -2113,4 +2147,105 @@ a.contact-row:hover .contact-value {
   .svc-lead:hover img {
     transform: none;
   }
+}
+
+/* ===========================================================================
+   IMAGE TREATMENT — rounded, with a hairline, and a centred caption plate.
+
+   The photographs are the proof this business runs on, so they get a frame
+   that says "placed" rather than "pasted": a soft radius and a thin border
+   that separates a light sky from a light page. The caption used to sit
+   bottom-left over a gradient; it is a centred plate now, so it reads as a
+   label belonging to the photograph rather than text lying on top of it.
+=========================================================================== */
+.photo,
+.shot,
+.bleed-img img,
+.svc-lead .photo,
+.hero-media .photo {
+  border-radius: 10px;
+}
+.photo,
+.shot {
+  box-shadow: 0 0 0 1px var(--color-line-hair);
+}
+/* The hero bleeds to the edges — a radius there would leave four odd corners
+   against the page rather than framing anything. */
+.bleed-img img {
+  border-radius: 0;
+}
+
+/* Service photos inside the split need the same frame as everything else. */
+.svc-mini .photo {
+  aspect-ratio: 4 / 3;
+}
+
+.shot figcaption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: var(--s-4);
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--s-4);
+  background: none;
+}
+.shot figcaption span {
+  display: inline-block;
+  max-width: 100%;
+  padding: var(--s-2) var(--s-4);
+  border-radius: 999px;
+  background-color: rgba(17, 23, 22, 0.82);
+  /* Frosted so a busy photograph behind it does not fight the words. */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--color-field);
+  font-size: var(--t-small);
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* ---- The six smaller services on /ypiresies ---- */
+.svc-grid {
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--s-6) var(--s-5);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 560px) {
+  .svc-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  .svc-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.svc-mini {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+.svc-mini-name {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 2px solid var(--color-ink);
+  transition: color var(--t-fast) var(--ease);
+}
+.svc-mini:hover .svc-mini-name {
+  color: var(--color-accent);
+}
+.svc-mini-body {
+  font-size: var(--t-small);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+  margin-top: var(--s-2);
 }

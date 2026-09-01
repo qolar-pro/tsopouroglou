@@ -6,7 +6,7 @@ import Band from "@/components/Band";
 import PageHero from "@/components/PageHero";
 import CallBand from "@/components/CallBand";
 import Photo from "@/components/Photo";
-import { stolos } from "@/content/media";
+import { stolos, erga } from "@/content/media";
 
 const page = gated.exoplismos;
 
@@ -20,13 +20,21 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  /**
+   * The hero used stolos[0], which is also the first machine in the list
+   * below — the same photograph twice on one page. A frame from a job site
+   * instead: it shows the machines in use rather than repeating the portrait
+   * of one of them.
+   */
+  const heroShot = erga.find((e) => e.id === "ergotaxio")?.img ?? stolos[0].img;
+
   return (
     <main>
       <PageHero
         label={page.eyebrow}
         title={<h1 className="h1">{page.h1}</h1>}
         lede={page.lede}
-        photo={stolos[0].img}
+        photo={heroShot}
         priority
       />
 

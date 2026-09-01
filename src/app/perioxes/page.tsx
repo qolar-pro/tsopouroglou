@@ -2,6 +2,7 @@ import { pageAlternates } from "@/content/site-config";
 import type { Metadata } from "next";
 import { areaLinks, areasPage } from "@/content/areas";
 import Band from "@/components/Band";
+import { erga } from "@/content/media";
 import PageHero from "@/components/PageHero";
 import CallBand from "@/components/CallBand";
 
@@ -27,6 +28,8 @@ export default function AreasIndex() {
         label={areasPage.eyebrow}
         title={<h1 className="h1">{areasPage.h1}</h1>}
         lede={areasPage.lede}
+        photo={erga.find((e) => e.id === "ekskafi-oikopedou")?.img}
+        priority
       />
 
       <Band label="ΟΙ ΠΕΡΙΟΧΕΣ">

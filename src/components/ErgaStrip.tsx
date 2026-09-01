@@ -1,4 +1,5 @@
-import { ergaFeatured } from "@/content/media";
+import { erga, ergaExcluding, servicePhoto } from "@/content/media";
+import { services } from "@/content/site";
 import Band from "./Band";
 import ArrowIcon from "./ArrowIcon";
 
@@ -15,17 +16,31 @@ import ArrowIcon from "./ArrowIcon";
  * on its own and there is no JavaScript.
  */
 export default function ErgaStrip() {
+  /**
+   * The teaser must not repeat the two service photographs shown directly
+   * above it, nor the hero at the top of the page. Seeing the same picture
+   * twice on one screen reads as though we ran out of them.
+   */
+  const usedAbove = [
+    ...services.slice(0, 2).map((s) => servicePhoto[s.slug]).filter(Boolean),
+    ...(erga.find((e) => e.id === "ergotaxio")
+      ? [erga.find((e) => e.id === "ergotaxio")!.img]
+      : []),
+  ];
+  const shots = ergaExcluding(usedAbove).slice(0, 6);
+
   return (
     <Band label="ΕΡΓΑ" id="erga" tone="tone">
-      <h2 className="h2">Δουλειές μας</h2>
+      <h2 className="h2">Τι έχουμε παραδώσει</h2>
       <p className="lede">
         <span className="measure-prose">
-          Φωτογραφίες από δικά μας εργοτάξια — όχι από το ίντερνετ.
+          Ολοκληρωμένα έργα σε οικόπεδα, αυλές και ακτές της Χαλκιδικής. Όλες
+          οι φωτογραφίες είναι δικές μας.
         </span>
       </p>
 
       <div className="shots">
-        {ergaFeatured.map((project) => (
+        {shots.map((project) => (
           <figure key={project.id} className="shot">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -34,7 +49,9 @@ export default function ErgaStrip() {
               loading="lazy"
               decoding="async"
             />
-            <figcaption>{project.title}</figcaption>
+            <figcaption>
+                <span>{project.title}</span>
+              </figcaption>
           </figure>
         ))}
       </div>
