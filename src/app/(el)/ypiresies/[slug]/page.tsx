@@ -1,131 +1,85 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { services, serviceBySlug, servicesPage } from "@/content/services";
-import { business } from "@/content/site";
-import { pageOpenGraph, pageAlternates } from "@/content/site-config";
-import Band from "@/components/Band";
-import PageHero from "@/components/PageHero";
-import ArrowIcon from "@/components/ArrowIcon";
-import CallBand from "@/components/CallBand";
+import {
+  dict,
+  href,
+  alternates,
+  SERVICE_IDS,
+  SERVICE_SLUG,
+  type ServiceId,
+} from "@/content/i18n";
+import { abs, pageOpenGraph } from "@/content/site-config";
 import { JsonLd, serviceSchema, breadcrumbSchema } from "@/lib/schema";
-import Photo from "@/components/Photo";
-import { servicePhoto, SHOW_PLACEHOLDER_MEDIA } from "@/content/media";
-import { HAS_REAL_PHOTOS } from "@/content/site";
+import { ServiceDetailPage } from "@/components/pages";
 
+/**
+ * Greek service pages. The body is shared with the three translations — one
+ * implementation, four languages. See components/pages.tsx.
+ *
+ * The Greek slug IS the id, so this lookup is really a membership test — but
+ * it still goes through SERVICE_SLUG so that if a Greek slug is ever changed
+ * it resolves by the same rule as every other language.
+ */
 export function generateStaticParams() {
-  return services.map((s) => ({ slug: s.slug }));
+  return SERVICE_IDS.map((id) => ({ slug: SERVICE_SLUG.el[id] }));
 }
+
+const idFor = (slug: string): ServiceId | undefined =>
+  SERVICE_IDS.find((id) => SERVICE_SLUG.el[id] === slug);
 
 export async function generateMetadata({
   params,
 }: PageProps<"/ypiresies/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const service = serviceBySlug(slug);
-  if (!service) return {};
+  const id = idFor(slug);
+  if (!id) return {};
+  const s = dict("el").services[id];
+  const route = { page: "service", id } as const;
+  const alt = alternates(route);
   return {
-    title: service.metaTitle,
-    description: service.metaDescription,
-    alternates: pageAlternates(`/ypiresies/${service.slug}`),
-    openGraph: pageOpenGraph(service.metaTitle, service.metaDescription),
+    title: s.metaTitle,
+    description: s.metaDescription,
+    alternates: {
+      canonical: href("el", route),
+      languages: {
+        el: abs(alt.el),
+        en: abs(alt.en),
+        "sr-Latn": abs(alt.sr),
+        mk: abs(alt.mk),
+        "x-default": abs(alt.el),
+      },
+    },
+    openGraph: pageOpenGraph(s.metaTitle, s.metaDescription),
   };
 }
 
-export default async function ServicePage({
-  params,
-}: PageProps<"/ypiresies/[slug]">) {
+export default async function Page({ params }: PageProps<"/ypiresies/[slug]">) {
   const { slug } = await params;
-  const service = serviceBySlug(slug);
-  if (!service) notFound();
+  const id = idFor(slug);
+  if (!id) notFound();
 
-  const related = service.related
-    .map((r) => serviceBySlug(r))
-    .filter((r): r is NonNullable<typeof r> => Boolean(r));
-
-  const photo = servicePhoto[service.slug];
-  const showPhoto = (HAS_REAL_PHOTOS || SHOW_PLACEHOLDER_MEDIA) && photo;
+  const t = dict("el");
+  const route = { page: "service", id } as const;
 
   return (
-    <main>
-      <JsonLd data={serviceSchema(service)} />
+    <>
+      <JsonLd
+        data={serviceSchema({
+          id,
+          name: t.services[id].title,
+          description: t.services[id].metaDescription,
+          url: href("el", route),
+          language: "el",
+        })}
+      />
       <JsonLd
         data={breadcrumbSchema([
-          { name: "Αρχική", path: "/" },
-          { name: "Υπηρεσίες", path: "/ypiresies" },
-          { name: service.title, path: `/ypiresies/${service.slug}` },
+          { name: t.navLabels.home, path: href("el", { page: "home" }) },
+          { name: t.navLabels.services, path: href("el", { page: "services" }) },
+          { name: t.services[id].title, path: href("el", route) },
         ])}
       />
-
-      {/* ---- Head ---- */}
-      <PageHero
-        label={servicesPage.eyebrow}
-        title={<h1 className="h1">{service.h1}</h1>}
-        lede={service.lede}
-        photo={showPhoto ? photo : undefined}
-        priority
-      >
-        <nav className="breadcrumb" aria-label="Διαδρομή">
-          <a href="/ypiresies">{servicesPage.backToAll}</a>
-        </nav>
-      </PageHero>
-
-      {/* ---- What it involves + which machine ---- */}
-      <Band label="Η ΔΟΥΛΕΙΑ">
-        <div className="detail-cols">
-          <div>
-            <h2 className="h3">{service.includesHeading}</h2>
-            <ul className="check-list">
-              {service.includes.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="h3">{service.machinesHeading}</h2>
-            <p className="detail-body">{service.machines}</p>
-            {service.note && <p className="note">{service.note}</p>}
-          </div>
-        </div>
-      </Band>
-
-      {/* ---- What to have ready, and where ---- */}
-      <Band label="ΠΡΙΝ ΤΟ ΤΗΛΕΦΩΝΟ" tone="tone">
-        <div className="detail-cols">
-          <div>
-            <h2 className="h3">{service.askHeading}</h2>
-            <ol className="ask-list">
-              {service.ask.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ol>
-          </div>
-
-          <div>
-            <h2 className="h3">{servicesPage.areasHeading}</h2>
-            <p className="detail-body">{servicesPage.areasBody}</p>
-          </div>
-        </div>
-      </Band>
-
-      {/* ---- Related ---- */}
-      <Band label="ΣΧΕΤΙΚΑ">
-        <h2 className="h2">{servicesPage.relatedHeading}</h2>
-        <ul className="items items-3">
-          {related.map((r) => (
-            <li key={r.slug}>
-              <a className="item" href={`/ypiresies/${r.slug}`}>
-                <span className="item-title">{r.title}</span>
-                <span className="item-body">{r.card}</span>
-                <span className="item-more" aria-hidden="true">
-                  <ArrowIcon />
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </Band>
-
-      <CallBand />
-    </main>
+      <ServiceDetailPage lang="el" id={id} />
+    </>
   );
 }

@@ -14,39 +14,53 @@
  */
 const ORIGIN = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
 
-/** Kept in step with sitemap.ts by the coverage check at the bottom. */
+/**
+ * THE ROUTE LIST IS THE SITEMAP.
+ *
+ * It used to be hand-maintained here, with a coverage check at the bottom
+ * comparing it against the sitemap. That was one list too many: adding a page
+ * meant editing two files, and the guard only complained AFTER the omission
+ * already existed. With four languages and twenty-one pages each, a
+ * hand-kept list of eighty-four paths would be wrong within a week.
+ *
+ * Fetching the sitemap makes the guard cover, by construction, exactly what
+ * the site advertises to Google — which is the thing we actually care about.
+ */
+const sitemapXml = await (await fetch(ORIGIN + "/sitemap.xml")).text();
 const ROUTES = [
-  "/",
-  "/ypiresies",
-  "/perioxes",
-  "/etaireia",
-  "/epikoinonia",
-  "/syhnes-erotiseis",
-  "/exoplismos",
-  "/politiki-aporritou",
-  "/ypiresies/ekskafes",
-  "/ypiresies/katharismos-oikopedon",
-  "/ypiresies/vothroi",
-  "/ypiresies/ekvrachismoi",
-  "/ypiresies/katedafiseis",
-  "/ypiresies/katharismos-paralias",
-  "/ypiresies/metafores-chomaton",
-  "/ypiresies/choma-kipou",
-  "/ypiresies/syndeseis-nerou-apocheteusi",
-  "/perioxes/metamorfosi",
-  "/perioxes/nikiti",
-  "/perioxes/vatopedi",
-  "/perioxes/psakoudia",
-  // The translated landing pages.
-  "/en",
-  "/sr",
+  ...new Set(
+    [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+      (m) => new URL(m[1]).pathname.replace(/\/$/, "") || "/"
+    )
+  ),
 ];
+if (ROUTES.length < 20) {
+  console.error(
+    `
+✗ sitemap returned only ${ROUTES.length} URLs — is the server up and built?
+`
+  );
+  process.exit(1);
+}
 
 const one = (html, re) => html.match(re)?.[1]?.trim() ?? null;
 
-/** BCP-47 each route must declare. Mirrors LOCALE_TAG in content/i18n.ts. */
-const expectedLang = (route) =>
-  route === "/en" ? "en" : route === "/sr" ? "sr-Latn" : "el";
+/**
+ * BCP-47 each route must declare. Mirrors LOCALE_TAG in content/i18n.
+ *
+ * Derived from the path's first segment, so it covers every page in every
+ * language rather than just the three landing pages. This check used to
+ * assert "el" everywhere — it did not merely miss the bug where the English
+ * pages declared themselves Greek, it asserted it, and would have reported
+ * the fix as the failure.
+ */
+const expectedLang = (route) => {
+  const first = route.split("/").filter(Boolean)[0];
+  if (first === "en") return "en";
+  if (first === "sr") return "sr-Latn";
+  if (first === "mk") return "mk";
+  return "el";
+};
 
 const CHECKS = [
   {
@@ -91,8 +105,10 @@ const CHECKS = [
   {
     id: "hreflang",
     get: (h) => (h.match(/<link rel="alternate" hrefLang=/gi) ?? []).length,
-    // el, en, sr-Latn, x-default — reciprocal on every route.
-    ok: (n) => n >= 4,
+    // el, en, sr-Latn, mk, x-default — reciprocal on EVERY route, not just
+    // the landing pages: each page names its own translations, which is what
+    // makes Google read the four as one page rather than four rivals.
+    ok: (n) => n >= 5,
     // Next replaces `alternates` wholesale instead of deep-merging, so a page
     // that sets only { canonical } silently drops the whole hreflang map.
     // That happened: every Greek page stopped advertising the translations.
@@ -207,23 +223,15 @@ for (const route of ROUTES) {
   }
 
   // Detail pages are the ones that can win a breadcrumb in the SERP.
-  if (/^\/(ypiresies|perioxes)\/./.test(route)) {
+  if (
+    /^\/(ypiresies|perioxes)\/./.test(route) ||
+    /^\/(en|sr|mk)\/[^/]+\/./.test(route)
+  ) {
     checked++;
     if (!parsed.some((d) => d["@type"] === "BreadcrumbList")) {
       failures.push([route, "breadcrumb", "detail page has no BreadcrumbList"]);
     }
   }
-}
-
-// The route list above is hand-maintained; if the sitemap grows past it, this
-// guard would quietly stop covering the new pages.
-const sitemap = await (await fetch(ORIGIN + "/sitemap.xml")).text();
-const inSitemap = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) =>
-  new URL(m[1]).pathname.replace(/\/$/, "") || "/"
-);
-const uncovered = inSitemap.filter((p) => !ROUTES.includes(p));
-if (uncovered.length) {
-  failures.push(["sitemap", "coverage", `in sitemap but unchecked: ${uncovered.join(", ")}`]);
 }
 
 if (failures.length === 0) {

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import NotFoundBody from "@/components/NotFoundBody";
+import { dict } from "@/content/i18n";
+import { NotFoundPage } from "@/components/pages";
 
 export const metadata: Metadata = {
-  title: "Η σελίδα δεν βρέθηκε | ΤΣΟΠΟΥΡΟΓΛΟΥ",
+  title: dict("el").notFound.metaTitle,
   robots: { index: false, follow: true },
 };
 
@@ -11,9 +12,9 @@ export const metadata: Metadata = {
  * unknown service or area slug. Renders inside (el)/layout.tsx, so it gets
  * the header, footer and call bar for free.
  *
- * The URL-matches-nothing case is app/global-not-found.tsx instead; both
- * share NotFoundBody so they cannot drift apart.
+ * The URL-matches-nothing case is app/global-not-found.tsx instead; both use
+ * the same body so they cannot drift apart.
  */
 export default function NotFound() {
-  return <NotFoundBody />;
+  return <NotFoundPage lang="el" />;
 }

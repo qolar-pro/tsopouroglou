@@ -1,31 +1,30 @@
-import { business, wordmark, headerNav } from "@/content/site";
-import { CHROME, localeHref, type Locale } from "@/content/i18n";
+import { business, wordmark } from "@/content/site";
+import { dict, href, type Locale } from "@/content/i18n";
+import { headerNav } from "@/content/i18n/nav";
 import MobileNav from "./MobileNav";
 import Mark from "./Mark";
 import LangSwitch from "./LangSwitch";
 import PhoneIcon from "./PhoneIcon";
 
 /**
- * NAV DIFFERS BY LOCALE, DELIBERATELY.
+ * The language switcher reads the current path itself (it is the site's one
+ * client component besides the nav panel), so the header does not have to
+ * know which page is rendering inside the layout.
  *
- * Greek gets the real routes. The translated locales get in-page anchors,
- * because all nineteen content routes are Greek-only — an English nav item
- * reading "Services" that drops the reader onto a Greek page is worse than no
- * nav item at all. `CHROME[lang].nav` is null for Greek, meaning "use the
- * real routes"; the translations supply their own anchor list.
- *
- * The wordmark links to the current language's home, not always "/", so a
- * Serbian reader who taps the logo does not silently land on the Greek site.
+ * The wordmark NAME stays Greek in every language. It is the family's name
+ * over the door — ΤΣΟΠΟΥΡΟΓΛΟΥ is what is written on the machines and what
+ * a neighbour would tell you to ask for. Only the line under it, which
+ * describes the trade, is translated.
  */
 export default function SiteHeader({ lang = "el" }: { lang?: Locale }) {
-  const c = CHROME[lang];
-  const navItems = c.nav ?? headerNav.filter((n) => n.href !== "/");
+  const t = dict(lang);
+  const nav = headerNav(lang);
 
   return (
     <header className="site-header">
       <div className="wrap site-header-inner">
         {/* Wordmark — PROPOSAL, not final. They have no logo. */}
-        <a className="wordmark" href={localeHref(lang)}>
+        <a className="wordmark" href={href(lang, { page: "home" })}>
           <Mark size={34} />
           {/* The name and tagline stay stacked; only the mark sits beside
               them. Without this wrapper the flex row lays all three out
@@ -37,8 +36,8 @@ export default function SiteHeader({ lang = "el" }: { lang?: Locale }) {
               <span className="min-[360px]:hidden">{wordmark.compact}</span>
             </span>
             <span className="wordmark-tagline">
-              <span className="hidden min-[560px]:inline">{c.taglineFull}</span>
-              <span className="min-[560px]:hidden">{c.taglineShort}</span>
+              <span className="hidden min-[560px]:inline">{t.tagline.full}</span>
+              <span className="min-[560px]:hidden">{t.tagline.short}</span>
             </span>
           </span>
         </a>
@@ -47,9 +46,9 @@ export default function SiteHeader({ lang = "el" }: { lang?: Locale }) {
           {/* Inline links once there is room. The panel is the mobile layout,
               not a universal one — a hamburger on a 1280px screen hides
               navigation that fits perfectly well. */}
-          <nav className="desk-nav" aria-label={c.navAria}>
+          <nav className="desk-nav" aria-label={t.chrome.navAria}>
             <ul>
-              {navItems.map((n) => (
+              {nav.map((n) => (
                 <li key={n.href}>
                   <a href={n.href}>{n.label}</a>
                 </li>
@@ -57,12 +56,12 @@ export default function SiteHeader({ lang = "el" }: { lang?: Locale }) {
             </ul>
           </nav>
 
-          <LangSwitch current={lang} />
+          <LangSwitch />
 
           <a
             className="header-call"
             href={business.phone.href}
-            aria-label={`${c.phoneAria} ${business.phone.display}`}
+            aria-label={`${t.chrome.phoneAria} ${business.phone.display}`}
           >
             <PhoneIcon />
             <span className="hidden min-[560px]:inline num">

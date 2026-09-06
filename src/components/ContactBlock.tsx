@@ -1,4 +1,5 @@
-import { business, contactSection } from "@/content/site";
+import { business } from "@/content/site";
+import { dict, href, type Locale } from "@/content/i18n";
 import Band from "./Band";
 
 /**
@@ -12,57 +13,57 @@ import Band from "./Band";
  * The form is the secondary path — it exists mainly to unlock Google's
  * "Online estimates" attribute, which competing listings already have.
  */
-export default function ContactBlock() {
+export default function ContactBlock({ lang = "el" }: { lang?: Locale }) {
+  const c = dict(lang).contactSection;
   return (
     <Band
-      label={contactSection.eyebrow}
+      label={c.eyebrow}
       id="epikoinonia"
       frame="panel"
       tone="ink"
       index="06"
     >
-      <h2 className="h2">{contactSection.heading}</h2>
+      <h2 className="h2">{c.heading}</h2>
       <p className="lede">
-        <span className="measure-prose">{contactSection.lede}</span>
+        <span className="measure-prose">{c.lede}</span>
       </p>
 
       <div className="contact-grid">
         <a className="contact-primary" href={business.phone.href}>
-          <span className="contact-label">{contactSection.mobileLabel}</span>
+          <span className="contact-label">{c.mobileLabel}</span>
           <span className="contact-number">{business.phone.display}</span>
         </a>
 
         <div>
           <a className="contact-row" href={business.landline.href}>
-            <span className="contact-label">{contactSection.landlineLabel}</span>
+            <span className="contact-label">{c.landlineLabel}</span>
             <span className="contact-value num">{business.landline.display}</span>
           </a>
 
           <a className="contact-row" href={`mailto:${business.email}`}>
-            <span className="contact-label">{contactSection.emailLabel}</span>
+            <span className="contact-label">{c.emailLabel}</span>
             <span className="contact-value contact-value-email">
               {business.email}
             </span>
           </a>
 
           <div className="contact-row">
-            <span className="contact-label">{contactSection.baseLabel}</span>
-            <span className="contact-value">{contactSection.baseValue}</span>
+            <span className="contact-label">{c.baseLabel}</span>
+            <span className="contact-value">{c.baseValue}</span>
           </div>
         </div>
       </div>
 
       <div className="contact-quote">
-        <a className="btn btn-call" href="/epikoinonia">
-          {contactSection.quoteCta}
+        <a className="btn btn-call" href={href(lang, { page: "contact" })}>
+          {c.quoteCta}
         </a>
         <p className="contact-quote-note">
-          {contactSection.quoteNote}{" "}
+          {c.quoteNote}{" "}
           {/* The homepage's only link to the FAQ. Inner pages get theirs
               from CallBand, which the homepage does not use. */}
-          Ή δείτε πρώτα τις{" "}
-          <a className="inline-link" href="/syhnes-erotiseis">
-            συχνές ερωτήσεις
+          <a className="inline-link" href={href(lang, { page: "faq" })}>
+            {c.faqLink}
           </a>
           .
         </p>

@@ -1,68 +1,65 @@
 import type { MetadataRoute } from "next";
 import { HAS_REAL_PHOTOS } from "@/content/site";
-import { services } from "@/content/services";
-import { publishedAreas } from "@/content/areas";
 import { abs, CONTENT_UPDATED } from "@/content/site-config";
-import { TRANSLATED } from "@/content/i18n";
+import { LOCALES, allRoutes, href, alternates, type Route } from "@/content/i18n";
 
 /**
- * The sitemap is generated from the same flags that govern the nav, so a
- * gated route cannot leak into it. /erga and /exoplismos stay out while
- * HAS_REAL_PHOTOS is false; an area stays out while its needsInput is true.
+ * Every page, in every language, with its translations declared alongside it.
+ *
+ * Built from `allRoutes()` — the same list that drives generateStaticParams
+ * and the hreflang map — so a page cannot exist in the router and be missing
+ * from the sitemap, which is the usual way translated pages go unindexed.
+ *
+ * `alternates.languages` on each entry is the sitemap-side half of hreflang.
+ * Google wants the relationship declared in both the page head and the
+ * sitemap; the head alone is weaker, and for a site whose whole point is
+ * being found in four languages that is not a corner to cut.
+ *
+ * The fleet page is gated on HAS_REAL_PHOTOS in all four languages — the rule
+ * that his machines page shows his machines or nothing. A photograph is not
+ * more honest in Serbian.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   // See CONTENT_UPDATED: a build timestamp here is a lie told every deploy.
-  const now = new Date(CONTENT_UPDATED);
+  const lastModified = new Date(CONTENT_UPDATED);
 
-  const core = [
-    "/",
-    "/ypiresies",
-    "/perioxes",
-    "/etaireia",
-    "/epikoinonia",
-    "/syhnes-erotiseis",
-  ];
-  const gated = HAS_REAL_PHOTOS ? ["/exoplismos"] : [];
+  const routes = allRoutes().filter(
+    (r) => HAS_REAL_PHOTOS || r.page !== "fleet"
+  );
 
-  return [
-    ...core.map((path) => ({
-      url: abs(path),
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: path === "/" ? 1 : 0.8,
-    })),
-    ...services.map((s) => ({
-      url: abs(`/ypiresies/${s.slug}`),
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-    ...publishedAreas.map((a) => ({
-      url: abs(`/perioxes/${a.slug}`),
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-    ...gated.map((path) => ({
-      url: abs(path),
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })),
-    // The translated landing pages. Without these they are reachable only
-    // from the header switcher, which is a weak discovery path for a page
-    // meant to be found by a Serbian owner searching in Serbian.
-    ...TRANSLATED.map((lang) => ({
-      url: abs(`/${lang}`),
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })),
-    {
-      url: abs("/politiki-aporritou"),
-      lastModified: now,
-      changeFrequency: "yearly" as const,
-      priority: 0.2,
-    },
-  ];
+  const priorityFor = (route: Route, isGreek: boolean) => {
+    // Greek is the primary market and the origin of every ranking signal the
+    // site already has, so it leads; the translations sit just below.
+    const base =
+      route.page === "home"
+        ? 1
+        : route.page === "services" || route.page === "areas"
+          ? 0.8
+          : route.page === "privacy"
+            ? 0.2
+            : 0.7;
+    return isGreek ? base : Math.max(0.1, Math.round((base - 0.1) * 10) / 10);
+  };
+
+  return LOCALES.flatMap((locale) =>
+    routes.map((route) => {
+      const alt = alternates(route);
+      return {
+        url: abs(href(locale, route)),
+        lastModified,
+        changeFrequency:
+          route.page === "privacy" ? ("yearly" as const) : ("monthly" as const),
+        priority: priorityFor(route, locale === "el"),
+        alternates: {
+          languages: {
+            el: abs(alt.el),
+            en: abs(alt.en),
+            "sr-Latn": abs(alt.sr),
+            mk: abs(alt.mk),
+            "x-default": abs(alt.el),
+          },
+        },
+      };
+    })
+  );
 }

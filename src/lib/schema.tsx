@@ -1,7 +1,6 @@
 import { business, seo } from "@/content/site";
-import { services, type Service } from "@/content/services";
+import { services } from "@/content/services";
 import { areaPages, widerAreas } from "@/content/areas";
-import { faqs } from "@/content/faq";
 import { heroPhoto } from "@/content/media";
 import { SITE_URL, abs } from "@/content/site-config";
 
@@ -155,15 +154,32 @@ export function localBusinessSchema(opts?: { description?: string }) {
   };
 }
 
-export function serviceSchema(service: Service) {
+/**
+ * Service, per language.
+ *
+ * Each language's service page emits its own Service node, with that
+ * language's name, description and URL, all pointing at the one business via
+ * `provider`. The @id carries the URL, so the four language versions are four
+ * distinct nodes describing the same offering rather than one node fighting
+ * itself across four pages.
+ */
+export function serviceSchema(opts: {
+  id: string;
+  name: string;
+  description: string;
+  /** Site-relative, already localised. */
+  url: string;
+  language: string;
+}) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": abs(`/ypiresies/${service.slug}#service`),
-    name: service.title,
-    description: service.metaDescription,
-    url: abs(`/ypiresies/${service.slug}`),
-    serviceType: service.title,
+    "@id": `${abs(opts.url)}#service`,
+    name: opts.name,
+    description: opts.description,
+    url: abs(opts.url),
+    serviceType: opts.name,
+    inLanguage: opts.language,
     provider: { "@id": BUSINESS_ID },
     areaServed,
     availableChannel: {
@@ -172,15 +188,15 @@ export function serviceSchema(service: Service) {
         "@type": "ContactPoint",
         telephone: `+30${business.phone.display.replace(/\s/g, "")}`,
         contactType: "customer service",
-        availableLanguage: ["el", "en", "sr"],
+        availableLanguage: ["el", "en", "sr", "mk"],
       },
-      serviceUrl: abs("/epikoinonia"),
+      serviceUrl: abs(opts.url),
     },
   };
 }
 
 /**
- * FAQPage.
+ * FAQPage, per language.
  *
  * Google stopped showing FAQ rich snippets for ordinary sites in 2023, so
  * this will NOT produce an expandable box in the results. It is here because
@@ -192,13 +208,18 @@ export function serviceSchema(service: Service) {
  * Emitted only on the FAQ page itself — marking up questions that are not
  * visible on the page they are emitted from is against Google's guidelines.
  */
-export function faqSchema() {
+export function faqSchema(opts: {
+  /** Site-relative, already localised. */
+  url: string;
+  language: string;
+  faqs: { q: string; a: string }[];
+}) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": abs("/syhnes-erotiseis#faq"),
-    inLanguage: "el",
-    mainEntity: faqs.map((f) => ({
+    "@id": `${abs(opts.url)}#faq`,
+    inLanguage: opts.language,
+    mainEntity: opts.faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },

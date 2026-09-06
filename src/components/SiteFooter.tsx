@@ -1,68 +1,64 @@
-import { business, services, visibleNav } from "@/content/site";
-import { areaLinks, widerAreas } from "@/content/areas";
-import { CHROME, T, type Locale, type Translated } from "@/content/i18n";
+import { business } from "@/content/site";
+import {
+  dict,
+  href,
+  SERVICE_IDS,
+  AREA_IDS,
+  type Locale,
+  type Route,
+} from "@/content/i18n";
+import { footerNav } from "@/content/i18n/nav";
 
 /**
- * The footer, in the reader's language.
+ * The footer, in the reader's language, with links that stay in it.
  *
- * This was Greek on every route. On /en and /sr it printed Υπηρεσίες,
- * Περιοχές, Επικοινωνία and a Greek rights line under an English page — the
- * single most visible remnant of the site's Greek frame.
+ * EVERY COLUMN IS LINKS AGAIN. While the translations were single landing
+ * pages, the service and area columns had to degrade to plain text outside
+ * Greek — there was nowhere in English to send anyone. Now that all four
+ * languages carry every page, a Serbian reader gets a Serbian footer whose
+ * links go to Serbian pages, which is also where a large part of the site's
+ * internal linking value lives.
  *
- * GREEK LINKS, TRANSLATED TEXT. In Greek the service and area columns are
- * links to their nineteen pages, which is where a lot of the internal linking
- * value lives. In the translations those same pages do not exist, so the
- * columns become plain text rather than links into Greek content the reader
- * cannot use. The one exception is the privacy policy: it is legally required
- * to be reachable, so it stays a link and is labelled as being in Greek.
+ * The five wider villages stay plain text in every language: they have no
+ * pages by design (operations are identical everywhere, so a page each would
+ * be five near-duplicates), and a link has to go somewhere. Naming them here
+ * is what gives them a presence on every route.
  */
 export default function SiteFooter({ lang = "el" }: { lang?: Locale }) {
-  const c = CHROME[lang];
-  const isGreek = lang === "el";
-  const t = isGreek ? null : T[lang as Translated];
+  const t = dict(lang);
 
-  /** Greek: linked service pages. Translations: the translated names. */
-  const serviceItems = isGreek
-    ? services.map((s) => ({ label: s.title, href: `/ypiresies/${s.slug}` }))
-    : t!.services.map((s) => ({ label: s.title, href: null }));
+  const serviceLinks = SERVICE_IDS.map((id) => ({
+    label: t.services[id].title,
+    href: href(lang, { page: "service", id }),
+  }));
 
   /**
-   * The four villages with pages are links; the five wider ones are plain
-   * text in the same column.
-   *
-   * They have no pages by design (see widerAreas in areas.ts), but the footer
-   * is the one component on every route, so listing them here is what gives
-   * Πολύγυρος, Ορμύλια, Μεταγγίτσι, Γερακινή and Άγιος Νικόλαος a presence
-   * across the whole site rather than on the three pages that name them in
-   * prose. Plain text, because a link has to go somewhere.
+   * Δασκάλων has no page of its own — honest copy would have duplicated
+   * Μεταμόρφωση — but it is a place he works, so it keeps its name in the
+   * list and points at the Μεταμόρφωση page.
    */
-  const areaItems = isGreek
-    ? [
-        ...areaLinks.map((a) => ({ label: a.name, href: a.href as string | null })),
-        ...widerAreas.map((a) => ({ label: a.name, href: null })),
-      ]
-    : t!.areas.map((a) => ({ label: a.name, href: null }));
-
-  /** Greek: the real routes. Translations: anchors within the one page. */
-  const pageItems = c.nav ?? visibleNav.filter((n) => n.href !== "/");
+  const areaLinks = [
+    { label: t.areas.metamorfosi.name, href: href(lang, { page: "area", id: "metamorfosi" }) },
+    { label: t.daskalon.name, href: href(lang, { page: "area", id: "metamorfosi" }) },
+    ...AREA_IDS.filter((id) => id !== "metamorfosi").map((id) => ({
+      label: t.areas[id].name,
+      href: href(lang, { page: "area", id }),
+    })),
+  ];
 
   return (
     <footer className="site-footer">
       <div className="wrap">
         <p className="footer-name">{business.legalName}</p>
-        <p className="footer-rights">{c.footerRights}</p>
+        <p className="footer-rights">{t.chrome.footerRights}</p>
 
         <div className="footer-cols">
-          <nav className="footer-col" aria-label={c.footerServices}>
-            <h2 className="footer-heading">{c.footerServices}</h2>
+          <nav className="footer-col" aria-label={t.chrome.footerServices}>
+            <h2 className="footer-heading">{t.chrome.footerServices}</h2>
             <ul>
-              {serviceItems.map((s) => (
-                <li key={s.label}>
-                  {s.href ? (
-                    <a href={s.href}>{s.label}</a>
-                  ) : (
-                    <span className="footer-static">{s.label}</span>
-                  )}
+              {serviceLinks.map((s) => (
+                <li key={s.href}>
+                  <a href={s.href}>{s.label}</a>
                 </li>
               ))}
             </ul>
@@ -70,23 +66,24 @@ export default function SiteFooter({ lang = "el" }: { lang?: Locale }) {
 
           {/* Explicit village names. Blunt, but it is what ranks locally —
               and no competitor has a page per village. */}
-          <nav className="footer-col" aria-label={c.footerAreas}>
-            <h2 className="footer-heading">{c.footerAreas}</h2>
+          <nav className="footer-col" aria-label={t.chrome.footerAreas}>
+            <h2 className="footer-heading">{t.chrome.footerAreas}</h2>
             <ul>
-              {areaItems.map((a) => (
+              {areaLinks.map((a) => (
                 <li key={a.label}>
-                  {a.href ? (
-                    <a href={a.href}>{a.label}</a>
-                  ) : (
-                    <span className="footer-static">{a.label}</span>
-                  )}
+                  <a href={a.href}>{a.label}</a>
+                </li>
+              ))}
+              {t.widerAreas.map((a) => (
+                <li key={a.name}>
+                  <span className="footer-static">{a.name}</span>
                 </li>
               ))}
             </ul>
           </nav>
 
           <div className="footer-col">
-            <h2 className="footer-heading">{c.footerContact}</h2>
+            <h2 className="footer-heading">{t.chrome.footerContact}</h2>
             <ul>
               <li>
                 <a href={business.phone.href}>{business.phone.display}</a>
@@ -99,21 +96,15 @@ export default function SiteFooter({ lang = "el" }: { lang?: Locale }) {
                   {business.email}
                 </a>
               </li>
-              <li className="footer-static">
-                {isGreek
-                  ? `${business.address.locality} ${business.address.postalCode}, ${business.address.region}`
-                  : t!.baseValue}
-              </li>
-              <li className="footer-static">
-                {isGreek ? business.hoursNote : t!.hours}
-              </li>
+              <li className="footer-static">{t.contactSection.baseValue}</li>
+              <li className="footer-static">{t.contactSection.hoursValue}</li>
             </ul>
           </div>
 
-          <nav className="footer-col" aria-label={c.footerPages}>
-            <h2 className="footer-heading">{c.footerPages}</h2>
+          <nav className="footer-col" aria-label={t.chrome.footerPages}>
+            <h2 className="footer-heading">{t.chrome.footerPages}</h2>
             <ul>
-              {pageItems.map((n) => (
+              {footerNav(lang).map((n) => (
                 <li key={n.href}>
                   <a href={n.href}>{n.label}</a>
                 </li>
@@ -123,12 +114,9 @@ export default function SiteFooter({ lang = "el" }: { lang?: Locale }) {
         </div>
 
         <div className="footer-legal">
-          <a href="/politiki-aporritou">{c.privacyLabel}</a>
-          {/* Says outright that the policy is in Greek, rather than sending a
-              Serbian reader to a wall of Greek with no warning. */}
-          {c.privacyNote ? (
-            <span className="footer-static"> {c.privacyNote}</span>
-          ) : null}
+          <a href={href(lang, { page: "privacy" } as Route)}>
+            {t.chrome.privacyLabel}
+          </a>
           {/* ΑΦΜ deliberately omitted — client's decision. It rendered as the
               literal "[[ΝΑ ΕΠΙΒΕΒΑΙΩΘΕΙ]]" token, which on a live site looks
               broken rather than pending. Business identification is expected

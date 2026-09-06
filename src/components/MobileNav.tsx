@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { headerNav, business } from "@/content/site";
+import { business } from "@/content/site";
 import LangSwitch from "./LangSwitch";
-import { CHROME, type Locale } from "@/content/i18n";
+import { dict, type Locale } from "@/content/i18n";
+import { headerNav } from "@/content/i18n/nav";
 
 /**
  * Full-screen navigation panel.
@@ -16,12 +17,11 @@ import { CHROME, type Locale } from "@/content/i18n";
  * the panel on open and back to the trigger on close, and the page behind is
  * locked from scrolling.
  *
- * Every label here is localised — trigger, title, close button and call
- * button. On /en and /sr this panel used to open in Greek.
+ * Every label is localised — trigger, title, close button and call button.
  */
 export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
-  const c = CHROME[lang];
-  const navItems = c.nav ?? headerNav;
+  const t = dict(lang);
+  const nav = headerNav(lang);
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -63,7 +63,7 @@ export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
           <span />
           <span />
         </span>
-        <span className="nav-trigger-text">{c.menu}</span>
+        <span className="nav-trigger-text">{t.chrome.menu}</span>
       </button>
 
       {open && (
@@ -73,25 +73,25 @@ export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
           className="nav-panel"
           role="dialog"
           aria-modal="true"
-          aria-label={c.navigation}
+          aria-label={t.chrome.navigation}
         >
           <div className="wrap nav-panel-head">
-            <span className="nav-panel-title">{c.navigation}</span>
+            <span className="nav-panel-title">{t.chrome.navigation}</span>
             <button
               type="button"
               className="nav-close"
               onClick={() => setOpen(false)}
             >
-              {c.close}
+              {t.chrome.close}
             </button>
           </div>
 
           <nav className="wrap">
             <ul className="nav-list">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <a href={item.href} onClick={() => setOpen(false)}>
-                    {item.label}
+              {nav.map((n) => (
+                <li key={n.href}>
+                  <a href={n.href} onClick={() => setOpen(false)}>
+                    {n.label}
                   </a>
                 </li>
               ))}
@@ -100,12 +100,12 @@ export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
 
           <div className="wrap nav-panel-foot">
             <a className="btn btn-call btn-block" href={business.phone.href}>
-              {c.phoneLabel}{" "}
+              {t.chrome.phoneLabel}{" "}
               <span className="num">{business.phone.display}</span>
             </a>
             {/* The switcher lives here on mobile — the header cannot hold it
                 without colliding with the wordmark. */}
-            <LangSwitch current={lang} />
+            <LangSwitch />
           </div>
         </div>
       )}

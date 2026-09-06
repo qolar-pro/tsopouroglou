@@ -1,5 +1,5 @@
 import { erga, ergaExcluding, servicePhoto } from "@/content/media";
-import { services } from "@/content/site";
+import { dict, SERVICE_IDS, type Locale } from "@/content/i18n";
 import Band from "./Band";
 import ArrowIcon from "./ArrowIcon";
 
@@ -15,14 +15,15 @@ import ArrowIcon from "./ArrowIcon";
  * Columns let each photograph keep the shape it was taken in. Nothing moves
  * on its own and there is no JavaScript.
  */
-export default function ErgaStrip() {
+export default function ErgaStrip({ lang = "el" }: { lang?: Locale }) {
+  const t = dict(lang);
   /**
    * The teaser must not repeat the two service photographs shown directly
    * above it, nor the hero at the top of the page. Seeing the same picture
    * twice on one screen reads as though we ran out of them.
    */
   const usedAbove = [
-    ...services.slice(0, 2).map((s) => servicePhoto[s.slug]).filter(Boolean),
+    ...SERVICE_IDS.slice(0, 2).map((id) => servicePhoto[id]).filter(Boolean),
     ...(erga.find((e) => e.id === "ergotaxio")
       ? [erga.find((e) => e.id === "ergotaxio")!.img]
       : []),
@@ -30,13 +31,10 @@ export default function ErgaStrip() {
   const shots = ergaExcluding(usedAbove).slice(0, 6);
 
   return (
-    <Band label="ΕΡΓΑ" id="erga" tone="tone">
-      <h2 className="h2">Τι έχουμε παραδώσει</h2>
+    <Band label={t.ergaSection.eyebrow} id="erga" tone="tone">
+      <h2 className="h2">{t.ergaSection.heading}</h2>
       <p className="lede">
-        <span className="measure-prose">
-          Ολοκληρωμένα έργα σε οικόπεδα, αυλές και ακτές της Χαλκιδικής. Όλες
-          οι φωτογραφίες είναι δικές μας.
-        </span>
+        <span className="measure-prose">{t.ergaSection.lede}</span>
       </p>
 
       <div className="shots">

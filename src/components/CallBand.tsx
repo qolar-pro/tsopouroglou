@@ -1,5 +1,5 @@
 import { business } from "@/content/site";
-import { servicesPage } from "@/content/services";
+import { dict, href, type Locale } from "@/content/i18n";
 import Band from "./Band";
 
 /**
@@ -17,23 +17,39 @@ import Band from "./Band";
  * `faqLink` turns it off on the FAQ page itself, which would otherwise link
  * to where the reader already is.
  */
-export default function CallBand({ faqLink = true }: { faqLink?: boolean }) {
+export default function CallBand({
+  lang = "el",
+  faqLink = true,
+}: {
+  lang?: Locale;
+  faqLink?: boolean;
+}) {
+  const t = dict(lang);
   return (
-    <Band label="ΤΗΛΕΦΩΝΟ" frame="panel" tone="ink" index="ΤΕΛΟΣ">
-      <h2 className="h2">{servicesPage.ctaHeading}</h2>
+    <Band
+      label={t.callBand.label}
+      frame="panel"
+      tone="ink"
+      index={t.callBand.endLabel}
+    >
+      <h2 className="h2">{t.servicesPage.ctaHeading}</h2>
       <p className="lede">
-        <span className="measure-prose">{servicesPage.ctaBody}</span>
+        <span className="measure-prose">{t.servicesPage.ctaBody}</span>
       </p>
       <div className="band-cta">
         <a className="btn btn-call" href={business.phone.href}>
-          ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
+          {t.callBand.label}{" "}
+          <span className="num">{business.phone.display}</span>
         </a>
-        <a className="btn btn-secondary" href="/epikoinonia">
-          Ζητήστε προσφορά
+        <a
+          className="btn btn-secondary"
+          href={href(lang, { page: "contact" })}
+        >
+          {t.contactSection.quoteCta}
         </a>
       </div>
       <p className="small" style={{ marginTop: "var(--s-5)" }}>
-        {business.hoursNote}. Σταθερό{" "}
+        {t.contactSection.hoursValue}. {t.contactSection.landlineLabel}{" "}
         <a className="inline-link" href={business.landline.href}>
           <span className="num">{business.landline.display}</span>
         </a>
@@ -41,9 +57,11 @@ export default function CallBand({ faqLink = true }: { faqLink?: boolean }) {
         {faqLink ? (
           <>
             {" "}
-            Πριν πάρετε, δείτε τις{" "}
-            <a className="inline-link" href="/syhnes-erotiseis">
-              συχνές ερωτήσεις
+            <a
+              className="inline-link"
+              href={href(lang, { page: "faq" })}
+            >
+              {t.contactSection.faqLink}
             </a>
             .
           </>

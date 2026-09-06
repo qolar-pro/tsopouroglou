@@ -41,5 +41,35 @@ export const alegreyaSans = Alegreya_Sans({
   display: "swap",
 });
 
+/**
+ * CYRILLIC, for the Macedonian pages.
+ *
+ * Neither instance above carries Cyrillic, so every glyph on /mk was falling
+ * back to whatever sans-serif the visitor's OS supplies — the one language on
+ * the site not actually set in the typeface the site is designed in. The
+ * computed font-family still said "Alegreya Sans", which is why this is
+ * invisible in review: the CSS is correct and the glyphs simply are not in
+ * the file.
+ *
+ * A SEPARATE INSTANCE, not another subset on the two above. next/font
+ * preloads every subset it is given, so adding "cyrillic" there would push a
+ * Cyrillic font file at every Greek visitor for a language they will never
+ * read. This one is `preload: false`: the @font-face exists, so the glyphs
+ * resolve, but the file is fetched only by a browser that actually meets
+ * Cyrillic text on the page.
+ *
+ * It reaches the type through the font-family FALLBACK CHAIN in globals.css
+ * — `var(--font-alegreya), var(--font-alegreya-cyrillic), …`. next/font gives
+ * each instance its own generated family name, so the browser resolves per
+ * glyph: Greek and Latin from the first, Cyrillic from the second.
+ */
+export const alegreyaCyrillic = Alegreya_Sans({
+  variable: "--font-alegreya-cyrillic",
+  subsets: ["cyrillic"],
+  weight: ["400", "700", "900"],
+  display: "swap",
+  preload: false,
+});
+
 /** The class string every <html> element needs. */
-export const fontVars = `${alegreyaSans.variable} ${alegreyaDisplay.variable}`;
+export const fontVars = `${alegreyaSans.variable} ${alegreyaDisplay.variable} ${alegreyaCyrillic.variable}`;

@@ -1,22 +1,57 @@
-import { LOCALES, LOCALE_LABEL, LOCALE_NAME, localeHref } from "@/content/i18n";
-import type { Locale } from "@/content/i18n";
+"use client";
+
+import { usePathname } from "next/navigation";
+import {
+  LOCALES,
+  LOCALE_LABEL,
+  LOCALE_NAME,
+  LOCALE_TAG,
+  href,
+  resolve,
+  isLocale,
+  type Locale,
+  type Route,
+} from "@/content/i18n";
 
 /**
  * The language switcher.
  *
- * Plain links, no client JS — it is three anchors, and making it a dropdown
- * would cost a hydration boundary for nothing.
+ * IT SWITCHES THE PAGE, NOT THE SITE. It used to send every language to that
+ * language's home page, because the translations were a single landing page
+ * each and there was no /en/ypiresies/vothroi to point at — so a reader deep
+ * in the septic-tank page who wanted English was dropped at the top and had
+ * to find their way back.
  *
- * Every language always points at that language's landing page rather than at
- * a translation of the current URL, because the translations are single pages
- * and there is no /en/ypiresies/vothroi to send anyone to. Pretending
- * otherwise would produce 404s from the one control whose whole job is to get
- * a lost visitor somewhere they can read.
+ * Every page now exists in all four languages and routes are ids rather than
+ * paths, so the switcher hands each language the SAME page.
  *
- * `hrefLang` and a full-name title are set so a screen reader and a crawler
- * both know what each link leads to — "EN" alone says nothing out loud.
+ * WHY THIS IS A CLIENT COMPONENT — the one place on the site where that is
+ * the simpler answer. The switcher lives in the header, which lives in the
+ * layout, and a layout in the App Router cannot know which page is rendering
+ * inside it. Threading the current route down from every one of the twenty
+ * route files would put the same three lines in twenty places and break
+ * silently the first time somebody added a page and forgot. `usePathname`
+ * reads it directly.
+ *
+ * If the path does not resolve — a 404, or some URL that is not one of ours —
+ * it falls back to each language's home page, which is the old behaviour and
+ * the right one there.
  */
-export default function LangSwitch({ current }: { current: Locale }) {
+
+/** Split a pathname into its locale and the route it names. */
+function readPath(pathname: string): { locale: Locale; route: Route } {
+  const parts = pathname.split("/").filter(Boolean);
+  const maybeLocale = parts[0] ?? "";
+  const locale: Locale =
+    isLocale(maybeLocale) && maybeLocale !== "el" ? maybeLocale : "el";
+  const rest = locale === "el" ? parts : parts.slice(1);
+  return { locale, route: resolve(locale, rest) ?? { page: "home" } };
+}
+
+export default function LangSwitch() {
+  const pathname = usePathname() ?? "/";
+  const { locale: current, route } = readPath(pathname);
+
   return (
     <nav className="langswitch" aria-label="Language">
       <ul>
@@ -25,8 +60,8 @@ export default function LangSwitch({ current }: { current: Locale }) {
           return (
             <li key={l}>
               <a
-                href={localeHref(l)}
-                hrefLang={l}
+                href={href(l, route)}
+                hrefLang={LOCALE_TAG[l]}
                 title={LOCALE_NAME[l]}
                 aria-current={isCurrent ? "true" : undefined}
                 data-current={isCurrent ? "true" : undefined}

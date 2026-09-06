@@ -1,4 +1,5 @@
-import { whySection, reviewsSection, business } from "@/content/site";
+import { reviewsSection, business } from "@/content/site";
+import { dict, type Locale } from "@/content/i18n";
 import Band from "./Band";
 import ArrowIcon from "./ArrowIcon";
 
@@ -10,32 +11,37 @@ import ArrowIcon from "./ArrowIcon";
  * founding year, the licence year, the hours on his Google profile, and the
  * machines he owns. That is what makes setting them large honest.
  */
-export default function WhyUs() {
+export default function WhyUs({ lang = "el" }: { lang?: Locale }) {
+  const t = dict(lang);
+  const isGreek = lang === "el";
   return (
-    <Band label={whySection.eyebrow} id="giati-emas">
-      <h2 className="h2">{whySection.heading}</h2>
+    <Band label={t.whySection.eyebrow} id="giati-emas">
+      <h2 className="h2">{t.whySection.heading}</h2>
 
       {/* The full Κριτικές section moved to /etaireia. A one-line version
           stays here so the homepage does not lose the social proof. */}
       <p className="rating-line">
-        <span className="rating-score num">{reviewsSection.rating}</span>
+        <span className="rating-score num">
+          {isGreek ? reviewsSection.rating : reviewsSection.ratingLatin}
+        </span>
         <span>
-          στο Google.{" "}
+          <span className="num">{reviewsSection.count}</span>{" "}
+          {t.reviewsSection.reviewsNoun} {t.reviewsSection.onGoogle}.{" "}
           <a
             className="inline-link"
             href={business.googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Δείτε τις κριτικές
+            {t.reviewsSection.cta}
             <ArrowIcon />
           </a>
         </span>
       </p>
 
       <ul className="facts">
-        {whySection.items.map((item) => (
-          <li key={item.key} className="fact">
+        {t.whySection.items.map((item) => (
+          <li key={item.figure} className="fact">
             <span className="fact-figure" aria-hidden="true">
               {item.figure}
             </span>

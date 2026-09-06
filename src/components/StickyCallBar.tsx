@@ -1,5 +1,5 @@
 import { business } from "@/content/site";
-import { CHROME, type Locale } from "@/content/i18n";
+import { dict, type Locale } from "@/content/i18n";
 import PhoneIcon from "./PhoneIcon";
 
 /**
@@ -15,14 +15,14 @@ import PhoneIcon from "./PhoneIcon";
  * read ΤΗΛΕΦΩΝΟ at a reader who cannot read Greek.
  */
 export default function StickyCallBar({ lang = "el" }: { lang?: Locale }) {
-  const c = CHROME[lang];
+  const t = dict(lang);
 
   return (
     <div className="sticky-call">
       <a className="sticky-call-link" href={business.phone.href}>
         <PhoneIcon size={19} />
         <span>
-          <span className="sticky-call-label">{c.phoneLabel}</span>
+          <span className="sticky-call-label">{t.chrome.phoneLabel}</span>
           <span className="sticky-call-number">{business.phone.display}</span>
         </span>
       </a>

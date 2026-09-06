@@ -1,5 +1,5 @@
 import { business, reviewsSection, reviews } from "@/content/site";
-import { CHROME, type Locale } from "@/content/i18n";
+import { dict, type Locale } from "@/content/i18n";
 import Band from "./Band";
 import ArrowIcon from "./ArrowIcon";
 
@@ -52,12 +52,13 @@ function initials(name: string) {
  * inconsistency by adding it to the JSON-LD.
  */
 export default function Reviews({ lang = "el" }: { lang?: Locale }) {
-  const c = CHROME[lang];
+  const t = dict(lang);
+  const r = t.reviewsSection;
   const isGreek = lang === "el";
 
   return (
     <Band
-      label={c.reviewsEyebrow}
+      label={r.eyebrow}
       id={isGreek ? "kritikes" : "reviews"}
       tone="tone"
     >
@@ -67,15 +68,15 @@ export default function Reviews({ lang = "el" }: { lang?: Locale }) {
           {isGreek ? reviewsSection.rating : reviewsSection.ratingLatin}
         </span>
         <span className="rating-count">
-          <span className="num">{reviewsSection.count}</span> {c.reviewsNoun}{" "}
-          {c.reviewsOnGoogle}
+          <span className="num">{reviewsSection.count}</span> {r.reviewsNoun}{" "}
+          {r.onGoogle}
         </span>
       </div>
       <h2 className="h2" style={{ marginTop: "var(--s-3)" }}>
-        {c.reviewsHeading}
+        {r.heading}
       </h2>
       <p className="lede">
-        <span className="measure-prose">{c.reviewsLede}</span>
+        <span className="measure-prose">{r.lede}</span>
       </p>
 
       <ul className="reviews">
@@ -113,7 +114,7 @@ export default function Reviews({ lang = "el" }: { lang?: Locale }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {c.reviewsCta}
+          {r.cta}
           <ArrowIcon />
         </a>
       </p>

@@ -1,5 +1,6 @@
 import { business, hero } from "@/content/site";
 import { erga } from "@/content/media";
+import { dict, href, type Locale } from "@/content/i18n";
 
 /**
  * The homepage hero — a full-bleed photograph with the argument over it.
@@ -16,7 +17,8 @@ import { erga } from "@/content/media";
  * the page, and the scrim is weighted to the bottom specifically so it can
  * hold there against sunlit soil.
  */
-export default function Hero() {
+export default function Hero({ lang = "el" }: { lang?: Locale }) {
+  const t = dict(lang);
   const shot = erga.find((e) => e.id === "ergotaxio") ?? erga[0];
 
   return (
@@ -29,15 +31,15 @@ export default function Hero() {
 
       <div className="bleed-inner">
         <div className="wrap">
-          <p className="label">{hero.eyebrow}</p>
+          <p className="label">{t.hero.eyebrow}</p>
 
           <h1 className="hero-h1">
-            <span className="hero-h1-lead">{hero.headingLead}</span>
-            <span className="hero-year">{hero.headingYear}</span>
+            <span className="hero-h1-lead">{t.hero.headingLead}</span>
+            <span className="hero-year">{String(hero.headingYear)}</span>
           </h1>
 
           <p className="lede">
-            {hero.lede.map((line) => (
+            {t.hero.lede.map((line) => (
               <span key={line} style={{ display: "block" }}>
                 {line}
               </span>
@@ -46,18 +48,21 @@ export default function Hero() {
 
           <div className="band-cta">
             <a className="btn btn-call" href={business.phone.href}>
-              {hero.callLabel}{" "}
+              {t.hero.callLabel}{" "}
               <span className="num">{business.phone.display}</span>
             </a>
-            <a className="btn btn-secondary" href="/epikoinonia">
-              {hero.quoteLabel}
+            <a
+              className="btn btn-secondary"
+              href={href(lang, { page: "contact" })}
+            >
+              {t.hero.quoteLabel}
             </a>
           </div>
 
-          <p className="hero-hours">{hero.hours}</p>
+          <p className="hero-hours">{t.hero.hours}</p>
 
           <ul className="creds">
-            {hero.credentials.map((c) => (
+            {t.hero.credentials.map((c) => (
               <li key={c.key}>
                 <span className="creds-key">{c.key}</span>
                 <span className="creds-value">{c.value}</span>

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import StickyCallBar from "@/components/StickyCallBar";
-import NotFoundBody from "@/components/NotFoundBody";
+import { NotFoundPage } from "@/components/pages";
+import { dict } from "@/content/i18n";
 import { fontVars } from "./fonts";
 import "./globals.css";
 
@@ -18,19 +19,19 @@ import "./globals.css";
  *
  * `global-not-found` is the documented answer for exactly this case (see
  * next/dist/docs/.../not-found.md, "multiple root layouts"). It bypasses
- * layout rendering entirely, so it has to bring its own <html>, <body>,
- * fonts and stylesheet — hence the imports above, which every other page
- * inherits from its layout.
+ * layout rendering entirely, so it brings its own <html>, <body>, fonts and
+ * stylesheet — hence the imports above, which every other page inherits from
+ * its layout.
  *
  * Requires experimental.globalNotFound in next.config.ts.
  *
  * Greek, because an unmatched URL carries no locale to read: the Greek site
  * is the root and the overwhelming majority of traffic. A visitor who wanted
- * English is one tap from it in the header.
+ * another language is one tap away in the header.
  */
 export const metadata: Metadata = {
-  title: "Η σελίδα δεν βρέθηκε | ΤΣΟΠΟΥΡΟΓΛΟΥ",
-  description: "Η σελίδα δεν βρέθηκε.",
+  title: dict("el").notFound.metaTitle,
+  description: dict("el").notFound.lede,
   robots: { index: false, follow: true },
 };
 
@@ -39,7 +40,7 @@ export default function GlobalNotFound() {
     <html lang="el" className={`${fontVars} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <SiteHeader lang="el" />
-        <NotFoundBody />
+        <NotFoundPage lang="el" />
         <SiteFooter lang="el" />
         <StickyCallBar lang="el" />
       </body>

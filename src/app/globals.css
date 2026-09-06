@@ -24,9 +24,14 @@
   --color-accent-hover: #08512d;
   --color-accent-press: #064124;
 
-  --font-sans: var(--font-alegreya), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-alegreya-display), ui-sans-serif, system-ui,
-    sans-serif;
+  /* The Cyrillic instance sits second in each chain, so the browser resolves
+     per glyph: Greek and Latin from the first family, Cyrillic (the Macedonian
+     pages) from the second. Without it /mk fell back to a system sans while
+     the computed font-family still read "Alegreya Sans". See app/fonts.ts. */
+  --font-sans: var(--font-alegreya), var(--font-alegreya-cyrillic),
+    ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-alegreya-display), var(--font-alegreya-cyrillic),
+    ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
