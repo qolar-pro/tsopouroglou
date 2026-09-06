@@ -24,7 +24,7 @@ import type { Dictionary } from "./types";
  * these words precisely and a wrong one costs credibility immediately.
  *
  * PLACE NAMES stay in their Latin transliteration as Serbs write them:
- * Halkidiki, Metamorfosi, Nikiti, Psakudija, Ormilija, Poligiros.
+ * Halkidiki, Sitonija, Metamorfosi, Daskalon, Nikiti, Vatopedi, Psakudija.
  *
  * WORTH A NATIVE CHECK before any advertising money is pointed at this page.
  */
@@ -95,7 +95,7 @@ export const sr: Dictionary = {
   areasSection: {
     eyebrow: "GDE RADIMO",
     heading: "Gde radimo",
-    lede: "Metamorfosi i naselje Daskalon su naš teren — tamo stižemo prvi. Radimo i u Nikitiju, Vatopediju i Psakudiji, a dalje i u Ormiliji, Poligirosu, Metangiciju, Gerakiniju i Agios Nikolaosu.",
+    lede: "Metamorfosi i naselje Daskalon su naš teren — tamo stižemo prvi. Radimo i u Nikitiju, Vatopediju i Psakudiji. Pet sela, sva na nekoliko minuta od mašina.",
     priorityLabel: "NAŠ TEREN",
   },
 
@@ -420,7 +420,7 @@ export const sr: Dictionary = {
     relatedHeading: "Povezane usluge",
     areasHeading: "Gde radimo",
     areasBody:
-      "Baza nam je Metamorfosi i naselje Daskalon — tamo stižemo prvi. Radimo i u Nikitiju, Vatopediju i Psakudiji, a dalje i u Ormiliji, Poligirosu, Metangiciju, Gerakiniju i Agios Nikolaosu.",
+      "Baza nam je Metamorfosi i naselje Daskalon — tamo stižemo prvi. Radimo i u Nikitiju, Vatopediju i Psakudiji, sva na nekoliko minuta od mašina.",
     ctaHeading: "Recite nam kakav je posao",
     ctaBody: "Jedan telefonski poziv je dovoljan da razumemo šta treba i koliko košta.",
     backToAll: "Sve usluge",
@@ -462,8 +462,8 @@ export const sr: Dictionary = {
           body: "Odmah pored, i naše od 1987. Isti prioritet, isti poslovi, isti telefon.",
         },
         {
-          heading: "Odavde krećemo dalje",
-          body: "Metamorfosi je u opštini Sitonija, i odavde kreću mašine. Na putu ka Poligirosu prolazimo Vatopedi, Psakudiju, Ormiliju i Gerakini; Metangici je malo dalje u unutrašnjosti, a Nikiti i Agios Nikolaos su na jugu. Ako je vaš plac negde tu, dolazimo.",
+          heading: "U Sitoniji",
+          body: "Metamorfosi i naselje Daskalon su u opštini Sitonija, i odavde svakog jutra kreću mašine. Ako tražite zemljane radove u Sitoniji a niste sigurni kom selu pripada vaš plac, recite nam gde je — mi znamo put.",
         },
       ],
     },
@@ -487,8 +487,8 @@ export const sr: Dictionary = {
           body: "Nismo u Nikitiju, u Metamorfosiju smo. Pozovite, recite šta je i gde, pa ćemo vam reći kada možemo da dođemo. Ne dajemo termin koji ne možemo da održimo.",
         },
         {
-          heading: "I okolo",
-          body: "Nikiti i Agios Nikolaos su u istoj opštini kao i mi, u Sitoniji. Dolazimo u oba, isti telefon i iste mašine.",
+          heading: "Ista opština kao i mi",
+          body: "Nikiti je u opštini Sitonija, kao i Metamorfosi. Nije naše selo, ali je odmah pored — isti telefon, iste mašine, isti rukovalac.",
         },
       ],
     },
@@ -512,8 +512,8 @@ export const sr: Dictionary = {
           body: "Baza nam je Metamorfosi. Pozovite, recite šta je i gde, pa ćemo vam reći kada možemo da dođemo.",
         },
         {
-          heading: "I okolo",
-          body: "Vatopedi je u opštini Poligiros, kao i Psakudija, Ormilija i Gerakini. Sve je to na istom putu i u sve dolazimo.",
+          heading: "Vatopedi i Psakudija zajedno",
+          body: "Vatopedi i Psakudija su jedno pored drugog na istoj obali, i često ih radimo istog dana. Ako imate posao na oba, recite nam na telefon — jedan izlazak ispadne jeftinije.",
         },
       ],
     },
@@ -537,8 +537,8 @@ export const sr: Dictionary = {
           body: "Baza nam je Metamorfosi. Pozovite, recite šta je i gde, pa ćemo vam reći kada možemo da dođemo.",
         },
         {
-          heading: "I okolo",
-          body: "Iz Psakudije nastavljamo u Ormiliju, Gerakini, Metangici i sve do Poligirosa. Ista opština, isti put, isti posao.",
+          heading: "Psakudija i Vatopedi zajedno",
+          body: "Psakudija i Vatopedi su na istoj obali, nekoliko minuta jedno od drugog. Kad ima posla na oba, dogovorimo ih zajedno i uštedite jedan izlazak mašine.",
         },
       ],
     },
@@ -547,10 +547,10 @@ export const sr: Dictionary = {
   areasPage: {
     eyebrow: "PODRUČJA",
     h1: "Gde radimo",
-    metaTitle: "Područja — Zemljani radovi Halkidiki i Sitonija | TSOPOUROGLOU",
+    metaTitle: "Područja — Zemljani radovi u Sitoniji, Halkidiki | TSOPOUROGLOU",
     metaDescription:
-      "Zemljani radovi u Metamorfosiju, Daskalonu, Nikitiju, Vatopediju, Psakudiji, Ormiliji, Poligirosu, Metangiciju, Gerakiniju i Agios Nikolaosu. Od 1987.",
-    lede: "Baza nam je Metamorfosi i naselje Daskalon. Radimo i u Nikitiju, Vatopediju i Psakudiji, a dalje i u Ormiliji, Poligirosu, Metangiciju, Gerakiniju i Agios Nikolaosu.",
+      "Zemljani radovi u Metamorfosiju, naselju Daskalon, Nikitiju, Vatopediju i Psakudiji. Sitonija, Halkidiki, od 1987. Pozovite 697 355 7903.",
+    lede: "Baza nam je Metamorfosi i naselje Daskalon. Radimo i u Nikitiju, Vatopediju i Psakudiji. Pet sela, sva blizu — i tu smo dobri.",
     listHeading: "Gde dolazimo",
     servicesHeading: "Šta ovde radimo",
     servicesBody: "Svih devet naših poslova, bez izuzetka.",
@@ -564,20 +564,12 @@ export const sr: Dictionary = {
     card: "Odmah pored, i naše od 1987. Isti prioritet kao Metamorfosi.",
   },
 
-  widerAreas: [
-    { name: "Poligiros", note: "Na putu kojim ionako idemo." },
-    { name: "Ormilija", note: "Između nas i Poligirosa." },
-    { name: "Metangici", note: "Malo dalje od našeg puta." },
-    { name: "Gerakini", note: "Na obali, na istom putu." },
-    { name: "Agios Nikolaos", note: "Južno, unutar Sitonije." },
-  ],
 
   coverageSection: {
-    eyebrow: "DALJE",
-    heading: "I dalje od naših sela",
-    body: "Radimo u dve opštine: u Sitoniji, gde nam je baza, i u Poligirosu. Ako je vaš plac negde između i niste sigurni kom selu pripada, pozovite i recite nam otprilike gde je — mi znamo put.",
-    listHeading: "Dolazimo i u",
-    closing: "Prioritet ostaje Metamorfosi i naselje Daskalon. U ostalo dolazimo, i na telefon vam kažemo kada.",
+    eyebrow: "SAMO OVDE",
+    heading: "Radimo samo ovde u okolini",
+    body: "Pet sela, sva na nekoliko minuta od mesta gde su parkirane mašine. Metamorfosi, naselje Daskalon i Nikiti su u Sitoniji; Vatopedi i Psakudija su malo više, na istoj obali. Ne silazimo iz Soluna niti sa druge strane Halkidikija, i zato možemo da kažemo dan i da ga održimo.",
+    closing: "Ako je vaš plac u nekom od tih sela, dolazimo. Ako je dalje, pozovite nas pa ćemo vam iskreno reći da li smo mi pravi — ne primamo posao koji ne možemo da odradimo kako treba.",
   },
 
   faqPage: {
@@ -660,7 +652,7 @@ export const sr: Dictionary = {
     },
     {
       q: "U koja područja dolazite?",
-      a: "Baza nam je Metamorfosi i naselje Daskalon. Radimo u Nikitiju, Vatopediju i Psakudiji, a dalje i u Ormiliji, Poligirosu, Metangiciju, Gerakiniju i Agios Nikolaosu — dakle u Sitoniji i opštini Poligiros. Ako je vaš plac negde između i ne znate kom selu pripada, recite nam gde je; mi znamo put.",
+      a: "U pet: Metamorfosi, naselje Daskalon, Nikiti, Vatopedi i Psakudija. Prva dva su naš teren i tamo stižemo prvi. Dalje ne radimo — radije smo blizu i pouzdani u nekoliko sela nego razvučeni i u kašnjenju svuda. Ako ste dalje, pozovite pa ćemo vam iskreno reći da li smo mi pravi."
     },
     {
       q: "Ne znam kako se to zove. Šta da kažem na telefon?",

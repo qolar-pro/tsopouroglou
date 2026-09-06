@@ -19,10 +19,10 @@ import { footerNav } from "@/content/i18n/nav";
  * links go to Serbian pages, which is also where a large part of the site's
  * internal linking value lives.
  *
- * The five wider villages stay plain text in every language: they have no
- * pages by design (operations are identical everywhere, so a page each would
- * be five near-duplicates), and a link has to go somewhere. Naming them here
- * is what gives them a presence on every route.
+ * THE AREA COLUMN IS THE WHOLE SERVICE AREA. It briefly also carried five
+ * villages he was willing to travel to, as plain text; the client has ruled
+ * those out. Every name in this column is now a place he actually works, and
+ * every one of them is a link to its page.
  */
 export default function SiteFooter({ lang = "el" }: { lang?: Locale }) {
   const t = dict(lang);
@@ -72,11 +72,6 @@ export default function SiteFooter({ lang = "el" }: { lang?: Locale }) {
               {areaLinks.map((a) => (
                 <li key={a.label}>
                   <a href={a.href}>{a.label}</a>
-                </li>
-              ))}
-              {t.widerAreas.map((a) => (
-                <li key={a.name}>
-                  <span className="footer-static">{a.name}</span>
                 </li>
               ))}
             </ul>

@@ -11,7 +11,7 @@ import {
   seo,
 } from "../site";
 import { services, servicesPage } from "../services";
-import { areaPages, areasPage, widerAreas, coverageSection } from "../areas";
+import { areaPages, areasPage, coverageSection } from "../areas";
 import { faqPage, buildJourney, faqs } from "../faq";
 import { etaireia, epikoinonia, gated } from "../pages";
 import type { ServiceId, AreaId } from "./locales";
@@ -209,13 +209,11 @@ export const el: Dictionary = {
     card: "Δίπλα μας, από το 1987 κι εκεί. Ίδια προτεραιότητα με τη Μεταμόρφωση.",
   },
 
-  widerAreas: widerAreas.map((a) => ({ name: a.name, note: a.note })),
 
   coverageSection: {
     eyebrow: coverageSection.eyebrow,
     heading: coverageSection.heading,
     body: coverageSection.body,
-    listHeading: coverageSection.listHeading,
     closing: coverageSection.closing,
   },
 

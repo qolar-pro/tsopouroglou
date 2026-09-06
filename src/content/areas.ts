@@ -81,10 +81,10 @@ export const areaPages: AreaPage[] = [
         body: "Δίπλα μας, και δουλεύουμε εκεί από το 1987 όπως και στη Μεταμόρφωση. Ίδια προτεραιότητα, ίδιες δουλειές, ίδιο τηλέφωνο.",
       },
       {
-        // The outward reach lives on the home-ground page, where it belongs:
-        // this is the village the machines leave from.
-        heading: "Από εδώ ξεκινάμε για τα γύρω",
-        body: "Η Μεταμόρφωση είναι στον δήμο Σιθωνίας, και από εδώ φεύγουν τα μηχανήματα για τα υπόλοιπα. Στον δρόμο προς τον Πολύγυρο περνάμε Βατοπέδι, Ψακούδια, Ορμύλια και Γερακινή· λίγο πιο μέσα είναι το Μεταγγίτσι, νότια η Νικήτη και ο Άγιος Νικόλαος. Αν το οικόπεδό σας είναι κάπου εκεί, ερχόμαστε.",
+        // The parent area. Somebody who inherited a plot and does not know
+        // which village it counts as still knows "Σιθωνία".
+        heading: "Στη Σιθωνία",
+        body: "Η Μεταμόρφωση και ο οικισμός Δασκάλων είναι στον δήμο Σιθωνίας, και από εδώ φεύγουν τα μηχανήματα κάθε πρωί. Αν ψάχνετε χωματουργικά στη Σιθωνία και δεν ξέρετε σε ποιο χωριό μετράει το οικόπεδό σας, πείτε μας πού είναι — εμείς ξέρουμε τον δρόμο.",
       },
     ],
   },
@@ -113,8 +113,8 @@ export const areaPages: AreaPage[] = [
         body: "Δεν είμαστε στη Νικήτη, είμαστε στη Μεταμόρφωση. Πάρτε τηλέφωνο, πείτε μας τι είναι και πού, και θα σας πούμε πότε μπορούμε να έρθουμε. Δεν δίνουμε ώρα που δεν μπορούμε να κρατήσουμε.",
       },
       {
-        heading: "Και στα γύρω",
-        body: "Η Νικήτη και ο Άγιος Νικόλαος είναι στον ίδιο δήμο με εμάς, τη Σιθωνία. Ερχόμαστε και στα δύο, με το ίδιο τηλέφωνο και τα ίδια μηχανήματα.",
+        heading: "Ίδιος δήμος με εμάς",
+        body: "Η Νικήτη είναι στον δήμο Σιθωνίας, όπως και η Μεταμόρφωση. Δεν είναι το χωριό μας, αλλά είναι δίπλα — ίδιο τηλέφωνο, ίδια μηχανήματα, ίδιος χειριστής.",
       },
     ],
   },
@@ -141,8 +141,8 @@ export const areaPages: AreaPage[] = [
         body: "Η βάση μας είναι η Μεταμόρφωση. Πάρτε τηλέφωνο, πείτε μας τι είναι και πού, και θα σας πούμε πότε μπορούμε να έρθουμε.",
       },
       {
-        heading: "Και στα γύρω",
-        body: "Το Βατοπέδι είναι στον δήμο Πολυγύρου, όπως και τα Ψακούδια, η Ορμύλια και η Γερακινή. Είναι όλα στον ίδιο δρόμο και ερχόμαστε σε όλα.",
+        heading: "Βατοπέδι και Ψακούδια μαζί",
+        body: "Το Βατοπέδι και τα Ψακούδια είναι δίπλα-δίπλα στην ίδια ακτή, και πολλές φορές τα κάνουμε την ίδια μέρα. Αν έχετε δουλειά και στα δύο, πείτε το μας στο τηλέφωνο — βγαίνει πιο οικονομικά με ένα πέρασμα.",
       },
     ],
   },
@@ -169,8 +169,8 @@ export const areaPages: AreaPage[] = [
         body: "Η βάση μας είναι η Μεταμόρφωση. Πάρτε τηλέφωνο, πείτε μας τι είναι και πού, και θα σας πούμε πότε μπορούμε να έρθουμε.",
       },
       {
-        heading: "Και στα γύρω",
-        body: "Από τα Ψακούδια συνεχίζουμε σε Ορμύλια, Γερακινή, Μεταγγίτσι και μέχρι τον Πολύγυρο. Ίδιος δήμος, ίδιος δρόμος, ίδια δουλειά.",
+        heading: "Ψακούδια και Βατοπέδι μαζί",
+        body: "Τα Ψακούδια και το Βατοπέδι είναι στην ίδια ακτή, λίγα λεπτά μεταξύ τους. Όταν υπάρχει δουλειά και στα δύο, τα κανονίζουμε μαζί και γλιτώνετε ένα πέρασμα μηχανήματος.",
       },
     ],
   },
@@ -224,57 +224,35 @@ export const areaLinks: {
 
 
 /* ------------------------------------------------------------------ */
-/* WIDER COVERAGE — mentioned, not given pages.                        */
+/* FOCUS, not reach.                                                   */
 /*                                                                     */
-/* Confirmed by the client: Πολύγυρος, Μεταγγίτσι, "and the places in  */
-/* between on the road", plus Άγιος Νικόλαος. Νέος Μαρμαράς was asked  */
-/* and REFUSED — do not add it back.                                   */
+/* This block used to list five more villages. The client has ruled    */
+/* them out: he works where he works and nowhere else. DO NOT ADD THEM */
+/* BACK without him saying so.                                         */
 /*                                                                     */
-/* WHY NO PAGES FOR THESE. The client asked for the villages to be     */
-/* reachable in search without a page each, and he is right. Operations*/
-/* are confirmed identical everywhere (see the note at the top of this */
-/* file), so five more area pages would be five near-duplicates of the */
-/* four that exist — and near-duplicates get filtered by Google, which */
-/* would cost the four good pages rather than add five. Named in the   */
-/* copy, in areaServed and in the areas index, these villages are      */
-/* searchable without that risk.                                       */
+/* Removing them is not a loss. Breadth was never his argument — a firm*/
+/* forty kilometres away can claim more villages than he can. What he  */
+/* has is the opposite, and it is checkable: five places, all minutes  */
+/* from where the machines are parked. So the section now says that.   */
 /*                                                                     */
-/* NO DRIVE TIMES. Still none verified. Same rule as everywhere else.  */
+/* The parent areas stay, because they are true and they are how a     */
+/* person who does not know the village names searches.                */
 /* ------------------------------------------------------------------ */
 
-export const widerAreas: { name: string; note: string }[] = [
-  { name: "Πολύγυρος", note: "Στον δρόμο που κάνουμε ούτως ή άλλως." },
-  { name: "Ορμύλια", note: "Ανάμεσα σε εμάς και τον Πολύγυρο." },
-  { name: "Μεταγγίτσι", note: "Λίγο πιο μέσα από τον δρόμο μας." },
-  { name: "Γερακινή", note: "Παραθαλάσσια, στον ίδιο δρόμο." },
-  { name: "Άγιος Νικόλαος", note: "Νότια, μέσα στη Σιθωνία." },
-];
-
-/**
- * The two municipalities he actually spans.
- *
- * This is the answer to "how do people find us without knowing the village
- * names". Μεταμόρφωση, Νικήτη and Άγιος Νικόλαος sit in Δήμος Σιθωνίας;
- * Ορμύλια, Ψακούδια, Βατοπέδι, Μεταγγίτσι, Γερακινή and ο Πολύγυρος in Δήμος
- * Πολυγύρου. Somebody who inherited a plot and does not know which village
- * it counts as still knows "Σιθωνία" or "Χαλκιδική", and those words now
- * appear on the page attached to real places.
- */
 export const coverageSection = {
-  eyebrow: "ΠΙΟ ΠΕΡΑ",
-  heading: "Και πιο πέρα από τα χωριά μας",
-  body: "Δουλεύουμε σε δύο δήμους: στη Σιθωνία, όπου είναι και η βάση μας, και στον Πολύγυρο. Αν το οικόπεδό σας είναι κάπου ανάμεσα και δεν ξέρετε σε ποιο χωριό μετράει, πάρτε μας τηλέφωνο και πείτε μας πού είναι — εμείς ξέρουμε τον δρόμο.",
-  listHeading: "Ερχόμαστε επίσης σε",
-  closing: "Η προτεραιότητα μένει στη Μεταμόρφωση και στον οικισμό Δασκάλων. Στα υπόλοιπα ερχόμαστε, και σας λέμε στο τηλέφωνο πότε.",
+  eyebrow: "ΜΟΝΟ ΕΔΩ",
+  heading: "Δουλεύουμε μόνο εδώ γύρω",
+  body: "Πέντε χωριά, όλα λίγα λεπτά από εκεί που είναι παρκαρισμένα τα μηχανήματα. Η Μεταμόρφωση, ο οικισμός Δασκάλων και η Νικήτη είναι στη Σιθωνία· το Βατοπέδι και τα Ψακούδια λίγο πιο πάνω, στην ίδια ακτή. Δεν κατεβαίνουμε από τη Θεσσαλονίκη ούτε από την άλλη άκρη της Χαλκιδικής, και έτσι μπορούμε να πούμε μέρα και να την κρατήσουμε.",
+  closing: "Αν το οικόπεδό σας είναι σε ένα από αυτά τα χωριά, ερχόμαστε. Αν είναι πιο μακριά, πάρτε μας τηλέφωνο και θα σας πούμε ειλικρινά αν είμαστε εμείς οι κατάλληλοι — δεν παίρνουμε δουλειά που δεν μπορούμε να εξυπηρετήσουμε σωστά.",
 } as const;
 
 export const areasPage = {
   eyebrow: "ΠΕΡΙΟΧΕΣ",
   h1: "Πού δουλεύουμε",
-  lede: "Βάση μας η Μεταμόρφωση και ο οικισμός Δασκάλων. Δουλεύουμε επίσης σε Νικήτη, Βατοπέδι και Ψακούδια, και πιο πέρα σε Ορμύλια, Πολύγυρο, Μεταγγίτσι, Γερακινή και Άγιο Νικόλαο.",
-  metaTitle: "Περιοχές — Χωματουργικά Χαλκιδική & Σιθωνία | ΤΣΟΠΟΥΡΟΓΛΟΥ",
+  lede: "Βάση μας η Μεταμόρφωση και ο οικισμός Δασκάλων. Δουλεύουμε επίσης σε Νικήτη, Βατοπέδι και Ψακούδια. Πέντε χωριά, όλα κοντά — και εκεί είμαστε καλοί.",
+  metaTitle: "Περιοχές — Χωματουργικά Σιθωνία Χαλκιδικής | ΤΣΟΠΟΥΡΟΓΛΟΥ",
   metaDescription:
-    "Χωματουργικές εργασίες σε Μεταμόρφωση, Δασκάλων, Νικήτη, Βατοπέδι, Ψακούδια, Ορμύλια, Πολύγυρο, Μεταγγίτσι, Γερακινή και Άγιο Νικόλαο. Από το 1987. Τηλ. 697 355 7903.",
+    "Χωματουργικές εργασίες σε Μεταμόρφωση, οικισμό Δασκάλων, Νικήτη, Βατοπέδι και Ψακούδια. Σιθωνία Χαλκιδικής, από το 1987. Τηλ. 697 355 7903.",
   servicesHeading: "Τι κάνουμε εδώ",
   servicesBody: "Και τις εννιά δουλειές μας, χωρίς εξαίρεση.",  // [ΕΝΝΙΑ_ΥΠΗΡΕΣΙΕΣ]
   priorityLabel: "ΒΑΣΗ ΜΑΣ",

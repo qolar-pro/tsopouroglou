@@ -12,8 +12,12 @@ import Band from "./Band";
  *
  * Δασκάλων has no page of its own — honest copy would have duplicated
  * Μεταμόρφωση — but it is a place he works, so it keeps its name here and
- * points at the Μεταμόρφωση page. The five wider villages sit below as plain
- * rows: named, findable, and not pretending to be pages.
+ * points at the Μεταμόρφωση page.
+ *
+ * FIVE ROWS, AND THAT IS THE LIST. A previous version carried five more
+ * villages he was willing to travel to; the client has ruled them out. Do not
+ * add rows here for places he has not confirmed — every name in this list is
+ * a promise that he will turn up.
  */
 export default function Areas({ lang = "el" }: { lang?: Locale }) {
   const t = dict(lang);
@@ -58,17 +62,6 @@ export default function Areas({ lang = "el" }: { lang?: Locale }) {
                 <span aria-hidden="true" />
               )}
             </a>
-          </li>
-        ))}
-
-        {/* Named, not linked — they have no pages by design. */}
-        {t.widerAreas.map((a) => (
-          <li key={a.name}>
-            <span className="place">
-              <span className="place-name">{a.name}</span>
-              <span className="place-body">{a.note}</span>
-              <span aria-hidden="true" />
-            </span>
           </li>
         ))}
       </ul>

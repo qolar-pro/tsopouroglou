@@ -1,6 +1,6 @@
 import { business, seo } from "@/content/site";
 import { services } from "@/content/services";
-import { areaPages, widerAreas } from "@/content/areas";
+import { areaPages } from "@/content/areas";
 import { heroPhoto } from "@/content/media";
 import { SITE_URL, abs } from "@/content/site-config";
 
@@ -20,41 +20,42 @@ import { SITE_URL, abs } from "@/content/site-config";
 const BUSINESS_ID = `${SITE_URL}/#business`;
 
 /**
- * `areaServed`.
+ * `areaServed` — exactly where he works, and nowhere else.
  *
- * Three layers, because a searcher can name the place at three different
- * zoom levels and we want to match all of them:
+ * Two layers:
  *
- *  1. The villages with their own pages, plus Δασκάλων — which has no page
- *     but is still somewhere he works.
- *  2. The wider villages he confirmed but which deliberately have no pages
- *     (see widerAreas in areas.ts). This is where they earn their keep: named
- *     in structured data without five near-duplicate pages.
- *  3. The two municipalities and the regional unit, as AdministrativeArea.
- *     This is the answer for somebody who does not know the village names —
- *     they search "Σιθωνία" or "Χαλκιδική", and those are now first-class
- *     entities here rather than words buried in body copy.
+ *  1. The five places themselves: the four with pages, plus Δασκάλων, which
+ *     has no page of its own (its copy would have duplicated Μεταμόρφωση) but
+ *     is somewhere he genuinely works.
+ *  2. The parent areas, as AdministrativeArea. This is the answer for someone
+ *     who does not know the village names — they search "Σιθωνία" or
+ *     "Χαλκιδική", and both are true of him.
  *
- * NOT Θεσσαλονίκη. Chalkidiki is its own regional unit, not part of the
- * Thessaloniki one; both sit inside Κεντρική Μακεδονία. Claiming Thessaloniki
- * would be a false location signal on the one property Google reads literally.
+ * IT BRIEFLY LISTED FIVE MORE VILLAGES. The client has ruled them out: he
+ * works in these five and nowhere else. Do not add entries here that he has
+ * not confirmed — areaServed is read literally, and a place named here is a
+ * place Google will offer him for.
+ *
+ * NOT Θεσσαλονίκη, for the same reason plus one more: Chalkidiki is its own
+ * regional unit, not part of the Thessaloniki one.
  */
 const areaServed = [
   ...[
     ...areaPages.map((a) => a.name),
     "Οικισμός Δασκάλων",
-    ...widerAreas.map((a) => a.name),
   ].map((name) => ({ "@type": "Place", name })),
-  ...["Δήμος Σιθωνίας", "Δήμος Πολυγύρου", "Χαλκιδική"].map((name) => ({
+  ...["Σιθωνία", "Χαλκιδική"].map((name) => ({
     "@type": "AdministrativeArea",
     name,
   })),
   /**
-   * The radius, confirmed by the client: he will travel roughly 30–45km, and
-   * 45km is the outer edge he named. This is the honest, machine-readable way
-   * to say "we come this far" — the alternative that tempts everyone is a
-   * landing page per town in the radius, which is a doorway-page pattern and
-   * risks the whole site.
+   * The radius, matched to the five villages rather than to an ambition.
+   *
+   * This was 45km when he was willing to travel to Πολύγυρος and beyond. With
+   * that withdrawn, 45km would advertise a catchment he will not serve — and
+   * a service-area claim that produces calls he turns down is worse for the
+   * listing than a smaller, true one. 15km covers Μεταμόρφωση, Δασκάλων,
+   * Νικήτη, Βατοπέδι and Ψακούδια.
    */
   {
     "@type": "GeoCircle",
@@ -63,17 +64,10 @@ const areaServed = [
       latitude: business.geo.lat,
       longitude: business.geo.lng,
     },
-    geoRadius: "45000",
+    geoRadius: "15000",
   },
 ];
 
-/**
- * @param opts.description  Localised description for /en and /sr. The Greek
- *   pages pass nothing and get `seo.description`. Everything else — @id,
- *   phone, geo, hours — is identical across all three languages on purpose:
- *   it is one business, and one @id is what makes Google treat the three
- *   language versions as one entity rather than three.
- */
 export function localBusinessSchema(opts?: { description?: string }) {
   return {
     "@context": "https://schema.org",

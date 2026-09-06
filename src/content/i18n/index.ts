@@ -85,7 +85,7 @@ export const dict = (locale: Locale): Dictionary => DICTS[locale];
     }
 
     if (d.buildJourney.steps.length === 0) fail("buildJourney.steps", "is empty.");
-    if (d.widerAreas.length === 0) fail("widerAreas", "is empty.");
+    mustBeTranslated(d.coverageSection.body, "coverageSection.body");
   }
 
   /**

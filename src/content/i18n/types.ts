@@ -185,13 +185,24 @@ export type Dictionary = {
    * every list and points at the Μεταμόρφωση page.
    */
   daskalon: { name: string; card: string };
-  /** The five villages named but deliberately not given pages. */
-  widerAreas: { name: string; note: string }[];
+  /**
+   * The focus argument.
+   *
+   * This block used to list five extra villages he was willing to travel to.
+   * The client has since ruled that out — he works in the five places he
+   * works in and nowhere else — so it now says the opposite thing, which is
+   * the stronger pitch anyway: everything he covers is minutes from where the
+   * machines are parked, which is exactly what a firm driving in from forty
+   * kilometres away cannot say.
+   *
+   * The parent areas — Sithonia and Chalkidiki — live inside `body`, so
+   * somebody searching the region rather than the village still lands on
+   * something true.
+   */
   coverageSection: {
     eyebrow: string;
     heading: string;
     body: string;
-    listHeading: string;
     closing: string;
   };
 

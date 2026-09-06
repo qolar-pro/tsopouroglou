@@ -110,13 +110,13 @@ export const servicesSection = {
 /* Areas — priority response is his real edge over anyone driving in.   */
 /* ------------------------------------------------------------------ */
 
-export { areaLinks, areaPages, areaBySlug, publishedAreas, areasPage, widerAreas, coverageSection } from "./areas";
+export { areaLinks, areaPages, areaBySlug, publishedAreas, areasPage, coverageSection } from "./areas";
 export type { AreaPage } from "./areas";
 
 export const areasSection = {
   eyebrow: "ΠΟΥ ΔΟΥΛΕΥΟΥΜΕ",
   heading: "Πού δουλεύουμε",
-  lede: "Βάση μας η Μεταμόρφωση και ο οικισμός Δασκάλων. Εκεί ερχόμαστε πρώτα. Δουλεύουμε επίσης σε Νικήτη, Βατοπέδι και Ψακούδια, και πιο πέρα σε Ορμύλια, Πολύγυρο, Μεταγγίτσι, Γερακινή και Άγιο Νικόλαο — σε όλη τη Σιθωνία και τον Πολύγυρο.",
+  lede: "Βάση μας η Μεταμόρφωση και ο οικισμός Δασκάλων. Εκεί ερχόμαστε πρώτα. Δουλεύουμε επίσης σε Νικήτη, Βατοπέδι και Ψακούδια — πέντε χωριά, όλα λίγα λεπτά από τα μηχανήματα.",
   priorityLabel: "ΒΑΣΗ ΜΑΣ",
 } as const;
 

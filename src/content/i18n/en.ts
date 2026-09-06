@@ -94,7 +94,7 @@ export const en: Dictionary = {
   areasSection: {
     eyebrow: "WHERE WE WORK",
     heading: "Where we work",
-    lede: "Metamorfosi and the Daskalon settlement are home ground — we get there first. We also work in Nikiti, Vatopedi and Psakoudia, and further out in Ormylia, Polygyros, Metaggitsi, Gerakini and Agios Nikolaos.",
+    lede: "Metamorfosi and the Daskalon settlement are home ground — we get there first. We also work in Nikiti, Vatopedi and Psakoudia. Five villages, all a few minutes from the machines.",
     priorityLabel: "HOME GROUND",
   },
 
@@ -419,7 +419,7 @@ export const en: Dictionary = {
     relatedHeading: "Related services",
     areasHeading: "Where we work",
     areasBody:
-      "Metamorfosi and the Daskalon settlement are home ground — we get there first. We also work in Nikiti, Vatopedi and Psakoudia, and further out in Ormylia, Polygyros, Metaggitsi, Gerakini and Agios Nikolaos.",
+      "Metamorfosi and the Daskalon settlement are home ground — we get there first. We also work in Nikiti, Vatopedi and Psakoudia, all of them within a few minutes of the machines.",
     ctaHeading: "Tell us what the job is",
     ctaBody: "One phone call is enough for us to understand what it needs and what it costs.",
     backToAll: "All services",
@@ -461,8 +461,8 @@ export const en: Dictionary = {
           body: "Next door, and ours since 1987 as well. Same priority, same jobs, same phone.",
         },
         {
-          heading: "We set out from here",
-          body: "Metamorfosi is in the municipality of Sithonia, and this is where the machines leave from. On the road towards Polygyros we pass Vatopedi, Psakoudia, Ormylia and Gerakini; Metaggitsi is a little further in, and Nikiti and Agios Nikolaos are south. If your plot is somewhere along there, we come.",
+          heading: "In Sithonia",
+          body: "Metamorfosi and the Daskalon settlement are in the municipality of Sithonia, and this is where the machines leave from every morning. If you are looking for earthworks in Sithonia and are not sure which village your plot counts as, tell us where it is — we know the road.",
         },
       ],
     },
@@ -486,8 +486,8 @@ export const en: Dictionary = {
           body: "We are not in Nikiti, we are in Metamorfosi. Call, tell us what it is and where, and we will tell you when we can come. We do not give you a time we cannot keep.",
         },
         {
-          heading: "And nearby",
-          body: "Nikiti and Agios Nikolaos are in the same municipality as us, Sithonia. We come to both, same phone and same machines.",
+          heading: "The same municipality as us",
+          body: "Nikiti is in the municipality of Sithonia, and so is Metamorfosi. It is not our own village, but it is next door — same phone, same machines, same operator.",
         },
       ],
     },
@@ -511,8 +511,8 @@ export const en: Dictionary = {
           body: "We are based in Metamorfosi. Call, tell us what it is and where, and we will tell you when we can come.",
         },
         {
-          heading: "And nearby",
-          body: "Vatopedi is in the municipality of Polygyros, as are Psakoudia, Ormylia and Gerakini. They are all on the same road and we come to all of them.",
+          heading: "Vatopedi and Psakoudia together",
+          body: "Vatopedi and Psakoudia sit side by side on the same stretch of coast, and we often do them on the same day. If you have work at both, say so on the phone — one trip out works out cheaper.",
         },
       ],
     },
@@ -536,8 +536,8 @@ export const en: Dictionary = {
           body: "We are based in Metamorfosi. Call, tell us what it is and where, and we will tell you when we can come.",
         },
         {
-          heading: "And nearby",
-          body: "From Psakoudia we carry on to Ormylia, Gerakini, Metaggitsi and as far as Polygyros. Same municipality, same road, same work.",
+          heading: "Psakoudia and Vatopedi together",
+          body: "Psakoudia and Vatopedi are on the same coast, a few minutes apart. When there is work at both we arrange them together and you save a machine movement.",
         },
       ],
     },
@@ -546,10 +546,10 @@ export const en: Dictionary = {
   areasPage: {
     eyebrow: "AREAS",
     h1: "Where we work",
-    metaTitle: "Areas — Earthworks Halkidiki & Sithonia | TSOPOUROGLOU",
+    metaTitle: "Areas — Earthworks in Sithonia, Halkidiki | TSOPOUROGLOU",
     metaDescription:
-      "Earthworks in Metamorfosi, Daskalon, Nikiti, Vatopedi, Psakoudia, Ormylia, Polygyros, Metaggitsi, Gerakini and Agios Nikolaos. Since 1987. Call 697 355 7903.",
-    lede: "Metamorfosi and the Daskalon settlement are home ground. We also work in Nikiti, Vatopedi and Psakoudia, and further out in Ormylia, Polygyros, Metaggitsi, Gerakini and Agios Nikolaos.",
+      "Earthworks in Metamorfosi, the Daskalon settlement, Nikiti, Vatopedi and Psakoudia. Sithonia, Halkidiki, since 1987. Call 697 355 7903.",
+    lede: "Metamorfosi and the Daskalon settlement are home ground. We also work in Nikiti, Vatopedi and Psakoudia. Five villages, all close by — and that is where we are good.",
     listHeading: "Where we come",
     servicesHeading: "What we do here",
     servicesBody: "All nine of our jobs, without exception.",
@@ -563,20 +563,12 @@ export const en: Dictionary = {
     card: "Next door, and ours since 1987 as well. Same priority as Metamorfosi.",
   },
 
-  widerAreas: [
-    { name: "Polygyros", note: "On the road we drive anyway." },
-    { name: "Ormylia", note: "Between us and Polygyros." },
-    { name: "Metaggitsi", note: "A little further in from our road." },
-    { name: "Gerakini", note: "On the coast, on the same road." },
-    { name: "Agios Nikolaos", note: "South, inside Sithonia." },
-  ],
 
   coverageSection: {
-    eyebrow: "FURTHER OUT",
-    heading: "And beyond our own villages",
-    body: "We work across two municipalities: Sithonia, where we are based, and Polygyros. If your plot is somewhere in between and you are not sure which village it counts as, call and tell us roughly where it is — we know the road.",
-    listHeading: "We also come to",
-    closing: "Priority stays with Metamorfosi and the Daskalon settlement. To the rest we come, and we tell you on the phone when.",
+    eyebrow: "ONLY HERE",
+    heading: "We only work around here",
+    body: "Five villages, all a few minutes from where the machines are parked. Metamorfosi, the Daskalon settlement and Nikiti are in Sithonia; Vatopedi and Psakoudia sit just up the same coast. We are not driving down from Thessaloniki or across from the far side of Halkidiki, which is why we can name a day and keep it.",
+    closing: "If your plot is in one of those villages, we come. If it is further out, call us and we will tell you honestly whether we are the right people — we do not take work we cannot do properly.",
   },
 
   faqPage: {
@@ -659,7 +651,7 @@ export const en: Dictionary = {
     },
     {
       q: "Which areas do you come to?",
-      a: "We are based in Metamorfosi and the Daskalon settlement. We work in Nikiti, Vatopedi and Psakoudia, and further out in Ormylia, Polygyros, Metaggitsi, Gerakini and Agios Nikolaos — that is Sithonia and the municipality of Polygyros. If your plot is somewhere in between and you do not know which village it counts as, tell us where it is; we know the road.",
+      a: "Five: Metamorfosi, the Daskalon settlement, Nikiti, Vatopedi and Psakoudia. The first two are home ground and we get there first. We do not work further out — we would rather be close and reliable in a few villages than spread thin and late everywhere. If you are further away, call us and we will tell you honestly whether we are the right people."
     },
     {
       q: "I do not know what the job is called. What do I say on the phone?",

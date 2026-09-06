@@ -350,36 +350,22 @@ export function AreasIndexPage({ lang }: { lang: Locale }) {
       </Band>
 
       {/*
-        The wider coverage, named but not linked.
+        The focus argument, where a reach argument used to be.
 
-        These five villages have no page of their own on purpose — operations
-        are identical everywhere, so a page each would be five near-duplicates
-        of the four that exist, and near-duplicates get filtered. Named here
-        and in areaServed they are findable in search without that risk.
+        This block listed five extra villages until the client ruled them out.
+        Saying "only here" is the stronger pitch in any case: a firm forty
+        kilometres away can claim more villages than he can, and cannot claim
+        that its machines are already in yours.
 
-        The municipality framing in the opening paragraph is the point: a plot
-        owner who does not know which village his land counts as still knows
-        "Sithonia" or "Halkidiki".
+        The parent areas — Sithonia, Halkidiki — are named inside the
+        paragraph, so a plot owner who does not know which village his land
+        counts as still lands on something true.
       */}
       <Band label={t.coverageSection.eyebrow} tone="tone">
         <h2 className="h2">{t.coverageSection.heading}</h2>
         <p className="lede">
           <span className="measure-prose">{t.coverageSection.body}</span>
         </p>
-
-        <h3 className="footer-heading" style={{ marginTop: "var(--s-6)" }}>
-          {t.coverageSection.listHeading}
-        </h3>
-        <ul className="items items-4">
-          {t.widerAreas.map((a) => (
-            <li key={a.name}>
-              <span className="item">
-                <span className="item-title">{a.name}</span>
-                <span className="item-body">{a.note}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
 
         <p style={{ marginTop: "var(--s-6)" }}>
           <span className="measure-prose">{t.coverageSection.closing}</span>
