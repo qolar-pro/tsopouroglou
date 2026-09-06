@@ -165,27 +165,23 @@ export const services: Service[] = [
   },
 
   /**
-   * ΚΑΤΕΔΑΦΙΣΕΙΣ — NOT YET CONFIRMED BY THE CLIENT.
+   * ΚΑΤΕΔΑΦΙΣΕΙΣ — confirmed by the client.
    *
-   * Added on the client contact's instruction ("add it, if he doesn't do it
-   * we will remove later"), so the Google Business Profile can carry the
-   * matching Demolition contractor category without the site contradicting
-   * the listing.
+   * Added ahead of confirmation so the Google listing could carry the
+   * Demolition contractor category without the site contradicting it, and
+   * confirmed shortly after: he does take demolition work.
    *
-   * The copy is deliberately the most conservative version that is still
-   * useful: small structures — an old village house, a shed, a boundary
-   * wall, a concrete slab — broken up and carted away with machines he is
-   * CONFIRMED to own. It claims no engineering study, no permit handling, no
-   * multi-storey or in-town demolition and no asbestos work, because none of
-   * that is confirmed and all of it is regulated.
+   * The copy stays deliberately conservative — small structures, an old
+   * village house, a shed, a boundary wall, a concrete slab, broken up and
+   * carted away with machines he is confirmed to own. It claims no
+   * engineering study, no permit handling, no multi-storey or in-town
+   * demolition and no asbestos work. Those are regulated and separately
+   * confirmable; what is confirmed is that he demolishes, not that he does
+   * any of those. The `note` field points the permit question at the
+   * customer's engineer, which is where it belongs.
    *
-   * TO REMOVE: delete this one object. Nav, footer, sitemap, schema, the
-   * homepage cards and the ypiresies index all derive from this array, and
-   * the related-slug guard at the bottom of this file will catch any page
-   * still pointing here. Then drop the ninth entry from T.en / T.sr in
-   * i18n.ts and put the "nine jobs" copy back to eight — grep ΕΝΝΙΑ_ΥΠΗΡΕΣΙΕΣ.
-   *
-   * Tracked in PLACEHOLDERS.md.
+   * STILL OPEN, worth asking: how big does he go, and does he ever handle
+   * the permit side himself? See PLACEHOLDERS.md item 4.
    */
   {
     slug: "katedafiseis",
