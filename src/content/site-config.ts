@@ -1,10 +1,18 @@
 /**
- * One place for anything that changes when the real domain is registered.
+ * One place for anything that depends on the site's origin.
  *
- * `xomatourgika-tsopouroglou.gr` is NOT registered yet. Every canonical URL,
- * OG tag, sitemap entry and JSON-LD @id derives from SITE_URL, so registering
- * it — or choosing a different name — is a one-line edit here, not a
- * find-and-replace across the site.
+ * THE DOMAIN IS REGISTERED AND LIVE. `xomatourgika-tsopouroglou.gr` is on
+ * Papaki, hosted on Vercel, and serving. WWW IS CANONICAL: the apex 308s to
+ * https://www.xomatourgika-tsopouroglou.gr/, and production sets
+ * NEXT_PUBLIC_SITE_URL to the www origin so every canonical, OG tag, sitemap
+ * entry and JSON-LD @id agrees with the host that actually answers.
+ *
+ * Verified live: apex 308 → www, www 200, canonical/sitemap/robots all www.
+ *
+ * The constant below is the LAST-RESORT fallback only — used when
+ * NEXT_PUBLIC_SITE_URL is unset, i.e. local builds. It deliberately has no
+ * www so that a local build looks different from production rather than
+ * silently impersonating it. Do not "fix" it to match; fix the env var.
  */
 const PRODUCTION_URL = "https://xomatourgika-tsopouroglou.gr";
 
@@ -26,11 +34,11 @@ const env = (name: string) => {
 /**
  * Preview deployments get their own origin.
  *
- * The production domain does not exist yet, so without this every canonical,
- * og:image and JSON-LD @id on a preview points at a host that fails to
- * resolve — which makes the share card untestable and the preview impossible
- * to check properly. Vercel marks preview deployments noindex, so pointing
- * them at themselves costs nothing in search.
+ * Without this, every canonical, og:image and JSON-LD @id on a preview points
+ * at production rather than at the preview being reviewed — which makes the
+ * share card untestable and the preview impossible to check properly. Vercel
+ * marks preview deployments noindex, so pointing them at themselves costs
+ * nothing in search.
  *
  * PRODUCTION IS NEVER a *.vercel.app URL: a canonical pointing at the
  * deployment host instead of the real domain would split the site's ranking
