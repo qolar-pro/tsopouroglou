@@ -2249,3 +2249,71 @@ a.contact-row:hover .contact-value {
   color: var(--color-ink-muted);
   margin-top: var(--s-2);
 }
+
+/* ------------------------------------------------------------------ */
+/* FAQ                                                                 */
+/*                                                                     */
+/* <details>/<summary>, not a JS accordion. Keyboard and screen-reader */
+/* correct with no code, works before hydration, and the browser's own */
+/* find-in-page opens the matching answer — which a div-based          */
+/* accordion silently breaks.                                          */
+/*                                                                     */
+/* The marker is removed on both the modern and the WebKit pseudo, and */
+/* the arrow rotates in its place. `prefers-reduced-motion` kills the  */
+/* rotation, matching the rest of the site.                            */
+/* ------------------------------------------------------------------ */
+
+.faq-list {
+  margin-top: var(--s-6);
+  border-top: var(--rule-hair);
+}
+.faq-item {
+  border-bottom: var(--rule-hair);
+}
+.faq-item > summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  /* 44px minimum tap target — most of this audience is on a phone. */
+  min-height: 44px;
+  padding-block: var(--s-5);
+  cursor: pointer;
+  list-style: none;
+  font-size: var(--t-h3);
+  font-weight: 700;
+  line-height: 1.25;
+  transition: color var(--t-fast) var(--ease);
+}
+.faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item > summary::marker {
+  content: "";
+}
+.faq-item > summary:hover {
+  color: var(--color-ink-muted);
+}
+.faq-item > summary svg {
+  flex: none;
+  transform: rotate(90deg);
+  transition: transform var(--t-fast) var(--ease);
+}
+.faq-item[open] > summary svg {
+  transform: rotate(-90deg);
+}
+.faq-q {
+  /* Keeps the question off the arrow at narrow widths. */
+  min-width: 0;
+}
+.faq-a {
+  padding-bottom: var(--s-5);
+  color: var(--color-ink-muted);
+  font-size: var(--t-small);
+  line-height: 1.6;
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-item > summary svg {
+    transition: none;
+  }
+}

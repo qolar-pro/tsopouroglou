@@ -8,7 +8,7 @@
  * clearing, yard work, beach cleaning before the season. They are a real
  * market the Greek site cannot reach.
  *
- * But they do not need eight separate service pages in translation. They need
+ * But they do not need nine separate service pages in translation. They need
  * to know who he is, that he has worked this ground since 1987, what he can
  * do, where he goes, and the number to call. One strong page answers that;
  * thirty-eight thin translated pages would rank worse and read worse.
@@ -110,7 +110,7 @@ export const T: Record<Translated, Translation> = {
     notice:
       "This is a summary in English. The rest of the site is in Greek — but you do not need it to call. Tell us the job and the village, and we will tell you what it needs and what it costs.",
     servicesHeading: "What we do",
-    servicesLede: "Eight jobs. These we do, and these we know.",
+    servicesLede: "Nine jobs. These we do, and these we know.",  // [ΕΝΝΙΑ_ΥΠΗΡΕΣΙΕΣ]
     services: [
       {
         title: "Excavation",
@@ -127,6 +127,10 @@ export const T: Record<Translated, Translation> = {
       {
         title: "Rock breaking",
         body: "Rock in the middle of your plot? We break it out and take it away.",
+      },
+      {
+        title: "Demolition",
+        body: "Small structures — an old stone house, a shed, a boundary wall, a concrete slab. We break it up, load the rubble and take it away.",
       },
       {
         title: "Beach cleaning",
@@ -147,7 +151,7 @@ export const T: Record<Translated, Translation> = {
     ],
     areasHeading: "Where we work",
     areasLede:
-      "Metamorfosi and the Daskalon settlement are home ground — we get there first. We also work in Nikiti, Vatopedi and Psakoudia.",
+      "Metamorfosi and the Daskalon settlement are home ground — we get there first. We also work in Nikiti, Vatopedi and Psakoudia, and further out in Ormylia, Polygyros, Metaggitsi, Gerakini and Agios Nikolaos. If your plot is somewhere in between and you are not sure which village it counts as, just tell us roughly where it is.",
     priorityLabel: "HOME GROUND",
     areas: [
       {
@@ -163,6 +167,10 @@ export const T: Record<Translated, Translation> = {
       { name: "Nikiti", body: "We come to Nikiti with whichever machine the job needs." },
       { name: "Vatopedi", body: "Plots, yards and shoreline clearing in Vatopedi." },
       { name: "Psakoudia", body: "Plots, yards and shoreline clearing in Psakoudia." },
+      {
+        name: "Ormylia, Polygyros, Metaggitsi, Gerakini, Agios Nikolaos",
+        body: "Further out, on the road we drive anyway. We come to all of them — call and we will tell you when.",
+      },
     ],
     whyHeading: "Why us",
     why: [
@@ -217,7 +225,7 @@ export const T: Record<Translated, Translation> = {
     notice:
       "Ovo je sažetak na srpskom. Ostatak sajta je na grčkom — ali to vam ne treba da biste pozvali. Recite nam kakav je posao i u kom selu, pa ćemo vam reći šta je potrebno i koliko košta.",
     servicesHeading: "Šta radimo",
-    servicesLede: "Osam poslova. To radimo i to znamo.",
+    servicesLede: "Devet poslova. To radimo i to znamo.",  // [ΕΝΝΙΑ_ΥΠΗΡΕΣΙΕΣ]
     services: [
       {
         title: "Iskopi",
@@ -234,6 +242,10 @@ export const T: Record<Translated, Translation> = {
       {
         title: "Razbijanje stena",
         body: "Stena usred placa? Razbijamo je i odvozimo.",
+      },
+      {
+        title: "Rušenje",
+        body: "Manji objekti — stara kamena kuća, šupa, ograda, betonska ploča. Rušimo, utovarimo šut i odvozimo.",
       },
       {
         title: "Čišćenje plaže",
@@ -254,7 +266,7 @@ export const T: Record<Translated, Translation> = {
     ],
     areasHeading: "Gde radimo",
     areasLede:
-      "Metamorfosi i naselje Daskalon su naš teren — tamo stižemo prvi. Radimo i u Nikitiju, Vatopediju i Psakudiji.",
+      "Metamorfosi i naselje Daskalon su naš teren — tamo stižemo prvi. Radimo i u Nikitiju, Vatopediju i Psakudiji, a dalje i u Ormiliji, Poligirosu, Metangiciju, Gerakiniju i Agios Nikolaosu. Ako je vaš plac negde između i niste sigurni kom selu pripada, samo nam recite otprilike gde je.",
     priorityLabel: "NAŠ TEREN",
     areas: [
       {
@@ -270,6 +282,10 @@ export const T: Record<Translated, Translation> = {
       { name: "Nikiti", body: "U Nikiti dolazimo sa mašinom koju posao traži." },
       { name: "Vatopedi", body: "Placevi, dvorišta i čišćenje obale u Vatopediju." },
       { name: "Psakudija", body: "Placevi, dvorišta i čišćenje obale u Psakudiji." },
+      {
+        name: "Ormilija, Poligiros, Metangici, Gerakini, Agios Nikolaos",
+        body: "Dalje, na putu kojim ionako idemo. Dolazimo u sve — pozovite i reći ćemo vam kada.",
+      },
     ],
     whyHeading: "Zašto mi",
     why: [

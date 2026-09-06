@@ -1,6 +1,7 @@
 import { business, seo } from "@/content/site";
 import { services, type Service } from "@/content/services";
-import { areaPages } from "@/content/areas";
+import { areaPages, widerAreas } from "@/content/areas";
+import { faqs } from "@/content/faq";
 import { heroPhoto } from "@/content/media";
 import { SITE_URL, abs } from "@/content/site-config";
 
@@ -20,13 +21,52 @@ import { SITE_URL, abs } from "@/content/site-config";
 const BUSINESS_ID = `${SITE_URL}/#business`;
 
 /**
- * `areaServed` covers every village in the brief's target terms, including
- * Δασκάλων — which has no page of its own but is still a place he serves.
+ * `areaServed`.
+ *
+ * Three layers, because a searcher can name the place at three different
+ * zoom levels and we want to match all of them:
+ *
+ *  1. The villages with their own pages, plus Δασκάλων — which has no page
+ *     but is still somewhere he works.
+ *  2. The wider villages he confirmed but which deliberately have no pages
+ *     (see widerAreas in areas.ts). This is where they earn their keep: named
+ *     in structured data without five near-duplicate pages.
+ *  3. The two municipalities and the regional unit, as AdministrativeArea.
+ *     This is the answer for somebody who does not know the village names —
+ *     they search "Σιθωνία" or "Χαλκιδική", and those are now first-class
+ *     entities here rather than words buried in body copy.
+ *
+ * NOT Θεσσαλονίκη. Chalkidiki is its own regional unit, not part of the
+ * Thessaloniki one; both sit inside Κεντρική Μακεδονία. Claiming Thessaloniki
+ * would be a false location signal on the one property Google reads literally.
  */
 const areaServed = [
-  ...areaPages.map((a) => a.name),
-  "Οικισμός Δασκάλων",
-].map((name) => ({ "@type": "Place", name }));
+  ...[
+    ...areaPages.map((a) => a.name),
+    "Οικισμός Δασκάλων",
+    ...widerAreas.map((a) => a.name),
+  ].map((name) => ({ "@type": "Place", name })),
+  ...["Δήμος Σιθωνίας", "Δήμος Πολυγύρου", "Χαλκιδική"].map((name) => ({
+    "@type": "AdministrativeArea",
+    name,
+  })),
+  /**
+   * The radius, confirmed by the client: he will travel roughly 30–45km, and
+   * 45km is the outer edge he named. This is the honest, machine-readable way
+   * to say "we come this far" — the alternative that tempts everyone is a
+   * landing page per town in the radius, which is a doorway-page pattern and
+   * risks the whole site.
+   */
+  {
+    "@type": "GeoCircle",
+    geoMidpoint: {
+      "@type": "GeoCoordinates",
+      latitude: business.geo.lat,
+      longitude: business.geo.lng,
+    },
+    geoRadius: "45000",
+  },
+];
 
 /**
  * @param opts.description  Localised description for /en and /sr. The Greek
@@ -132,10 +172,38 @@ export function serviceSchema(service: Service) {
         "@type": "ContactPoint",
         telephone: `+30${business.phone.display.replace(/\s/g, "")}`,
         contactType: "customer service",
-        availableLanguage: "el",
+        availableLanguage: ["el", "en", "sr"],
       },
       serviceUrl: abs("/epikoinonia"),
     },
+  };
+}
+
+/**
+ * FAQPage.
+ *
+ * Google stopped showing FAQ rich snippets for ordinary sites in 2023, so
+ * this will NOT produce an expandable box in the results. It is here because
+ * the markup still tells Google what the page is, and because this is the
+ * shape that AI Overviews and voice assistants read answers out of.
+ *
+ * Do not "fix" the absent rich result. It is not broken.
+ *
+ * Emitted only on the FAQ page itself — marking up questions that are not
+ * visible on the page they are emitted from is against Google's guidelines.
+ */
+export function faqSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": abs("/syhnes-erotiseis#faq"),
+    inLanguage: "el",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+    about: { "@id": BUSINESS_ID },
   };
 }
 

@@ -80,6 +80,12 @@ export const areaPages: AreaPage[] = [
         heading: "Και στον οικισμό Δασκάλων",
         body: "Δίπλα μας, και δουλεύουμε εκεί από το 1987 όπως και στη Μεταμόρφωση. Ίδια προτεραιότητα, ίδιες δουλειές, ίδιο τηλέφωνο.",
       },
+      {
+        // The outward reach lives on the home-ground page, where it belongs:
+        // this is the village the machines leave from.
+        heading: "Από εδώ ξεκινάμε για τα γύρω",
+        body: "Η Μεταμόρφωση είναι στον δήμο Σιθωνίας, και από εδώ φεύγουν τα μηχανήματα για τα υπόλοιπα. Στον δρόμο προς τον Πολύγυρο περνάμε Βατοπέδι, Ψακούδια, Ορμύλια και Γερακινή· λίγο πιο μέσα είναι το Μεταγγίτσι, νότια η Νικήτη και ο Άγιος Νικόλαος. Αν το οικόπεδό σας είναι κάπου εκεί, ερχόμαστε.",
+      },
     ],
   },
 
@@ -106,6 +112,10 @@ export const areaPages: AreaPage[] = [
         // an invented drive time would read as sales.
         body: "Δεν είμαστε στη Νικήτη, είμαστε στη Μεταμόρφωση. Πάρτε τηλέφωνο, πείτε μας τι είναι και πού, και θα σας πούμε πότε μπορούμε να έρθουμε. Δεν δίνουμε ώρα που δεν μπορούμε να κρατήσουμε.",
       },
+      {
+        heading: "Και στα γύρω",
+        body: "Η Νικήτη και ο Άγιος Νικόλαος είναι στον ίδιο δήμο με εμάς, τη Σιθωνία. Ερχόμαστε και στα δύο, με το ίδιο τηλέφωνο και τα ίδια μηχανήματα.",
+      },
     ],
   },
 
@@ -130,6 +140,10 @@ export const areaPages: AreaPage[] = [
         heading: "Πόσο γρήγορα",
         body: "Η βάση μας είναι η Μεταμόρφωση. Πάρτε τηλέφωνο, πείτε μας τι είναι και πού, και θα σας πούμε πότε μπορούμε να έρθουμε.",
       },
+      {
+        heading: "Και στα γύρω",
+        body: "Το Βατοπέδι είναι στον δήμο Πολυγύρου, όπως και τα Ψακούδια, η Ορμύλια και η Γερακινή. Είναι όλα στον ίδιο δρόμο και ερχόμαστε σε όλα.",
+      },
     ],
   },
 
@@ -153,6 +167,10 @@ export const areaPages: AreaPage[] = [
       {
         heading: "Πόσο γρήγορα",
         body: "Η βάση μας είναι η Μεταμόρφωση. Πάρτε τηλέφωνο, πείτε μας τι είναι και πού, και θα σας πούμε πότε μπορούμε να έρθουμε.",
+      },
+      {
+        heading: "Και στα γύρω",
+        body: "Από τα Ψακούδια συνεχίζουμε σε Ορμύλια, Γερακινή, Μεταγγίτσι και μέχρι τον Πολύγυρο. Ίδιος δήμος, ίδιος δρόμος, ίδια δουλειά.",
       },
     ],
   },
@@ -204,15 +222,61 @@ export const areaLinks: {
     })),
 ];
 
+
+/* ------------------------------------------------------------------ */
+/* WIDER COVERAGE — mentioned, not given pages.                        */
+/*                                                                     */
+/* Confirmed by the client: Πολύγυρος, Μεταγγίτσι, "and the places in  */
+/* between on the road", plus Άγιος Νικόλαος. Νέος Μαρμαράς was asked  */
+/* and REFUSED — do not add it back.                                   */
+/*                                                                     */
+/* WHY NO PAGES FOR THESE. The client asked for the villages to be     */
+/* reachable in search without a page each, and he is right. Operations*/
+/* are confirmed identical everywhere (see the note at the top of this */
+/* file), so five more area pages would be five near-duplicates of the */
+/* four that exist — and near-duplicates get filtered by Google, which */
+/* would cost the four good pages rather than add five. Named in the   */
+/* copy, in areaServed and in the areas index, these villages are      */
+/* searchable without that risk.                                       */
+/*                                                                     */
+/* NO DRIVE TIMES. Still none verified. Same rule as everywhere else.  */
+/* ------------------------------------------------------------------ */
+
+export const widerAreas: { name: string; note: string }[] = [
+  { name: "Πολύγυρος", note: "Στον δρόμο που κάνουμε ούτως ή άλλως." },
+  { name: "Ορμύλια", note: "Ανάμεσα σε εμάς και τον Πολύγυρο." },
+  { name: "Μεταγγίτσι", note: "Λίγο πιο μέσα από τον δρόμο μας." },
+  { name: "Γερακινή", note: "Παραθαλάσσια, στον ίδιο δρόμο." },
+  { name: "Άγιος Νικόλαος", note: "Νότια, μέσα στη Σιθωνία." },
+];
+
+/**
+ * The two municipalities he actually spans.
+ *
+ * This is the answer to "how do people find us without knowing the village
+ * names". Μεταμόρφωση, Νικήτη and Άγιος Νικόλαος sit in Δήμος Σιθωνίας;
+ * Ορμύλια, Ψακούδια, Βατοπέδι, Μεταγγίτσι, Γερακινή and ο Πολύγυρος in Δήμος
+ * Πολυγύρου. Somebody who inherited a plot and does not know which village
+ * it counts as still knows "Σιθωνία" or "Χαλκιδική", and those words now
+ * appear on the page attached to real places.
+ */
+export const coverageSection = {
+  eyebrow: "ΠΙΟ ΠΕΡΑ",
+  heading: "Και πιο πέρα από τα χωριά μας",
+  body: "Δουλεύουμε σε δύο δήμους: στη Σιθωνία, όπου είναι και η βάση μας, και στον Πολύγυρο. Αν το οικόπεδό σας είναι κάπου ανάμεσα και δεν ξέρετε σε ποιο χωριό μετράει, πάρτε μας τηλέφωνο και πείτε μας πού είναι — εμείς ξέρουμε τον δρόμο.",
+  listHeading: "Ερχόμαστε επίσης σε",
+  closing: "Η προτεραιότητα μένει στη Μεταμόρφωση και στον οικισμό Δασκάλων. Στα υπόλοιπα ερχόμαστε, και σας λέμε στο τηλέφωνο πότε.",
+} as const;
+
 export const areasPage = {
   eyebrow: "ΠΕΡΙΟΧΕΣ",
   h1: "Πού δουλεύουμε",
-  lede: "Βάση μας η Μεταμόρφωση και ο οικισμός Δασκάλων. Δουλεύουμε επίσης σε Νικήτη, Βατοπέδι και Ψακούδια.",
-  metaTitle: "Περιοχές — Χωματουργικά Χαλκιδική | ΤΣΟΠΟΥΡΟΓΛΟΥ",
+  lede: "Βάση μας η Μεταμόρφωση και ο οικισμός Δασκάλων. Δουλεύουμε επίσης σε Νικήτη, Βατοπέδι και Ψακούδια, και πιο πέρα σε Ορμύλια, Πολύγυρο, Μεταγγίτσι, Γερακινή και Άγιο Νικόλαο.",
+  metaTitle: "Περιοχές — Χωματουργικά Χαλκιδική & Σιθωνία | ΤΣΟΠΟΥΡΟΓΛΟΥ",
   metaDescription:
-    "Χωματουργικές εργασίες σε Μεταμόρφωση, οικισμό Δασκάλων, Νικήτη, Βατοπέδι και Ψακούδια Χαλκιδικής. Από το 1987. Τηλ. 697 355 7903.",
+    "Χωματουργικές εργασίες σε Μεταμόρφωση, Δασκάλων, Νικήτη, Βατοπέδι, Ψακούδια, Ορμύλια, Πολύγυρο, Μεταγγίτσι, Γερακινή και Άγιο Νικόλαο. Από το 1987. Τηλ. 697 355 7903.",
   servicesHeading: "Τι κάνουμε εδώ",
-  servicesBody: "Και τις οκτώ δουλειές μας, χωρίς εξαίρεση.",
+  servicesBody: "Και τις εννιά δουλειές μας, χωρίς εξαίρεση.",  // [ΕΝΝΙΑ_ΥΠΗΡΕΣΙΕΣ]
   priorityLabel: "ΒΑΣΗ ΜΑΣ",
   otherAreasHeading: "Άλλες περιοχές",
   backToAll: "Όλες οι περιοχές",

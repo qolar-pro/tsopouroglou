@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { visibleNav, business } from "@/content/site";
+import { headerNav, business } from "@/content/site";
 import LangSwitch from "./LangSwitch";
 import { CHROME, type Locale } from "@/content/i18n";
 
@@ -21,7 +21,7 @@ import { CHROME, type Locale } from "@/content/i18n";
  */
 export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
   const c = CHROME[lang];
-  const navItems = c.nav ?? visibleNav;
+  const navItems = c.nav ?? headerNav;
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);

@@ -21,12 +21,14 @@ const ROUTES = [
   "/perioxes",
   "/etaireia",
   "/epikoinonia",
+  "/syhnes-erotiseis",
   "/exoplismos",
   "/politiki-aporritou",
   "/ypiresies/ekskafes",
   "/ypiresies/katharismos-oikopedon",
   "/ypiresies/vothroi",
   "/ypiresies/ekvrachismoi",
+  "/ypiresies/katedafiseis",
   "/ypiresies/katharismos-paralias",
   "/ypiresies/metafores-chomaton",
   "/ypiresies/choma-kipou",
@@ -41,6 +43,10 @@ const ROUTES = [
 ];
 
 const one = (html, re) => html.match(re)?.[1]?.trim() ?? null;
+
+/** BCP-47 each route must declare. Mirrors LOCALE_TAG in content/i18n.ts. */
+const expectedLang = (route) =>
+  route === "/en" ? "en" : route === "/sr" ? "sr-Latn" : "el";
 
 const CHECKS = [
   {
@@ -95,8 +101,20 @@ const CHECKS = [
   {
     id: "lang",
     get: (h) => one(h, /<html[^>]*lang="([^"]*)"/),
-    ok: (v) => v === "el",
-    msg: 'lang is not "el"',
+    /**
+     * PER ROUTE, not "el" everywhere.
+     *
+     * This check used to assert lang === "el" on every route, /en and /sr
+     * included — so the guard did not merely miss the bug where the English
+     * page declared itself Greek, it asserted it. Any fix would have been
+     * reported as the failure.
+     *
+     * A guard that encodes the defect as the expectation is worse than no
+     * guard, because it actively defends it. The expectation now comes from
+     * the route.
+     */
+    ok: (v, route) => v === expectedLang(route),
+    msg: (route) => `lang is not "${expectedLang(route)}"`,
   },
   {
     id: "h1",
@@ -143,7 +161,13 @@ for (const route of ROUTES) {
   for (const c of CHECKS) {
     checked++;
     const value = c.get(html);
-    if (!c.ok(value)) failures.push([route, c.id, `${c.msg} (got ${JSON.stringify(value)})`]);
+    // `ok` and `msg` may depend on the route — lang does, since /en and /sr
+    // must NOT declare Greek. Both accept the route as a second argument and
+    // msg may be a function.
+    if (!c.ok(value, route)) {
+      const msg = typeof c.msg === "function" ? c.msg(route) : c.msg;
+      failures.push([route, c.id, `${msg} (got ${JSON.stringify(value)})`]);
+    }
   }
 
   // ---- JSON-LD ----

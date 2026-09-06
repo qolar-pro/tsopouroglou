@@ -1,6 +1,6 @@
 import { pageAlternates } from "@/content/site-config";
 import type { Metadata } from "next";
-import { areaLinks, areasPage } from "@/content/areas";
+import { areaLinks, areasPage, widerAreas, coverageSection } from "@/content/areas";
 import Band from "@/components/Band";
 import { erga } from "@/content/media";
 import PageHero from "@/components/PageHero";
@@ -50,6 +50,43 @@ export default function AreasIndex() {
             </li>
           ))}
         </ul>
+      </Band>
+
+      {/*
+        The wider coverage, named but not linked.
+
+        These five villages have no page of their own on purpose — operations
+        are identical everywhere, so a page each would be five near-duplicates
+        of the four real area pages, and near-duplicates get filtered. Named
+        here and in areaServed they are findable in search without that risk.
+
+        The municipality framing is the point of the opening paragraph: a
+        plot owner who does not know which village his land counts as still
+        knows "Σιθωνία" or "Χαλκιδική".
+      */}
+      <Band label={coverageSection.eyebrow} tone="tone">
+        <h2 className="h2">{coverageSection.heading}</h2>
+        <p className="lede">
+          <span className="measure-prose">{coverageSection.body}</span>
+        </p>
+
+        <h3 className="footer-heading" style={{ marginTop: "var(--s-6)" }}>
+          {coverageSection.listHeading}
+        </h3>
+        <ul className="items items-4">
+          {widerAreas.map((a) => (
+            <li key={a.name}>
+              <span className="item">
+                <span className="item-title">{a.name}</span>
+                <span className="item-body">{a.note}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <p style={{ marginTop: "var(--s-6)" }}>
+          <span className="measure-prose">{coverageSection.closing}</span>
+        </p>
       </Band>
 
       <CallBand />

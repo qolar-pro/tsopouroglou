@@ -102,7 +102,7 @@ export type { Service } from "./services";
 export const servicesSection = {
   eyebrow: "ΤΙ ΚΑΝΟΥΜΕ",
   heading: "Τι κάνουμε",
-  lede: "Οκτώ δουλειές. Αυτές κάνουμε, αυτές ξέρουμε.",
+  lede: "Εννιά δουλειές. Αυτές κάνουμε, αυτές ξέρουμε.",  // [ΕΝΝΙΑ_ΥΠΗΡΕΣΙΕΣ]
   cta: "Όλες οι υπηρεσίες",
 } as const;
 
@@ -110,13 +110,13 @@ export const servicesSection = {
 /* Areas — priority response is his real edge over anyone driving in.   */
 /* ------------------------------------------------------------------ */
 
-export { areaLinks, areaPages, areaBySlug, publishedAreas, areasPage } from "./areas";
+export { areaLinks, areaPages, areaBySlug, publishedAreas, areasPage, widerAreas, coverageSection } from "./areas";
 export type { AreaPage } from "./areas";
 
 export const areasSection = {
   eyebrow: "ΠΟΥ ΔΟΥΛΕΥΟΥΜΕ",
   heading: "Πού δουλεύουμε",
-  lede: "Βάση μας η Μεταμόρφωση και ο οικισμός Δασκάλων. Εκεί ερχόμαστε πρώτα. Δουλεύουμε επίσης σε Νικήτη, Βατοπέδι και Ψακούδια.",
+  lede: "Βάση μας η Μεταμόρφωση και ο οικισμός Δασκάλων. Εκεί ερχόμαστε πρώτα. Δουλεύουμε επίσης σε Νικήτη, Βατοπέδι και Ψακούδια, και πιο πέρα σε Ορμύλια, Πολύγυρο, Μεταγγίτσι, Γερακινή και Άγιο Νικόλαο — σε όλη τη Σιθωνία και τον Πολύγυρο.",
   priorityLabel: "ΒΑΣΗ ΜΑΣ",
 } as const;
 
@@ -296,7 +296,20 @@ export const contactSection = {
 /* Navigation & footer                                                 */
 /* ------------------------------------------------------------------ */
 
-export type NavItem = { href: string; label: string; gated?: boolean };
+export type NavItem = {
+  href: string;
+  label: string;
+  gated?: boolean;
+  /**
+   * In the footer, not in the header.
+   *
+   * The header nav is five items on purpose (see below) and a sixth starts
+   * costing more in scannability than it returns. The FAQ is a real
+   * destination that deserves an internal link from every page, but it is not
+   * one of the five things this business wants a stranger to consider first.
+   */
+  footerOnly?: boolean;
+};
 
 /**
  * Five items, deliberately.
@@ -318,6 +331,7 @@ export const nav: NavItem[] = [
   { href: "/exoplismos", label: "Στόλος", gated: true },
   { href: "/etaireia", label: "Ποιοι είμαστε" },
   { href: "/epikoinonia", label: "Επικοινωνία" },
+  { href: "/syhnes-erotiseis", label: "Συχνές ερωτήσεις", footerOnly: true },
 ];
 
 /**
@@ -346,6 +360,9 @@ export const nav: NavItem[] = [
 
 /** Nav minus anything gated behind real photography. */
 export const visibleNav = nav.filter((n) => !n.gated || HAS_REAL_PHOTOS);
+
+/** The header's five. */
+export const headerNav = visibleNav.filter((n) => !n.footerOnly);
 
 export const footer = {
   servicesHeading: "Υπηρεσίες",

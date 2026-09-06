@@ -14,7 +14,7 @@ import Reviews from "@/components/Reviews";
  * One page per language rather than a translated copy of all nineteen
  * routes — see the reasoning in content/i18n.ts. It carries everything a
  * foreign holiday-home owner needs to decide to ring: who he is, 1987, the
- * eight jobs, the villages, and the number.
+ * nine jobs, the villages, and the number.
  *
  * Greek stays at the root untouched. That matters: the Greek URLs are the
  * ones in the sitemap, the canonicals and the schema, and they serve the

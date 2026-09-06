@@ -56,7 +56,16 @@ export default function ContactBlock() {
         <a className="btn btn-call" href="/epikoinonia">
           {contactSection.quoteCta}
         </a>
-        <p className="contact-quote-note">{contactSection.quoteNote}</p>
+        <p className="contact-quote-note">
+          {contactSection.quoteNote}{" "}
+          {/* The homepage's only link to the FAQ. Inner pages get theirs
+              from CallBand, which the homepage does not use. */}
+          Ή δείτε πρώτα τις{" "}
+          <a className="inline-link" href="/syhnes-erotiseis">
+            συχνές ερωτήσεις
+          </a>
+          .
+        </p>
       </div>
     </Band>
   );

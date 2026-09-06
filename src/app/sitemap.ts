@@ -14,7 +14,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // See CONTENT_UPDATED: a build timestamp here is a lie told every deploy.
   const now = new Date(CONTENT_UPDATED);
 
-  const core = ["/", "/ypiresies", "/perioxes", "/etaireia", "/epikoinonia"];
+  const core = [
+    "/",
+    "/ypiresies",
+    "/perioxes",
+    "/etaireia",
+    "/epikoinonia",
+    "/syhnes-erotiseis",
+  ];
   const gated = HAS_REAL_PHOTOS ? ["/exoplismos"] : [];
 
   return [

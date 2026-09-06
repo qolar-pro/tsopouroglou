@@ -20,7 +20,7 @@ import CallBand from "@/components/CallBand";
  * made the reader hop between pages to assemble one argument. /erga 301s
  * here.
  *
- * The page reads as one claim in two registers — the eight jobs as a
+ * The page reads as one claim in two registers — the nine jobs as a
  * promise, then twelve of his own sites as the evidence.
  */
 export const metadata: Metadata = {
@@ -54,7 +54,7 @@ export default function ServicesAndWork() {
       <PageHero
         label={servicesPage.eyebrow}
         title={<h1 className="h1">Τι κάνουμε, και τι έχουμε κάνει</h1>}
-        lede="Οκτώ δουλειές με δικά μας μηχανήματα. Πιο κάτω, έργα που έχουμε ήδη παραδώσει στη Χαλκιδική."
+        lede="Εννιά δουλειές με δικά μας μηχανήματα. Πιο κάτω, έργα που έχουμε ήδη παραδώσει στη Χαλκιδική."
         photo={heroShot?.img}
         priority
       />
@@ -63,7 +63,7 @@ export default function ServicesAndWork() {
         <h2 className="h2">Τι αναλαμβάνουμε</h2>
         <p className="lede">
           <span className="measure-prose">
-            Οκτώ δουλειές, με δικά μας μηχανήματα και δικά μας φορτηγά. Από
+            Εννιά δουλειές, με δικά μας μηχανήματα και δικά μας φορτηγά. Από
             το πρώτο σκάψιμο μέχρι να παραδοθεί ο χώρος καθαρός.
           </span>
         </p>

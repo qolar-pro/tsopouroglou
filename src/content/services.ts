@@ -1,8 +1,8 @@
 /**
- * The eight services, in full.
+ * The nine services, in full.  [ΕΝΝΙΑ_ΥΠΗΡΕΣΙΕΣ]
  *
  * Depth beats breadth: one competitor lists ~90 services and it reads as
- * keyword noise. Each of these eight gets a real page with its own copy —
+ * keyword noise. Each of these nine gets a real page with its own copy —
  * what the job involves, which machine does it and why that matters, and
  * what to have ready when you phone.
  *
@@ -164,6 +164,60 @@ export const services: Service[] = [
     related: ["ekskafes", "metafores-chomaton", "vothroi"],
   },
 
+  /**
+   * ΚΑΤΕΔΑΦΙΣΕΙΣ — NOT YET CONFIRMED BY THE CLIENT.
+   *
+   * Added on the client contact's instruction ("add it, if he doesn't do it
+   * we will remove later"), so the Google Business Profile can carry the
+   * matching Demolition contractor category without the site contradicting
+   * the listing.
+   *
+   * The copy is deliberately the most conservative version that is still
+   * useful: small structures — an old village house, a shed, a boundary
+   * wall, a concrete slab — broken up and carted away with machines he is
+   * CONFIRMED to own. It claims no engineering study, no permit handling, no
+   * multi-storey or in-town demolition and no asbestos work, because none of
+   * that is confirmed and all of it is regulated.
+   *
+   * TO REMOVE: delete this one object. Nav, footer, sitemap, schema, the
+   * homepage cards and the ypiresies index all derive from this array, and
+   * the related-slug guard at the bottom of this file will catch any page
+   * still pointing here. Then drop the ninth entry from T.en / T.sr in
+   * i18n.ts and put the "nine jobs" copy back to eight — grep ΕΝΝΙΑ_ΥΠΗΡΕΣΙΕΣ.
+   *
+   * Tracked in PLACEHOLDERS.md.
+   */
+  {
+    slug: "katedafiseis",
+    title: "Κατεδαφίσεις",
+    navTitle: "Κατεδαφίσεις",
+    h1: "Κατεδαφίσεις στη Χαλκιδική",
+    card: "Παλιά πέτρινα, αποθήκες, μάντρες, τσιμεντένιες πλάκες. Γκρεμίζουμε και τα βγάζουμε από το οικόπεδο.",
+    metaTitle: "Κατεδαφίσεις Χαλκιδική | ΤΣΟΠΟΥΡΟΓΛΟΥ",
+    metaDescription:
+      "Κατεδαφίσεις μικρών κτισμάτων στη Μεταμόρφωση Χαλκιδικής και στη Σιθωνία, από το 1987. Γκρέμισμα, φόρτωση και απομάκρυνση μπαζών. Τηλ. 697 355 7903.",
+    lede: "Ένα παλιό σπιτάκι που δεν στέκεται, μια αποθήκη, μια μάντρα, μια τσιμεντένια πλάκα στη μέση του οικοπέδου. Το γκρεμίζουμε, μαζεύουμε τα μπάζα και τα φορτώνουμε στα φορτηγά μας.",
+    includesHeading: "Τι περιλαμβάνει",
+    includes: [
+      "Γκρέμισμα μικρών κτισμάτων — αποθήκες, παλιά πέτρινα, παράγκες",
+      "Σπάσιμο σε τσιμεντένιες πλάκες, μάντρες και βάσεις",
+      "Μάζεμα και φόρτωση των μπαζών",
+      "Απομάκρυνση με δικά μας φορτηγά και καθαρό οικόπεδο στο τέλος",
+    ],
+    machinesHeading: "Με τι το κάνουμε",
+    machines:
+      "Η τσάπα με το σφυρί σπάει το τσιμέντο και την πέτρα, ο φορτωτής μαζεύει, τα φορτηγά τα κατεβάζουν. Ποια τσάπα θα έρθει το κρίνουμε από τον χώρο που έχει γύρω του το κτίσμα — σε στενή αυλή μπαίνει η μικρή.",
+    note: "Αναλαμβάνουμε μικρά κτίσματα. Για μεγάλη κατεδάφιση χρειάζεται μελέτη και άδεια — πάρτε μας τηλέφωνο να δούμε τι ισχύει στη δική σας περίπτωση.",
+    askHeading: "Τι να μας πείτε όταν τηλεφωνήσετε",
+    ask: [
+      "Τι είναι το κτίσμα και περίπου πόσο μεγάλο",
+      "Από τι είναι χτισμένο — πέτρα, τσιμέντο, τούβλο",
+      "Αν φτάνει φορτηγό μέχρι εκεί",
+      "Αν υπάρχει άδεια κατεδάφισης ή αν το ψάχνετε ακόμα",
+    ],
+    related: ["ekvrachismoi", "katharismos-oikopedon", "metafores-chomaton"],
+  },
+
   {
     slug: "katharismos-paralias",
     title: "Καθαρισμοί παραλίας",
@@ -294,7 +348,7 @@ export const serviceBySlug = (slug: string) =>
 export const servicesPage = {
   eyebrow: "ΥΠΗΡΕΣΙΕΣ",
   h1: "Τι κάνουμε",
-  lede: "Οκτώ δουλειές. Κάθε μία με τη δική της σελίδα, γιατί κάθε μία θέλει άλλο μηχάνημα και άλλες ερωτήσεις πριν ξεκινήσει.",
+  lede: "Εννιά δουλειές. Κάθε μία με τη δική της σελίδα, γιατί κάθε μία θέλει άλλο μηχάνημα και άλλες ερωτήσεις πριν ξεκινήσει.",
   metaTitle: "Υπηρεσίες — Χωματουργικά Χαλκιδική | ΤΣΟΠΟΥΡΟΓΛΟΥ",
   metaDescription:
     "Εκσκαφές, καθαρισμοί οικοπέδων, βόθροι, εκβραχισμοί, καθαρισμοί παραλίας, μεταφορές χωμάτων, χώμα κήπου, συνδέσεις νερού. Μεταμόρφωση Χαλκιδικής, από το 1987. Τηλ. 697 355 7903.",

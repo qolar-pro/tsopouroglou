@@ -1,4 +1,4 @@
-import { business, wordmark, visibleNav } from "@/content/site";
+import { business, wordmark, headerNav } from "@/content/site";
 import { CHROME, localeHref, type Locale } from "@/content/i18n";
 import MobileNav from "./MobileNav";
 import Mark from "./Mark";
@@ -19,7 +19,7 @@ import PhoneIcon from "./PhoneIcon";
  */
 export default function SiteHeader({ lang = "el" }: { lang?: Locale }) {
   const c = CHROME[lang];
-  const navItems = c.nav ?? visibleNav.filter((n) => n.href !== "/");
+  const navItems = c.nav ?? headerNav.filter((n) => n.href !== "/");
 
   return (
     <header className="site-header">
