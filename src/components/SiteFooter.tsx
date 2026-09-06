@@ -1,5 +1,5 @@
 import { business, services, visibleNav } from "@/content/site";
-import { areaLinks } from "@/content/areas";
+import { areaLinks, widerAreas } from "@/content/areas";
 import { CHROME, T, type Locale, type Translated } from "@/content/i18n";
 
 /**
@@ -26,8 +26,21 @@ export default function SiteFooter({ lang = "el" }: { lang?: Locale }) {
     ? services.map((s) => ({ label: s.title, href: `/ypiresies/${s.slug}` }))
     : t!.services.map((s) => ({ label: s.title, href: null }));
 
+  /**
+   * The four villages with pages are links; the five wider ones are plain
+   * text in the same column.
+   *
+   * They have no pages by design (see widerAreas in areas.ts), but the footer
+   * is the one component on every route, so listing them here is what gives
+   * Πολύγυρος, Ορμύλια, Μεταγγίτσι, Γερακινή and Άγιος Νικόλαος a presence
+   * across the whole site rather than on the three pages that name them in
+   * prose. Plain text, because a link has to go somewhere.
+   */
   const areaItems = isGreek
-    ? areaLinks.map((a) => ({ label: a.name, href: a.href }))
+    ? [
+        ...areaLinks.map((a) => ({ label: a.name, href: a.href as string | null })),
+        ...widerAreas.map((a) => ({ label: a.name, href: null })),
+      ]
     : t!.areas.map((a) => ({ label: a.name, href: null }));
 
   /** Greek: the real routes. Translations: anchors within the one page. */
