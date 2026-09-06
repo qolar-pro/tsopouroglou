@@ -307,8 +307,13 @@
 .about-cols {
   text-align: left;
 }
-.band-cta,
-.rating {
+/* Scoped, for the same reason as .page-hero above: these belong to the
+   centred band body, and bare selectors leaked the centring into the
+   homepage hero, which is left-aligned from the eyebrow down. With the
+   heading fixed, the buttons were the last thing still floating in the
+   middle of an otherwise left-aligned column. */
+.band-body .band-cta,
+.band-body .rating {
   justify-content: center;
 }
 .rating-line {
@@ -1735,28 +1740,25 @@ a.contact-row:hover .contact-value {
 .page-hero .hero-media {
   margin-top: var(--s-7);
 }
-.hero-h1 {
-  font-weight: 700;
-}
-.hero-h1-lead {
-  display: block;
-  font-size: var(--t-h1);
-  line-height: 1.06;
-  letter-spacing: -0.02em;
+/* SCOPED TO .page-hero ON PURPOSE.
+   These were bare `.hero-h1-lead` / `.hero-year`, identical in specificity to
+   the homepage hero's rules five hundred lines above and later in the file —
+   so they silently won there too. `margin-inline: auto` then put 231px of
+   margin on either side of the homepage lead while 1987, which has no
+   max-width, stayed hard left. The result read as a centring bug: the
+   sentence floated in the middle of the hero and the year hung off the left
+   edge under it.
+
+   The centring is right HERE and wrong there. The translated hero sits inside
+   .band-body, which is centred, so its lead has to be centred to match. The
+   homepage hero is left-aligned throughout. Scoping is what lets both be
+   true; do not unscope these. */
+.page-hero .hero-h1-lead {
   max-width: 20ch;
   margin-inline: auto;
 }
-.hero-year {
-  display: block;
-  /* The display instance: the only place latin is preloaded, because these
-     are the LCP glyphs and ASCII digits live in the latin subset. */
-  font-family: var(--font-display);
-  font-size: var(--t-display);
-  font-weight: 900;
+.page-hero .hero-year {
   line-height: 0.82;
-  letter-spacing: -0.04em;
-  font-variant-numeric: lining-nums;
-  margin-top: var(--s-3);
 }
 .hero-hours {
   font-size: var(--t-small);
