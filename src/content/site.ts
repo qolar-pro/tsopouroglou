@@ -180,6 +180,22 @@ export const reviewsSection = {
   eyebrow: "ΚΡΙΤΙΚΕΣ",
   /** Verified on the Google Business Profile. Re-check before launch. */
   rating: "5,0",
+  /** Latin decimal point, for /en and /sr — "5,0" reads as wrong there. */
+  ratingLatin: "5.0",
+  /**
+   * Total reviews on the Google listing — confirmed by the client, up from
+   * 10 when this site was first built.
+   *
+   * This is the COUNT ON GOOGLE, not the number quoted below: fourteen of the
+   * twenty-one are reproduced here, because those are the ones whose text we
+   * have. Showing the true total next to a smaller set of quotes is accurate;
+   * claiming twenty-one quotes we do not have would not be.
+   *
+   * RE-CHECK BEFORE EVERY DEPLOY. A count that drifts below the real one
+   * undersells him, and one that drifts above it is a false statement on a
+   * page whose whole argument is that he is trustworthy.
+   */
+  count: 21,
   heading: "Τι λένε οι πελάτες",
   lede: "Κριτικές από το Google, όπως τις έγραψαν οι ίδιοι.",
   cta: "Δείτε τις κριτικές στο Google",

@@ -1,27 +1,24 @@
-import type { Metadata } from "next";
-import { business } from "@/content/site";
 import { services } from "@/content/services";
 import { areaLinks } from "@/content/areas";
 import Band from "@/components/Band";
 import PageHero from "@/components/PageHero";
 
-export const metadata: Metadata = {
-  title: "Η σελίδα δεν βρέθηκε | ΤΣΟΠΟΥΡΟΓΛΟΥ",
-  robots: { index: false, follow: true },
-};
-
 /**
- * 404, in Greek.
+ * The body of the 404, shared by two callers.
  *
- * Next's default is an unstyled English page, which for this audience is
- * indistinguishable from a broken site — and it is the one page where the
- * visitor already suspects something is wrong.
+ * (el)/not-found.tsx handles a `notFound()` thrown inside the Greek group —
+ * an unknown service or area slug. app/global-not-found.tsx handles a URL
+ * that matches no route at all, which since the site gained two root layouts
+ * has no layout to compose itself from and so must supply its own <html>.
  *
- * So it does the same job every other page does rather than apologising: the
- * phone number first, then the eight services and the areas, because someone
- * who mistyped a URL is someone who was already looking for one of them.
+ * Both need identical content, and a 404 that drifts between two copies is a
+ * 404 nobody notices has drifted. One component, two shells.
+ *
+ * It does the same job every other page does rather than apologising: the
+ * phone first, then the services and the areas, because someone who mistyped
+ * a URL was already looking for one of them.
  */
-export default function NotFound() {
+export default function NotFoundBody() {
   return (
     <main>
       <PageHero

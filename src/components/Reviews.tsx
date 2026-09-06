@@ -1,4 +1,5 @@
 import { business, reviewsSection, reviews } from "@/content/site";
+import { CHROME, type Locale } from "@/content/i18n";
 import Band from "./Band";
 import ArrowIcon from "./ArrowIcon";
 
@@ -28,31 +29,53 @@ function initials(name: string) {
 /**
  * Κριτικές — the real Google reviews, as their authors wrote them.
  *
- * These were bare paragraphs with a name underneath, which read as text
- * dropped on the page rather than as testimony. Each is now a card with its
- * own frame: an avatar disc of the author's initials, their name, five stars,
- * and the quote — so it is obvious at a glance that these are separate people
- * saying separate things, and how many of them there are.
+ * Each is a card with its own frame: an avatar disc of the author's initials,
+ * their name, five stars, and the quote — so it is obvious at a glance that
+ * these are separate people saying separate things, and how many of them
+ * there are.
+ *
+ * THE COUNT IS THE POINT. The rating line now reads "5,0 · 21 κριτικές στο
+ * Google", because a bare 5.0 says nothing about how many people it took to
+ * get there — and the count is the number that moved (10 → 21). Fourteen are
+ * quoted; the other seven are counted but not quoted, because we do not have
+ * their text. See reviewsSection.count.
  *
  * Nothing here is written by us and no dates are shown: the source gives only
  * relative times ("πριν από 3 εβδομάδες"), which are wrong within a month.
  *
  * Still the competitor gap the research found — none of the four ranking
  * sites shows its Google reviews at all.
+ *
+ * NOTE: the schema carries NO aggregateRating (gate 1 ruling — Google
+ * prohibits self-serving review markup for LocalBusiness). Displaying the
+ * rating as ordinary text is a different thing and is fine. Do not "fix" the
+ * inconsistency by adding it to the JSON-LD.
  */
-export default function Reviews() {
+export default function Reviews({ lang = "el" }: { lang?: Locale }) {
+  const c = CHROME[lang];
+  const isGreek = lang === "el";
+
   return (
-    <Band label={reviewsSection.eyebrow} id="kritikes" tone="tone">
+    <Band
+      label={c.reviewsEyebrow}
+      id={isGreek ? "kritikes" : "reviews"}
+      tone="tone"
+    >
       <div className="rating">
         <Stars size={20} />
-        <span className="rating-score num">{reviewsSection.rating}</span>
-        <span className="rating-count">στο Google</span>
+        <span className="rating-score num">
+          {isGreek ? reviewsSection.rating : reviewsSection.ratingLatin}
+        </span>
+        <span className="rating-count">
+          <span className="num">{reviewsSection.count}</span> {c.reviewsNoun}{" "}
+          {c.reviewsOnGoogle}
+        </span>
       </div>
       <h2 className="h2" style={{ marginTop: "var(--s-3)" }}>
-        {reviewsSection.heading}
+        {c.reviewsHeading}
       </h2>
       <p className="lede">
-        <span className="measure-prose">{reviewsSection.lede}</span>
+        <span className="measure-prose">{c.reviewsLede}</span>
       </p>
 
       <ul className="reviews">
@@ -68,7 +91,14 @@ export default function Reviews() {
                   <Stars />
                 </div>
               </div>
-              <blockquote>
+              {/*
+                The quotes stay in the language they were written in on every
+                locale. Translating a customer's review would make it no
+                longer their words — and `lang` on the blockquote is what
+                stops a screen reader on /en reading Greek with English
+                pronunciation rules.
+              */}
+              <blockquote lang={/[\u0370-\u03FF]/.test(r.text) ? "el" : "en"}>
                 <p>{r.text}</p>
               </blockquote>
             </figure>
@@ -83,7 +113,7 @@ export default function Reviews() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {reviewsSection.cta}
+          {c.reviewsCta}
           <ArrowIcon />
         </a>
       </p>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Alegreya_Sans } from "next/font/google";
 import { seo, business } from "@/content/site";
 import HeaderScrollState from "@/components/HeaderScrollState";
 import SiteHeader from "@/components/SiteHeader";
@@ -8,38 +7,29 @@ import StickyCallBar from "@/components/StickyCallBar";
 import { SITE_URL, abs, pageOpenGraph } from "@/content/site-config";
 import { JsonLd, localBusinessSchema } from "@/lib/schema";
 import { Analytics } from "@vercel/analytics/next";
-import "./globals.css";
+import { fontVars } from "../fonts";
+import "../globals.css";
 
 /**
- * One family, split into two instances purely to control what gets preloaded.
+ * THE GREEK ROOT LAYOUT.
  *
- * Measured: the latin subset is ~16.9KB per weight, greek only ~5.3KB —
- * latin is the expensive one. And ASCII digits live in the LATIN subset (its
- * unicode-range starts U+0000–00FF), so dropping latin entirely would make
- * "1987" at 208px — the LCP element — render in a fallback and swap.
+ * There are two root layouts, in route groups: this one for the nineteen
+ * Greek routes, and (intl)/[lang] for /en and /sr. Route groups do not appear
+ * in the URL, so every Greek path is exactly what it was.
  *
- * So: weight 900 keeps latin preloaded, because that is the year and the
- * wordmark. Weights 400 and 700 preload greek only; their latin glyphs (the
- * email, "JCB", small digits) load on demand, and next/font's metric-matched
- * fallback keeps the swap from shifting layout.
+ * WHY THE SPLIT. A root layout owns <html>, and <html lang> was hardcoded to
+ * "el" for the whole app — so /en and /sr, which are written in English and
+ * Serbian, declared themselves as Greek to Google and to every screen reader.
+ * A layout cannot read the current locale (root layouts get no params), so
+ * the only way to vary the attribute is to have more than one root layout.
+ * This is the documented pattern — see the "multiple root layouts" note in
+ * next/dist/docs/01-app/03-api-reference/03-file-conventions/layout.md.
  *
- * 8 preloaded files / 87KB  →  4 preloaded files / 32.5KB.
- *
- * Weight 500 is gone entirely (labels and the ghost button now use 400).
+ * The cost is that navigating between Greek and a translation is a full page
+ * load rather than a client transition. That is fine: the only such links are
+ * in the language switcher, which is plain anchors anyway, and switching
+ * language is a once-per-visit action.
  */
-const alegreyaDisplay = Alegreya_Sans({
-  variable: "--font-alegreya-display",
-  subsets: ["greek", "latin"],
-  weight: ["900"],
-  display: "swap",
-});
-
-const alegreyaSans = Alegreya_Sans({
-  variable: "--font-alegreya",
-  subsets: ["greek"],
-  weight: ["400", "700"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -70,28 +60,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function GreekRootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="el"
-      className={`${alegreyaSans.variable} ${alegreyaDisplay.variable} h-full antialiased`}
-    >
+    <html lang="el" className={`${fontVars} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        {/* Furniture lives here, not per page — 14 more routes are coming. */}
+        {/* Furniture lives here, not per page. */}
         {/* LocalBusiness, site-wide. No aggregateRating — gate 1 ruling. */}
         <JsonLd data={localBusinessSchema()} />
         <HeaderScrollState />
-        <SiteHeader />
+        <SiteHeader lang="el" />
         {children}
-        <SiteFooter />
-        <StickyCallBar />
+        <SiteFooter lang="el" />
+        <StickyCallBar lang="el" />
         {/*
           Vercel Web Analytics. Cookieless by design, which is the entire
           reason it is here rather than GA: CLAUDE.md §7b rules out anything
           that sets a cookie without consent, and skipping the consent banner
           is worth more on this audience than any metric it could collect.
-          No personal data, nothing to disclose beyond what the privacy page
-          already says.
         */}
         <Analytics />
       </body>

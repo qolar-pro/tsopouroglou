@@ -309,3 +309,147 @@ export const T: Record<Translated, Translation> = {
       "Fotografije sa naših gradilišta u Halkidikiju. Nijedna nije sa interneta.",
   },
 };
+
+/* ------------------------------------------------------------------ */
+/* CHROME — the furniture.                                             */
+/*                                                                     */
+/* The header, footer, sticky call bar and nav panel used to be Greek   */
+/* on every route including /en and /sr, so a Serbian visitor read a    */
+/* Serbian page wrapped in a Greek frame — Υπηρεσίες in the nav,        */
+/* ΤΗΛΕΦΩΝΟ on the call bar, the whole footer. Everything a visitor     */
+/* can read is now translated, furniture included.                     */
+/*                                                                     */
+/* NAV IS DIFFERENT PER LOCALE, ON PURPOSE. Greek gets the real routes. */
+/* The translated locales get in-page anchors instead: the nineteen     */
+/* content routes are Greek-only, so an English nav item reading        */
+/* "Services" that lands the reader on a Greek page is a trap. Anchors  */
+/* keep them inside the one page they can actually read.                */
+/*                                                                     */
+/* `nav: null` for Greek means "use visibleNav from site.ts" — kept out */
+/* of here so this file stays dependency-free and cannot form an import */
+/* cycle with site.ts.                                                  */
+/* ------------------------------------------------------------------ */
+
+export type Chrome = {
+  /** Header nav for translated locales; null means "use the Greek routes". */
+  nav: { href: string; label: string }[] | null;
+  navAria: string;
+  taglineFull: string;
+  taglineShort: string;
+  /** "Phone 697 …" — the number is appended by the component. */
+  phoneAria: string;
+  menu: string;
+  navigation: string;
+  close: string;
+  phoneLabel: string;
+  footerServices: string;
+  footerAreas: string;
+  footerContact: string;
+  footerPages: string;
+  footerRights: string;
+  privacyLabel: string;
+  /** Says plainly that the privacy policy is in Greek. */
+  privacyNote: string;
+  skipToContent: string;
+  reviewsEyebrow: string;
+  reviewsHeading: string;
+  reviewsLede: string;
+  reviewsCta: string;
+  reviewsOnGoogle: string;
+  /** "21 reviews" — count is injected, so only the noun is translated. */
+  reviewsNoun: string;
+};
+
+export const CHROME: Record<Locale, Chrome> = {
+  el: {
+    nav: null,
+    navAria: "Κύρια πλοήγηση",
+    taglineFull: "ΧΩΜΑΤΟΥΡΓΙΚΑ · ΜΕΤΑΜΟΡΦΩΣΗ ΧΑΛΚΙΔΙΚΗΣ",
+    taglineShort: "ΧΩΜΑΤΟΥΡΓΙΚΑ ΧΑΛΚΙΔΙΚΗΣ",
+    phoneAria: "Τηλέφωνο",
+    menu: "ΜΕΝΟΥ",
+    navigation: "ΠΛΟΗΓΗΣΗ",
+    close: "ΚΛΕΙΣΙΜΟ",
+    phoneLabel: "ΤΗΛΕΦΩΝΟ",
+    footerServices: "Υπηρεσίες",
+    footerAreas: "Περιοχές",
+    footerContact: "Επικοινωνία",
+    footerPages: "Σελίδες",
+    footerRights: "Χωματουργικές εργασίες στη Μεταμόρφωση Χαλκιδικής από το 1987.",
+    privacyLabel: "Πολιτική απορρήτου",
+    privacyNote: "",
+    skipToContent: "Στο περιεχόμενο",
+    reviewsEyebrow: "ΚΡΙΤΙΚΕΣ",
+    reviewsHeading: "Τι λένε οι πελάτες",
+    reviewsLede: "Κριτικές από το Google, όπως τις έγραψαν οι ίδιοι.",
+    reviewsCta: "Δείτε τις κριτικές στο Google",
+    reviewsOnGoogle: "στο Google",
+    reviewsNoun: "κριτικές",
+  },
+
+  en: {
+    nav: [
+      { href: "#services", label: "Services" },
+      { href: "#work", label: "Our work" },
+      { href: "#areas", label: "Areas" },
+      { href: "#reviews", label: "Reviews" },
+      { href: "#contact", label: "Contact" },
+    ],
+    navAria: "Main navigation",
+    taglineFull: "EARTHWORKS · METAMORFOSI, HALKIDIKI",
+    taglineShort: "EARTHWORKS · HALKIDIKI",
+    phoneAria: "Phone",
+    menu: "MENU",
+    navigation: "NAVIGATION",
+    close: "CLOSE",
+    phoneLabel: "PHONE",
+    footerServices: "Services",
+    footerAreas: "Areas",
+    footerContact: "Contact",
+    footerPages: "On this page",
+    footerRights: "Earthworks in Metamorfosi, Halkidiki, since 1987.",
+    privacyLabel: "Privacy policy",
+    privacyNote: "(in Greek)",
+    skipToContent: "Skip to content",
+    reviewsEyebrow: "REVIEWS",
+    reviewsHeading: "What customers say",
+    reviewsLede:
+      "Reviews from our Google listing, exactly as the customers wrote them. Most are in Greek — the rating and the number of them tell you the rest.",
+    reviewsCta: "See the reviews on Google",
+    reviewsOnGoogle: "on Google",
+    reviewsNoun: "reviews",
+  },
+
+  sr: {
+    nav: [
+      { href: "#services", label: "Usluge" },
+      { href: "#work", label: "Naši radovi" },
+      { href: "#areas", label: "Područja" },
+      { href: "#reviews", label: "Utisci" },
+      { href: "#contact", label: "Kontakt" },
+    ],
+    navAria: "Glavna navigacija",
+    taglineFull: "ZEMLJANI RADOVI · METAMORFOSI, HALKIDIKI",
+    taglineShort: "ZEMLJANI RADOVI · HALKIDIKI",
+    phoneAria: "Telefon",
+    menu: "MENI",
+    navigation: "NAVIGACIJA",
+    close: "ZATVORI",
+    phoneLabel: "TELEFON",
+    footerServices: "Usluge",
+    footerAreas: "Područja",
+    footerContact: "Kontakt",
+    footerPages: "Na ovoj stranici",
+    footerRights: "Zemljani radovi u Metamorfosiju, Halkidiki, od 1987.",
+    privacyLabel: "Politika privatnosti",
+    privacyNote: "(na grčkom)",
+    skipToContent: "Pređi na sadržaj",
+    reviewsEyebrow: "UTISCI",
+    reviewsHeading: "Šta kažu klijenti",
+    reviewsLede:
+      "Utisci sa našeg Google profila, tačno onako kako su ih klijenti napisali. Većina je na grčkom — ocena i broj utisaka govore ostalo.",
+    reviewsCta: "Pogledajte utiske na Google-u",
+    reviewsOnGoogle: "na Google-u",
+    reviewsNoun: "utisaka",
+  },
+};

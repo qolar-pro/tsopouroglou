@@ -28,7 +28,14 @@ const areaServed = [
   "Οικισμός Δασκάλων",
 ].map((name) => ({ "@type": "Place", name }));
 
-export function localBusinessSchema() {
+/**
+ * @param opts.description  Localised description for /en and /sr. The Greek
+ *   pages pass nothing and get `seo.description`. Everything else — @id,
+ *   phone, geo, hours — is identical across all three languages on purpose:
+ *   it is one business, and one @id is what makes Google treat the three
+ *   language versions as one entity rather than three.
+ */
+export function localBusinessSchema(opts?: { description?: string }) {
   return {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
@@ -55,7 +62,7 @@ export function localBusinessSchema() {
       latitude: business.geo.lat,
       longitude: business.geo.lng,
     },
-    description: seo.description,
+    description: opts?.description ?? seo.description,
     /**
      * Entity linking. This is the single most valuable line here for local
      * search: it tells Google that this site and that Google Business Profile
@@ -92,7 +99,7 @@ export function localBusinessSchema() {
       },
     ],
     areaServed,
-    knowsLanguage: "el",
+    knowsLanguage: ["el", "en", "sr"],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Χωματουργικές εργασίες",

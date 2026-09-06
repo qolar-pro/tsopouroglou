@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { visibleNav, business } from "@/content/site";
 import LangSwitch from "./LangSwitch";
-import type { Locale } from "@/content/i18n";
+import { CHROME, type Locale } from "@/content/i18n";
 
 /**
  * Full-screen navigation panel.
@@ -15,8 +15,13 @@ import type { Locale } from "@/content/i18n";
  * The only client component on the site. Escape closes it, focus moves into
  * the panel on open and back to the trigger on close, and the page behind is
  * locked from scrolling.
+ *
+ * Every label here is localised — trigger, title, close button and call
+ * button. On /en and /sr this panel used to open in Greek.
  */
 export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
+  const c = CHROME[lang];
+  const navItems = c.nav ?? visibleNav;
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -58,7 +63,7 @@ export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
           <span />
           <span />
         </span>
-        <span className="nav-trigger-text">ΜΕΝΟΥ</span>
+        <span className="nav-trigger-text">{c.menu}</span>
       </button>
 
       {open && (
@@ -68,22 +73,22 @@ export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
           className="nav-panel"
           role="dialog"
           aria-modal="true"
-          aria-label="Πλοήγηση"
+          aria-label={c.navigation}
         >
           <div className="wrap nav-panel-head">
-            <span className="nav-panel-title">ΠΛΟΗΓΗΣΗ</span>
+            <span className="nav-panel-title">{c.navigation}</span>
             <button
               type="button"
               className="nav-close"
               onClick={() => setOpen(false)}
             >
-              ΚΛΕΙΣΙΜΟ
+              {c.close}
             </button>
           </div>
 
           <nav className="wrap">
             <ul className="nav-list">
-              {visibleNav.map((item) => (
+              {navItems.map((item) => (
                 <li key={item.href}>
                   <a href={item.href} onClick={() => setOpen(false)}>
                     {item.label}
@@ -95,7 +100,8 @@ export default function MobileNav({ lang = "el" }: { lang?: Locale }) {
 
           <div className="wrap nav-panel-foot">
             <a className="btn btn-call btn-block" href={business.phone.href}>
-              ΤΗΛΕΦΩΝΟ <span className="num">{business.phone.display}</span>
+              {c.phoneLabel}{" "}
+              <span className="num">{business.phone.display}</span>
             </a>
             {/* The switcher lives here on mobile — the header cannot hold it
                 without colliding with the wordmark. */}

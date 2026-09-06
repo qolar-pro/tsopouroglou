@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { business } from "@/content/site";
 import { ergaFeatured } from "@/content/media";
-import { T, TRANSLATED, LOCALE_TAG, type Translated } from "@/content/i18n";
+import { T, TRANSLATED, type Translated } from "@/content/i18n";
 import { abs, OG_IMAGE } from "@/content/site-config";
 import Band from "@/components/Band";
 import Photo from "@/components/Photo";
+import Reviews from "@/components/Reviews";
 
 /**
  * The English and Serbian page.
@@ -72,7 +73,7 @@ export default async function LocalePage({ params }: PageProps<"/[lang]">) {
   const t = T[lang];
 
   return (
-    <main lang={LOCALE_TAG[lang]}>
+    <main>
       {/* ---- Hero ---- */}
       <section className="band band--panel band--ink page-hero">
         <div className="wrap">
@@ -123,7 +124,7 @@ export default async function LocalePage({ params }: PageProps<"/[lang]">) {
       </Band>
 
       {/* ---- Services ---- */}
-      <Band label={t.servicesHeading.toUpperCase()}>
+      <Band label={t.servicesHeading.toUpperCase()} id="services">
         <h2 className="h2">{t.servicesHeading}</h2>
         <p className="lede">{t.servicesLede}</p>
 
@@ -140,7 +141,7 @@ export default async function LocalePage({ params }: PageProps<"/[lang]">) {
       </Band>
 
       {/* ---- Work ---- */}
-      <Band label={t.workHeading.toUpperCase()} tone="tone">
+      <Band label={t.workHeading.toUpperCase()} id="work" tone="tone">
         <h2 className="h2">{t.workHeading}</h2>
         <p className="lede">{t.workLede}</p>
 
@@ -158,7 +159,7 @@ export default async function LocalePage({ params }: PageProps<"/[lang]">) {
       </Band>
 
       {/* ---- Areas ---- */}
-      <Band label={t.areasHeading.toUpperCase()}>
+      <Band label={t.areasHeading.toUpperCase()} id="areas">
         <h2 className="h2">{t.areasHeading}</h2>
         <p className="lede">{t.areasLede}</p>
 
@@ -195,9 +196,15 @@ export default async function LocalePage({ params }: PageProps<"/[lang]">) {
         </ul>
       </Band>
 
+      {/* ---- Reviews ----
+           Immediately before the ask. Names, stars and a count carry across
+           any language barrier even where the quotes themselves do not. */}
+      <Reviews lang={lang} />
+
       {/* ---- Contact ---- */}
       <Band
         label={t.contactHeading.toUpperCase()}
+        id="contact"
         frame="panel"
         tone="ink"
         index={t.since}

@@ -8,6 +8,20 @@ const nextConfig: NextConfig = {
   turbopack: { root: __dirname },
 
   /**
+   * The site has two root layouts — (el) and (intl) — so that <html lang> can
+   * say "el" on the Greek pages and "en" / "sr-Latn" on the translated ones.
+   * With no single root layout, a URL matching no route has nothing to render
+   * inside, and Next falls back to its unstyled English default 404.
+   *
+   * `globalNotFound` lets app/global-not-found.tsx serve that case instead.
+   * It is flagged experimental in Next 16.3; the downside if it is ever
+   * removed is a plain 404 page, not a broken site.
+   */
+  experimental: {
+    globalNotFound: true,
+  },
+
+  /**
    * Hosts allowed to request dev-only assets.
    *
    * `next dev` blocks cross-origin requests to /_next/* by default. Opening
