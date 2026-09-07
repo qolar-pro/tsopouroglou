@@ -188,12 +188,12 @@ export const sr: Dictionary = {
       metaTitle: "Čišćenje placeva Halkidiki | TSOPOUROGLOU",
       metaDescription:
         "Čišćenje placeva od suvog rastinja, šiblja i šuta u Metamorfosiju, Halkidiki, i po celoj Sitoniji. Od 1987. Pozovite 697 355 7903.",
-      lede: "Plac koji niko nije dirao godinama. Očistimo ga, utovarimo ono što se skine i ostavimo vas da vidite šta zapravo imate.",
+      lede: "Plac koji niko nije dirao godinama. Očistimo ga, utovarimo ono što se skine, pa možete da vidite šta zapravo imate.",
       includesHeading: "Šta obuhvata",
       includes: [
         "Sečenje i uklanjanje suvog rastinja i šiblja",
         "Vađenje starog šuta i smeća",
-        "Ravnanje površine da se placem može hodati",
+        "Ravnanje površine da se po placu može hodati",
         "Odvoz svega našim kamionima",
       ],
       machinesHeading: "Čime to radimo",
@@ -217,11 +217,11 @@ export const sr: Dictionary = {
       metaTitle: "Septičke jame Halkidiki | TSOPOUROGLOU",
       metaDescription:
         "Izrada septičkih jama u Metamorfosiju, Halkidiki, i po Sitoniji — od iskopa do poklopca. Od 1987. Pozovite 697 355 7903.",
-      lede: "Za kuću bez priključka na kanalizaciju, ovo je deo koji mora da bude uradjen kako treba. Iskopamo, sagradimo i zatvorimo.",
+      lede: "Za kuću bez priključka na kanalizaciju, ovo je deo koji mora da bude urađen kako treba. Iskopamo, sagradimo i zatvorimo.",
       includesHeading: "Šta obuhvata",
       includes: [
         "Iskop do dubine koju posao traži",
-        "Zidanje jame i cevi koje ulaze u nju",
+        "Zidanje jame i postavljanje cevi koje u nju ulaze",
         "Poklopac i otvor za pristup",
         "Zatrpavanje i sređivanje terena posle",
       ],
@@ -246,7 +246,7 @@ export const sr: Dictionary = {
       metaTitle: "Razbijanje stena Halkidiki | TSOPOUROGLOU",
       metaDescription:
         "Razbijanje stena na placevima u Metamorfosiju, Halkidiki, i po Sitoniji — čekićem, uz odvoz materijala. Od 1987. Pozovite 697 355 7903.",
-      lede: "Stena zaustavi posao u mestu. Izbije u temeljima, u rovu, ili tačno tamo gde je trebalo da bude prilaz.",
+      lede: "Stena ume da zaustavi posao u mestu. Izbije u temeljima, u rovu, ili tačno tamo gde je trebalo da bude prilaz.",
       includesHeading: "Šta obuhvata",
       includes: [
         "Razbijanje stene hidrauličnim čekićem",
@@ -284,7 +284,7 @@ export const sr: Dictionary = {
       ],
       machinesHeading: "Čime to radimo",
       machines:
-        "Bager sa čekićem razbija beton i kamen, utovarivač kupi, kamioni odvoze. Koji bager dolazi zavisi od toga koliko ima mesta oko objekta — u uskom dvorištu ulazi mali.",
+        "Bager sa čekićem razbija beton i kamen, utovarivač skuplja, kamioni odvoze. Koji bager dolazi zavisi od toga koliko ima mesta oko objekta — u uskom dvorištu ulazi mali.",
       note: "Primamo manje objekte. Za veliko rušenje treba projekat i dozvola — pozovite nas da vidimo šta važi u vašem slučaju.",
       askHeading: "Šta da nam kažete kad pozovete",
       ask: [
@@ -391,7 +391,7 @@ export const sr: Dictionary = {
       includesHeading: "Šta obuhvata",
       includes: [
         "Iskop rova od kuće do mesta priključenja",
-        "Podloga i polaganje cevi",
+        "Izrada podloge i polaganje cevi",
         "Zatrpavanje i nabijanje",
         "Vraćanje površine u prvobitno stanje",
       ],
@@ -480,7 +480,7 @@ export const sr: Dictionary = {
       blocks: [
         {
           heading: "Šta donosimo",
-          body: "Tri bagera — veliki, srednji i mali — utovarivač, kamione i ostalo. Koji dolazi procenjujemo iz onoga što nam opišete na telefon. Licencirani rukovalac od 1990.",
+          body: "Tri bagera — veliki, srednji i mali — utovarivač, kamione i ostalo. Koji dolazi procenjujemo na osnovu onoga što nam opišete. Licencirani rukovalac od 1990.",
         },
         {
           heading: "Koliko brzo",
@@ -513,7 +513,7 @@ export const sr: Dictionary = {
         },
         {
           heading: "Vatopedi i Psakudija zajedno",
-          body: "Vatopedi i Psakudija su jedno pored drugog na istoj obali, i često ih radimo istog dana. Ako imate posao na oba, recite nam na telefon — jedan izlazak ispadne jeftinije.",
+          body: "Vatopedi i Psakudija su jedno pored drugog na istoj obali, i često ih radimo istog dana. Ako imate posao na oba mesta, recite nam kad pozovete — jedan izlazak ispadne jeftinije.",
         },
       ],
     },
@@ -538,7 +538,7 @@ export const sr: Dictionary = {
         },
         {
           heading: "Psakudija i Vatopedi zajedno",
-          body: "Psakudija i Vatopedi su na istoj obali, nekoliko minuta jedno od drugog. Kad ima posla na oba, dogovorimo ih zajedno i uštedite jedan izlazak mašine.",
+          body: "Psakudija i Vatopedi su na istoj obali, nekoliko minuta jedno od drugog. Kad ima posla na oba mesta, dogovaramo ih zajedno — pa plaćate jedan izlazak mašine umesto dva.",
         },
       ],
     },
