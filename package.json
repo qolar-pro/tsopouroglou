@@ -19,7 +19,8 @@
     "contrast": "node scripts/contrast-audit.mjs",
     "check:media": "node scripts/check-media.mjs",
     "placeholders": "node scripts/make-placeholders.mjs",
-    "serve": "next start -p 3000"
+    "serve": "next start -p 3000",
+    "dimensions": "node scripts/image-dimensions.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "2.0.1",

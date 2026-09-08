@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { business, hero } from "@/content/site";
 import { erga } from "@/content/media";
 import { dict, href, type Locale } from "@/content/i18n";
@@ -24,8 +25,20 @@ export default function Hero({ lang = "el" }: { lang?: Locale }) {
   return (
     <section className="bleed">
       <div className="bleed-img">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={shot.img.src} alt={shot.img.alt} fetchPriority="high" />
+        {/* The LCP element on the whole site. `fill` matches what
+            `.bleed-img img` already does in CSS — absolute, inset 0,
+            object-fit cover — so this is a like-for-like swap that adds
+            WebP/AVIF and a srcset. It was a raw <img>, which meant the single
+            most important photograph on the site was the one image Next was
+            not optimising. */}
+        <Image
+          src={shot.img.src}
+          alt={shot.img.alt}
+          fill
+          sizes="100vw"
+          priority
+          style={{ objectFit: "cover" }}
+        />
       </div>
       <div className="bleed-scrim" aria-hidden="true" />
 

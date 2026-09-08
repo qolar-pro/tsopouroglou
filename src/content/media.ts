@@ -22,6 +22,8 @@
  */
 
 /** Real photographs are in. */
+import { IMAGE_DIMENSIONS } from "./image-dimensions";
+
 export const SHOW_PLACEHOLDER_MEDIA = false;
 
 export type Img = {
@@ -31,14 +33,36 @@ export type Img = {
   /** Phone photos come in both orientations; 4:5 suits a mixed grid. */
   aspect: "4:3" | "3:4" | "4:5" | "wide";
   placeholder: boolean;
+  /**
+   * The file's REAL pixel dimensions, read from the JPEG itself by
+   * `npm run dimensions`.
+   *
+   * `next/image` needs these to emit a srcset and reserve the right box. The
+   * masonry gallery lets every photograph keep its own shape — his phone
+   * photos are a mix of portrait and landscape, and not cropping them to one
+   * ratio is the whole reason that layout exists — so `fill` cannot be used
+   * there and explicit width/height is the only way to optimise them.
+   */
+  w: number;
+  h: number;
 };
 
-const p = (file: string, alt: string, aspect: Img["aspect"] = "4:5"): Img => ({
-  src: `/erga/${file}.jpg`,
-  alt,
-  aspect,
-  placeholder: false,
-});
+/**
+ * Every Img on the site is built here, which is what makes the dimensions
+ * safe: one lookup, and a missing entry fails the build rather than shipping
+ * an unoptimised photograph nobody notices until a Lighthouse run.
+ */
+const p = (file: string, alt: string, aspect: Img["aspect"] = "4:5"): Img => {
+  const src = `/erga/${file}.jpg`;
+  const size = IMAGE_DIMENSIONS[src];
+  if (!size) {
+    throw new Error(
+      `media.ts: no dimensions for "${src}". Add the file to /public and run ` +
+        `\`npm run dimensions\`.`
+    );
+  }
+  return { src, alt, aspect, placeholder: false, w: size.w, h: size.h };
+};
 
 /* ------------------------------------------------------------------ */
 /* Hero — a real machine on a real job, in his own village.            */

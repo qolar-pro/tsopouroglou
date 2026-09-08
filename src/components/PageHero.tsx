@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { business } from "@/content/site";
 import type { Img } from "@/content/media";
@@ -58,11 +59,16 @@ export default function PageHero({
     return (
       <section className="bleed bleed--inner page-hero">
         <div className="bleed-img">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          {/* Same swap as the homepage hero: `fill` reproduces what
+              `.bleed-img img` already sets in CSS, and Next gets to optimise
+              the largest image on every inner page. */}
+          <Image
             src={photo.src}
             alt={photo.alt}
-            fetchPriority={priority ? "high" : "auto"}
+            fill
+            sizes="100vw"
+            priority={priority}
+            style={{ objectFit: "cover" }}
           />
         </div>
         <div className="bleed-scrim" aria-hidden="true" />

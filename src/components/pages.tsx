@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { business } from "@/content/site";
 import {
   erga,
@@ -159,12 +160,15 @@ export function ServicesIndexPage({ lang }: { lang: Locale }) {
         <div className="shots">
           {gallery.map((project) => (
             <figure key={project.id} className="shot">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              {/* Intrinsic width/height, not `fill` — `.shot img` is
+                  width:100% / height:auto so each photograph keeps its own
+                  shape. Next still emits a srcset and modern formats. */}
+              <Image
                 src={project.img.src}
                 alt={project.img.alt}
-                loading="lazy"
-                decoding="async"
+                width={project.img.w}
+                height={project.img.h}
+                sizes="(min-width: 1100px) 30vw, (min-width: 640px) 45vw, 92vw"
               />
               <figcaption>
                 <span>{project.title}</span>

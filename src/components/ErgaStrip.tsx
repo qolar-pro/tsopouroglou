@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { erga, ergaExcluding, servicePhoto } from "@/content/media";
 import { dict, SERVICE_IDS, type Locale } from "@/content/i18n";
 import Band from "./Band";
@@ -40,12 +41,16 @@ export default function ErgaStrip({ lang = "el" }: { lang?: Locale }) {
       <div className="shots">
         {shots.map((project) => (
           <figure key={project.id} className="shot">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            {/* Intrinsic width/height rather than `fill`, because `.shot img`
+                is width:100% / height:auto — every photograph keeps its own
+                shape, which is the entire point of the columns layout. Next
+                still emits a srcset and modern formats from these. */}
+            <Image
               src={project.img.src}
               alt={project.img.alt}
-              loading="lazy"
-              decoding="async"
+              width={project.img.w}
+              height={project.img.h}
+              sizes="(min-width: 1100px) 30vw, (min-width: 640px) 45vw, 92vw"
             />
             <figcaption>
                 <span>{project.title}</span>
